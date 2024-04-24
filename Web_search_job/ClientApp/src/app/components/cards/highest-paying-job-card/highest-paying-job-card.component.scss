@@ -1,0 +1,52 @@
+@import '../../../../../src/colors';
+
+.border-color-class{
+  border-color: $blue-color; /* Колір межі */
+  border-style: solid; /* Стиль межі (в даному випадку, лінія) */
+  border-width: 3px; /* Ширина межі */
+}
+
+
+.highest-paying-job-card {
+  //border: 1px solid #ccc;
+  border: none;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: $tertiary-color;
+}
+
+
+.highest-paying-job-name {
+  font-size: 18px;
+  margin-bottom: 1px;
+}
+
+
+.view-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $icons-buttons-color;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.view-button span {
+  flex-grow: 1; /* Дозволяє тексту займати всю доступну ширину, залишаючи зображення в крайній правій частині */
+  white-space: nowrap; /* Запобігає переносу тексту на новий рядок */
+  overflow: hidden; /* Запобігає виходу тексту за межі кнопки */
+  text-overflow: ellipsis; /* Відображає трохи тексту з кінця та додає мінімальний маркер, щоб показати, що текст обрізаний */
+}
+
+
+.review {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

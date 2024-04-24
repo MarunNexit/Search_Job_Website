@@ -1,0 +1,10 @@
+<div>
+  <div class="app-filter-search-card" *ngFor="let filterComponent of filters_data; let i = index">
+    <app-filter-search-card
+      [dataFilters]="filterComponent" [addingSearchField] = "addingSearchField[i]">
+    </app-filter-search-card>
+  </div>
+</div>
+
+
+

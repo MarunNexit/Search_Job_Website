@@ -1,0 +1,21 @@
+@import '../../../../../src/colors';
+
+.tag {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 100px;
+}
+
+.tag-place {
+  background-color: $tag-place;
+  color: $tag-place-text;
+}
+.tag-type-work {
+  background-color: $tag-type-work;
+  color: $tag-type-work-text;
+}
+.tag-other {
+  background-color: $tag-other;
+  color: $tag-other-text;
+}

@@ -1,0 +1,33 @@
+<div class="block-with-filters">
+  <div class="flex-justify-between">
+    <strong>{{dataFilters.name}}</strong>
+    <button (click)="expandFilterCard = !expandFilterCard" class="expand-button">
+      <img [src]="expandFilterCard ? '../../../../assets/img/icons/arrows/arrow-up.png' : '../../../../assets/img/icons/arrows/arrow-down.png'" alt="" height="24" width="24">
+    </button>
+  </div>
+  <div [@expandCollapse]="expandFilterCard ? 'expanded' : 'collapsed'" >
+    <hr style="border-width: 1px; border-radius: 100px; border-color: #1E1E1E; opacity: 100%">
+
+    <div *ngIf="addingSearchField" class="search-bar " >
+      <div class="search-bar-input">
+        <input type="text" placeholder="Пошук...">
+      </div>
+      <div >
+        <button class="blue-button-header-small" ><img src='../../../../assets/img/icons/search.png' height="24" width="24"></button>
+      </div>
+    </div>
+
+    <section class="example-section" [formGroup]="filters_status">
+  <span class="example-list-section" *ngFor="let filter of dataFilters.filters">
+    <mat-checkbox class="example-margin "
+                  [formControlName]="filter.name"
+                  [checked]="filter.checked"
+    >
+      {{filter.name}}
+    </mat-checkbox>
+    </span>
+    </section>
+
+
+  </div>
+</div>

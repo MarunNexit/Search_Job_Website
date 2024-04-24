@@ -1,0 +1,119 @@
+@import '../../../../../src/colors';
+
+.border-color-class{
+  border-color: $blue-color; /* Колір межі */
+  border-style: solid; /* Стиль межі (в даному випадку, лінія) */
+  border-width: 3px; /* Ширина межі */
+}
+
+
+.employer-card {
+  //border: 1px solid #ccc;
+  border: none;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: $tertiary-color;
+}
+
+.employer-photo {
+  width: 50px;
+  height: 50px;
+}
+
+.employer-photo img {
+  border-radius: 50%;
+  width: 100%; /* Зробіть ширину картинки 100% блока */
+  height: 100%; /* Зробіть висоту картинки 100% блока */
+  object-fit: cover; /* Це забезпечить, що зображення буде відображене в центрі блока та обрізане, якщо воно не підходить по висоті або ширині */
+}
+
+
+.job-name {
+  font-size: 18px;
+  margin-bottom: 1px;
+}
+
+.job-field {
+  font-style: italic;
+}
+
+.check-icon {
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+
+.company-site-link {
+  text-decoration: none;
+  color: black;
+}
+
+.company-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.established-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.rating {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.review-count {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: $text-grey-color;
+}
+
+.view-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $icons-buttons-color;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.view-button span {
+  flex-grow: 1; /* Дозволяє тексту займати всю доступну ширину, залишаючи зображення в крайній правій частині */
+  white-space: nowrap; /* Запобігає переносу тексту на новий рядок */
+  overflow: hidden; /* Запобігає виходу тексту за межі кнопки */
+  text-overflow: ellipsis; /* Відображає трохи тексту з кінця та додає мінімальний маркер, щоб показати, що текст обрізаний */
+}
+
+
+.star-container {
+
+}
+
+.star-box {
+  max-width: 0.8vw;
+  min-width: 5px;
+  min-height: 5px;
+}
+
+.star {
+  padding: 0;
+  margin: 0;
+}
+
+.review {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

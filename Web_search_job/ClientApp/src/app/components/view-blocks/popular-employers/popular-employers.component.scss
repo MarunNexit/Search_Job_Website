@@ -1,0 +1,16 @@
+@import '../../../../colors';;
+
+.container{
+  padding-right: 6.25rem !important;
+}
+
+.block-heading{
+  margin-top: 32px;
+  margin-bottom: 32px;
+  font-size: 33px;
+  color: $primary-color;
+}
+
+.get_more_popular_jobs{
+  list-style-type: none;
+}

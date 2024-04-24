@@ -1,0 +1,190 @@
+@import '../../../../src/colors';;
+
+
+.gray-header {
+  background-color: $secondary-color;
+  position: relative;
+}
+
+.black-header {
+  background-color: $primary-color;
+  position: relative;
+
+}
+
+.gray-footer-top{
+  background-color: $secondary-color;
+  border-top-left-radius: 7vh;
+  border-top-right-radius: 7vh;
+}
+
+.div-max-height {
+  height: 100%;
+}
+
+.line {
+  top: 0;
+  left: 0; /* Відступ від лівого краю контейнера */
+  width: 100%; /* Ширина лінії, що дорівнює ширині блоку */
+  height: 2px; /* Товщина лінії */
+  background-color: $blue-color; /* Колір лінії */
+  border-radius: 2px;
+
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.row-menu{
+  min-width: 500px;
+  padding-bottom: 60px;
+}
+
+.menu-item-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-item {
+  display: inline;
+}
+
+.menu-item a {
+  text-decoration: none;
+  color: $secondary-color;
+}
+
+.active_menu {
+  color: $blue-color !important;
+  font-family: Mulish,  sans-serif !important;
+}
+
+.border-color-class{
+  border-color: $blue-color; /* Колір межі */
+  border-style: solid; /* Стиль межі (в даному випадку, лінія) */
+  border-width: 3px; /* Ширина межі */
+}
+
+.header-menu{
+  margin-left: 10vh;
+  margin-right: 10vh;
+}
+
+.search-bar {
+  justify-content: left;
+  align-content: center;
+  border-radius: 20px;
+  background: white;
+  width: 100%;
+  height: 5vh;
+  min-height: 40px;
+  min-width: 250px;
+  display: flex;
+  place-items: center;
+}
+
+.search-bar input {
+  border: 0px;
+  background: none;
+
+}
+
+.search-bar input:focus {
+  outline: none;
+}
+
+
+.search-bar-big {
+  margin-top: 32px;
+  margin-bottom: 32px;
+  border-radius: 45px;
+  background: $tertiary-color;
+  width: 100%;
+  height: 10vh;
+  min-height: 40px;
+  min-width: 250px;
+  display: flex;
+  justify-content: space-between
+
+}
+
+.search-bar-big input {
+  justify-self: start;
+  font-size: 20px;
+  background: none;
+  width: 90%;
+}
+
+.search-bar-big input:focus {
+  outline: none;
+}
+
+
+.button-header{
+  border-radius: 20px;
+  font-family: Mulish, sans-serif;
+  font-weight: bold;
+  color: $primary-color;
+  border: none;
+  width: 5vw;
+  height: 5vh;
+  min-height: 40px;
+  min-width: 80px;
+  background: white;
+}
+
+
+.blue-button-header-block{
+  display: grid;
+  place-items: center;
+}
+
+
+.blue-button-header{
+  border-radius: 20px;
+  font-family: Mulish, sans-serif;
+  font-weight: bold;
+  color: $tertiary-color;
+  border: none;
+  width: 5vw;
+  height: 5vh;
+  min-height: 40px;
+  min-width: 80px;
+  background: $blue-color;
+}
+
+.blue-button-header-small{
+  border-radius: 100px;
+  //border: $blue-color;
+  //background: $blue-color;
+  border: none;
+  background: none;
+}
+
+
+
+.link-active {
+  font-weight: bold;
+}
+
+
+.block-how-work-need-work{
+  margin-top: 32px;
+  font-size: 42px;
+  color: $secondary-color;
+}
+
+
+.flex-container-space-between{
+  width: 100%;
+  display: flex;
+  justify-content: space-between
+}

@@ -1,0 +1,58 @@
+@import '../../../../colors';;
+
+.container{
+  padding-right: 6.25rem !important;
+}
+
+.block-heading{
+  margin-top: 64px;
+  margin-bottom: 32px;
+  font-size: 33px;
+  color: $primary-color;
+}
+
+.get_more_popular_jobs{
+  list-style-type: none;
+}
+
+
+/* Змінює колір фону */
+#selectSelector {
+  background-color: $tertiary-color;
+}
+
+/* Додає округлення кутів */
+#selectSelector {
+  border-radius: 20px;
+  border: none;
+  width: 20%;
+  height: 2.5rem;
+  padding-left: 20px;
+}
+
+#selectSelector::-webkit-inner-spin-button,
+#selectSelector::-webkit-outer-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+
+
+#selectSelector {
+  background-image: url('../../../../assets/img/icons/arrows/arrow-drop-down.png');
+  background-size: 24px; /* Розмір вашої іконки */
+  background-repeat: no-repeat;
+  background-position: right center; /* Позиція іконки відносно тексту */
+  padding-right: 20px; /* Розмір місця для іконки */
+}
+
+.styled-select{
+  padding-top: 8px;
+}
+
+
+.styled-select select {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+}

@@ -1,0 +1,22 @@
+@import '../../../colors';
+
+
+
+.messages_links{
+  //border: 1px #ccc;
+  border: none;
+  width: 50%;
+  text-align: center;
+  background: $tertiary-color;
+  border-radius: 20px;
+  font-size: 18px;
+}
+
+.flex-justify-centre{
+  display: flex;
+  justify-content: center;
+}
+
+
+
+

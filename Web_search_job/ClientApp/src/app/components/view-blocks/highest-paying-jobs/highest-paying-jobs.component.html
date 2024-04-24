@@ -1,0 +1,38 @@
+<div >
+
+  <div class="block-heading ">
+    Переглядайте найбільш високооплачувані вакансії за {{ filter }}
+  </div>
+  <div style="font-size: 22px;">
+    <div *ngIf="filter === 'галузями'; else OnGPS">
+      Вибрати індустрію
+    </div>
+  </div>
+
+
+  <div class="styled-select" >
+    <select class="" id="selectSelector" (change)="onChange($event)">
+      <option value="option1" selected>Індустрія</option>
+      <option value="option2">Індустрія</option>
+      <option value="option3">Індустрія</option>
+    </select>
+  </div>
+
+  <div class="row" style="padding-top: 32px">
+    <div class="col-4" *ngFor="let employer of employers">
+      <app-highest-paying-job-card></app-highest-paying-job-card>
+    </div>
+    <div style="width: 100%; text-align: end" class="get_more_popular_jobs">
+      <li class="grid-item" [routerLinkActive]="['link-active']">
+        <a style="color: #1E1E1E" [routerLink]="['/popular-employer']">більше</a>
+      </li>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #OnGPS>
+  <div>
+    Вибрати місцезнаходження
+  </div>
+</ng-template>

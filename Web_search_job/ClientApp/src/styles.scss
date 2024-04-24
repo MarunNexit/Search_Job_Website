@@ -1,0 +1,22 @@
+@import 'colors';
+
+a {
+  color: $blue-color;
+}
+body{
+  background-color: $secondary-color;
+  font-family: Mulish;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: $blue-color;
+  border-color: #1861ac;
+}
+
+html, body { height: 100%; }
+body { margin: 0;  font-family: Mulish;}

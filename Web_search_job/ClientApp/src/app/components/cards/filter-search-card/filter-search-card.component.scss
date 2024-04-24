@@ -1,0 +1,122 @@
+@import '../../../../../src/colors';
+
+
+.expand-button{
+  border: 0;
+  background: none;
+}
+
+.block-with-filters {
+  margin: 0;
+  border-radius: 20px;
+  background-color: $tertiary-color;
+  padding: 24px;
+  min-width: 200px;
+}
+
+.border-color-class{
+  border-color: $blue-color; /* Колір межі */
+  border-style: solid; /* Стиль межі (в даному випадку, лінія) */
+  border-width: 3px; /* Ширина межі */
+}
+
+.flex-justify-between{
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.search-bar {
+  display: flex;
+  align-content: center;
+  border-radius: 20px;
+  background: $tertiary-color;
+  height: 5vh;
+  min-height: 40px;
+  min-width: 100px;
+  place-items: center;
+  padding-right: 10px;
+  padding-left: 20px;
+  background: none;
+}
+
+.search-bar-input {
+  background: none;
+  border: none;
+  flex-grow: 1;
+}
+
+.search-bar input {
+  background: none;
+  border: none;
+  width: 100%; /* Ширина інпута буде заповнювати доступне місце в контейнері */
+}
+
+.search-bar input:focus {
+  outline: none;
+}
+
+.blue-button-header-small{
+  border-radius: 100px;
+  //border: $blue-color;
+  //background: $blue-color;
+  border: none;
+  background: none;
+}
+
+
+.example-section {
+  margin: 12px 0;
+  width: 100%;
+  //border: #1E1E1E 3px solid;
+}
+
+.example-list-section{
+  width: 100%;
+  //border: #1E1E1E 3px solid;
+}
+
+.example-margin {
+  //margin: 0 12px;
+  width: 100%;
+  display: flex;
+  align-items: start;
+}
+
+.example-margin mat-checkbox {
+  align-self: flex-start;
+}
+
+.example-margin span {
+  align-self: flex-start;
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 4px;
+}
+
+li {
+  list-style-type: none;
+  margin-top: 4px;
+}
+
+
+::ng-deep .mdc-form-field{
+  align-items: start !important;
+}
+
+::ng-deep .mat-mdc-checkbox .mdc-form-field {
+  color: $text-color-black !important;
+  font-family: Mulish, sans-serif;
+  font-size: 1 rem;
+  font-weight: 500;
+}
+
+::ng-deep .mdc-form-field>label{
+  margin-top: 8px;
+}
+
+::ng-deep input[type="checkbox" i] {
+  border: #1E1E1E 3px solid;
+}

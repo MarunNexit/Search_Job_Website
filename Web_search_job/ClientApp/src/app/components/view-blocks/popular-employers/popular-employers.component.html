@@ -1,0 +1,18 @@
+<div >
+  <div class="block-heading">
+    Популярні роботодавці
+  </div>
+
+  <div class="row">
+    <div class="col-4" *ngFor="let employer of employers">
+      <app-popular-employers-card></app-popular-employers-card>
+    </div>
+
+    <div *ngIf="!isPage" style="width: 100%; text-align: end" class="get_more_popular_jobs">
+      <li class="grid-item" [routerLinkActive]="['link-active']">
+        <a style="color: #1E1E1E" [routerLink]="['/popular-employer']">більше</a>
+      </li>
+    </div>
+
+  </div>
+</div>

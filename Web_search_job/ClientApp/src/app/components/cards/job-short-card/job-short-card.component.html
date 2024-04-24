@@ -1,0 +1,75 @@
+<div class="block-with-job">
+  <div class="job-photo">
+    <!--        СЮДИ ФОТО-->
+    <img id="job-photo" src="assets/img/JobLogo1.png" (error)='handleImageError($event, "assets/img/alt-image.png")'>
+  </div>
+  <div class="chips-job-priority">
+    <div *ngIf="IsNewJob">
+      <div style="display: flex; flex-wrap: nowrap; ">
+        <div style="flex-grow: 1;">
+          <div class="fire" style="display: inline-block; margin: 4px" >
+            <img ngSrc="assets/img/icons/chips/fire-icon.png" height="17" width="17">
+            Гаряча
+          </div>
+          <div class="bolt" style="display: inline-block; margin: 4px">
+            <img ngSrc="assets/img/icons/chips/bolt-icon.png" height="17" width="17">
+            Нова
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row ">
+    <div class="col ">
+      <p class="employer-name "><strong>Назва роботодавця</strong></p>
+      <p class="employer-field ">Сфера</p>
+      <p class="employer-field ">Сфера</p>
+    </div>
+    <div class="col-auto" >
+      <img class="check-icon " src="../../../../assets/img/icons/cards/check_mark.png" alt="0" height="30" width="30">
+    </div>
+    <div class="col-auto">
+      <div class="employer-photo ">
+
+        <!--        СЮДИ ФОТО-->
+
+      </div>
+    </div>
+  </div>
+
+  <app-chip-job></app-chip-job>
+
+  <div class="row" style="margin-top: 10px">
+    <div class="col">
+      <a href="#" class="company-site-link">
+        <img src="../../../../assets/img/icons/cards/link.png" alt="Company Site" class="company-icon">
+        Сайт компанії
+      </a>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 10px">
+    <div class="col">
+      <img src="../../../../assets/img/icons/cards/calendar.png" alt="Established Since" class="established-icon">
+      З 2012 року на ринку
+    </div>
+  </div>
+  <hr style="border-width: 3px; border-radius: 100px; border-color: #1E1E1E; opacity: 80%">
+  <div class="row align-items-center">
+    <div class="col-auto " style="margin-left: 20px">
+      <div class="rating " style="display: flex; justify-content: center">3.5</div>
+      <div class="star-container row x" style="display: flex; justify-content: center" >
+
+      </div>
+    </div>
+    <div class="col review" >
+      <p class="review-count" style="align-self: center">11,833 відгуків</p>
+    </div>
+    <div class="col ">
+      <button class="view-button ">
+        <span>Переглянути</span>
+        <img class="" style="margin-top: 2px" src="../../../../assets/img/icons/arrows/arrow-right.png" height="23" width="20">
+      </button>
+    </div>
+  </div>
+</div>

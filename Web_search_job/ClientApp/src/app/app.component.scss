@@ -1,0 +1,23 @@
+@import "../colors";
+
+.container{
+  padding-right: 6.25rem !important;
+  padding-left: 5.25rem !important;
+}
+
+body{
+  background: $secondary-color;
+  font-family: Mulish, sans-serif;
+  display:flex; flex-direction:column;
+  min-height: 100vh; margin:0;
+}
+
+article{ flex:1; }
+
+header{
+  min-height:50px;
+}
+
+footer{
+  min-height:50px;
+}

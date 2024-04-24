@@ -1,0 +1,99 @@
+<header>
+  <div class="gray-header ">
+    <div class="black-header " >
+      <div class=" row  header-menu ">
+        <div class="col-auto " >
+          <img class="logo" ngSrc="../../../assets/img/JobLogo.png" alt="Logo" [routerLink]="['/']" width="80" height="80"
+               (click)="setActiveMenuItem('item0')">
+        </div>
+        <nav class="col-md-6 offset-md-1  ">
+          <ul class="menu " >
+            <div class="row row-menu ">
+              <div class="col-auto " >
+                <div *ngIf="activeMenuItem && activeMenuItem === 'item1'; else blank_margin_for_line" class="line"></div>
+                <div style="height: 100%"></div>
+                <li class="menu-item " [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('item1')">
+                  <a [ngClass]="{'active_menu': activeMenuItem === 'item1'}" [routerLink]="['/search-job']">Пошук</a>
+                </li>
+              </div>
+              <div class="col-auto ">
+                <div *ngIf="activeMenuItem === 'item2'; else blank_margin_for_line" class="line"></div>
+                <div style="height: 100%"></div>
+                <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('item2')">
+                  <a [ngClass]="{'active_menu': activeMenuItem === 'item2'}" [routerLink]="['/popular-employer']">Популярні роботодавці</a>
+                </li>
+              </div>
+              <div class="col-auto ">
+                <div *ngIf="activeMenuItem === 'item3'; else blank_margin_for_line" class="line"></div>
+                <div style="height: 100%"></div>
+                <div style="display: grid; place-items: center">
+                  <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('item3')">
+                    <a [ngClass]="{'active_menu': activeMenuItem === 'item3'}" [routerLink]="['/fetch-data']">Fetch data</a>
+                  </li>
+                </div>
+              </div>
+              <div class="col-auto ">
+                <div *ngIf="activeMenuItem === 'item4'; else blank_margin_for_line" class="line"></div>
+                <div style="height: 100%"></div>
+                <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('item4')">
+                  <a [ngClass]="{'active_menu': activeMenuItem === 'item4'}" [routerLink]="['/fetch-data']">Fetch </a>
+                </li>
+              </div>
+              <div class="col-auto ">
+                <div *ngIf="activeMenuItem === 'item5'; else blank_margin_for_line" class="line"></div>
+                <div style="height: 100%"></div>
+                <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('item5')">
+                  <a [ngClass]="{'active_menu': activeMenuItem === 'item5'}" [routerLink]="['/fetch-data']">Fetch data</a>
+                </li>
+              </div>
+            </div>
+          </ul>
+        </nav>
+        <div class=" col-auto  align-items-center justify-content-center row  " >
+          <div class="col-auto ">
+            <div class="search-bar " style="padding-right: 20px; padding-left: 20px">
+              <div>
+                <input type="text" placeholder="Пошук...">
+              </div>
+              <div >
+                <button class="blue-button-header-small" ><img ngSrc="assets/img/icons/search.png" height="24" width="24"></button>
+              </div>
+            </div>
+          </div>
+          <div class="col-auto button-header-block">
+            <button [routerLink]="['/login-register']" class="button-header">Увійти</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isHeaderSectionVisible()">
+        <div class="block-how-work-need-work container">
+          Як робота повинна <strong>працювати</strong>
+          <img style="margin-left: 20px" ngSrc="assets/img/icons/sparkle.png" height="55" width="55">
+        </div>
+        <div class="container " style="width: 100%">
+          <div class="search-bar-big  " >
+            <div class=" align-items-center flex-container-space-between" style="padding-left: 40px; padding-right: 40px">
+              <div class="search-bar ">
+                <img ngSrc="assets/img/icons/search.png" height="30" width="30" style="margin-left: 30px; margin-right: 10px">
+                <input type="text" placeholder="Пошук...">
+              </div>
+              <div class=" blue-button-header-block  ">
+                <button class="blue-button-header">Знайти</button>
+              </div>
+            </div>
+          </div>
+          <div style="background: #1E1E1E; height: 1px"></div>
+        </div>
+        <div class="gray-footer-top black-footer-top" style="padding-top: 40px">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+<ng-template #blank_margin_for_line>
+  <div style="height: 2px"></div>
+</ng-template>

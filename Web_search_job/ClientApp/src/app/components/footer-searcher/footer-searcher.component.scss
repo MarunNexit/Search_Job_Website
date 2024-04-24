@@ -1,0 +1,77 @@
+@import '../../../../src/colors';
+
+.border-color-class{
+  border-color: $blue-color; /* Колір межі */
+  border-style: solid; /* Стиль межі (в даному випадку, лінія) */
+  border-width: 3px; /* Ширина межі */
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-right: 6.25rem !important;
+}
+
+.footer {
+  color: $text-color-white;
+  font-size: 16;
+  position: absolute; /* або position: absolute; */
+  bottom: 0;
+  left: 0;
+}
+
+a {
+  color: $text-color-white;
+  text-decoration: none;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.gray-footer {
+  background-color: $secondary-color;
+  position: relative;
+}
+
+.gray-footer-top{
+  background-color: $secondary-color;
+  border-bottom-left-radius: 7vh;
+  border-bottom-right-radius: 7vh;
+}
+
+.black-footer {
+  background-color: $primary-color;
+  position: relative;
+}
+
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.transition-map {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.transition-map li {
+  margin-right: 20px; /* Додайте відступ між елементами списку, якщо потрібно */
+}
+
+.transition-map li a {
+  color: $text-color-white;
+  text-decoration: none;
+}
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-template-rows: 30px 50px;
+  gap: 10px; /* Optional gap between grid items */
+}
+
