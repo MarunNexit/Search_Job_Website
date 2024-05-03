@@ -1,11 +1,14 @@
 @import '../../../../../src/colors';
+@import '../../../../../src/icon';
 
 .block-with-job{
-  margin: 0;
   border-radius: 20px;
   background-color: $tertiary-color;
-  padding: 24px;
-  min-width: 200px;
+  padding: 30px;
+  min-width: 400px;
+  margin-bottom: 16px;
+  margin-right: 8px;
+  margin-left: 8px;
 }
 
 .border-color-class{
@@ -31,17 +34,83 @@
   object-fit: cover; /* Це забезпечить, що зображення буде відображене в центрі блока та обрізане, якщо воно не підходить по висоті або ширині */
 }
 
-.chips-job-priority{
-  margin-top: 8px;
-  margin-bottom: 8px;
-  font-size: 0.875 rem;
-  font-weight: 900;
+.view-button {
+  display: flex;
+  border: none;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $icons-buttons-color;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: 100%;
+  max-width: 200px;
 }
 
-.chips-job-priority .fire{
-  color: $chip-fire;
+.view-button span {
+  flex-grow: 1; /* Дозволяє тексту займати всю доступну ширину, залишаючи зображення в крайній правій частині */
+  white-space: nowrap; /* Запобігає переносу тексту на новий рядок */
+  overflow: hidden; /* Запобігає виходу тексту за межі кнопки */
+  text-overflow: ellipsis; /* Відображає трохи тексту з кінця та додає мінімальний маркер, щоб показати, що текст обрізаний */
 }
 
-.chips-job-priority .bolt{
-  color: $chip-bolt;
+a{
+  text-decoration: none;
+  color: $primary-color;
+}
+
+.job-text{
+  margin: 5px;
+}
+
+.job-text .small{
+  font-size: 1rem;
+}
+
+
+.company-icon-div {
+  width: 90px;
+  height: 90px;
+  max-width: 20%;
+  margin-top: 4px;
+  border: none;
+  background: none;
+}
+
+.company-icon-div img {
+  border-radius: 50%;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.job-name {
+  font-size: 18px;
+}
+
+.job-field {
+  font-style: italic;
+}
+
+.blank_button{
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  line-height: 1; /* Встановлюємо висоту рядка такою ж, як фонтовий розмір */
+  max-width: max-content;
+}
+
+
+// SHADOW
+
+::ng-deep .mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8{
+  box-shadow: none !important;
+}
+
+::ng-deep .mdc-menu-surface{
+  box-shadow: none !important;
 }

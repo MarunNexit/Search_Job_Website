@@ -26,6 +26,15 @@
 }
 
 
+.blue-button-header-small{
+  border-radius: 100px;
+
+  //border: $blue-color;
+  //background: $blue-color;
+  border: none;
+  background: none;
+}
+
 .search-bar {
   display: flex;
   align-content: center;
@@ -38,32 +47,36 @@
   padding-right: 10px;
   padding-left: 20px;
   background: none;
+  position: relative;
 }
 
 .search-bar-input {
-  background: none;
-  border: none;
-  flex-grow: 1;
+  position: relative;
 }
 
-.search-bar input {
-  background: none;
+.search-bar-input input {
   border: none;
-  width: 100%; /* Ширина інпута буде заповнювати доступне місце в контейнері */
-}
-
-.search-bar input:focus {
+  border-bottom: 2px solid transparent;
   outline: none;
+  width: 100%;
+  padding: 5px;
+  transition: border-bottom-color 0.3s;
 }
 
-.blue-button-header-small{
-  border-radius: 100px;
-  //border: $blue-color;
-  //background: $blue-color;
-  border: none;
-  background: none;
+.search-bar-input input:focus {
+  border-bottom-color: $primary-color;
 }
 
+/* Додавання лінії після активного інпута */
+.search-bar-input input:focus::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: blue;
+}
 
 .example-section {
   margin: 12px 0;
@@ -75,6 +88,12 @@
   width: 100%;
   //border: #1E1E1E 3px solid;
 }
+
+.example-list-container{
+  max-height: 250px; /* Наприклад, встановлюємо максимальну висоту контейнера */
+  overflow-y: auto; /* Включаємо вертикальну прокрутку при потребі */
+}
+
 
 .example-margin {
   //margin: 0 12px;
@@ -120,3 +139,19 @@ li {
 ::ng-deep input[type="checkbox" i] {
   border: #1E1E1E 3px solid;
 }
+
+::ng-deep .mat-mdc-checkbox.mat-accent {
+  --mdc-checkbox-selected-checkmark-color: white;
+  --mdc-checkbox-selected-focus-icon-color: #198BFF;
+  --mdc-checkbox-selected-hover-icon-color: #198BFF;
+  --mdc-checkbox-selected-icon-color: #198BFF;
+  --mdc-checkbox-selected-pressed-icon-color: #198BFF;
+  --mdc-checkbox-unselected-focus-icon-color: #212121;
+  --mdc-checkbox-unselected-hover-icon-color: #212121;
+  --mdc-checkbox-disabled-selected-icon-color: rgba(0, 0, 0, 0.38);
+  --mdc-checkbox-disabled-unselected-icon-color: rgba(0, 0, 0, 0.38);
+  --mdc-checkbox-unselected-icon-color: rgba(0, 0, 0, 0.54);
+  --mdc-checkbox-unselected-pressed-icon-color: rgba(0, 0, 0, 0.54);
+}
+
+

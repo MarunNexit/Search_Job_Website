@@ -1,75 +1,75 @@
 <div class="block-with-job">
-  <div class="job-photo">
+  <div *ngIf="!shortVersionJob && dataJob.banner_picture != '' && dataJob.banner_picture != null" class="job-photo">
     <!--        СЮДИ ФОТО-->
     <img id="job-photo" src="assets/img/JobLogo1.png" (error)='handleImageError($event, "assets/img/alt-image.png")'>
   </div>
-  <div class="chips-job-priority">
-    <div *ngIf="IsNewJob">
-      <div style="display: flex; flex-wrap: nowrap; ">
-        <div style="flex-grow: 1;">
-          <div class="fire" style="display: inline-block; margin: 4px" >
-            <img ngSrc="assets/img/icons/chips/fire-icon.png" height="17" width="17">
-            Гаряча
-          </div>
-          <div class="bolt" style="display: inline-block; margin: 4px">
-            <img ngSrc="assets/img/icons/chips/bolt-icon.png" height="17" width="17">
-            Нова
-          </div>
-        </div>
-      </div>
+  <div *ngIf="!shortVersionJob">
+    <app-chips-job-priority [dataJob]="dataJob"> </app-chips-job-priority>
+  </div>
+
+  <div class="row "  style="margin-top: 16px">
+    <div class="col " style="padding: 0; margin-left: 8px">
+      <button (click)="goToURL('/job/' + dataJob.id, true)" class="blank_button " tabindex="0"  >
+        <p class="job-text job-name font-18-bold">
+          {{dataJob.title}}
+        </p>
+      </button>
+      <p *ngIf="dataJob.salary != null" class="job-text small font-16-regular">
+        {{ dataJob.salary}}
+      </p>
+      <button class="blank_button " (click)="goToURL('/employer/' + dataJob.id, true)" style="max-width: max-content;">
+        <p class="job-text small font-16-regular">
+          {{dataJob.company}}
+        </p>
+      </button>
+
+    </div>
+    <div  class=" company-icon-div"  >
+      <img (click)="goToURL('/employer/' + dataJob.id, true)"
+        class="company-icon" src="{{dataJob.company_picture}}" alt="0" (error)='handleImageError($event, "assets/img/alt-image.png")'>
     </div>
   </div>
 
-  <div class="row ">
-    <div class="col ">
-      <p class="employer-name "><strong>Назва роботодавця</strong></p>
-      <p class="employer-field ">Сфера</p>
-      <p class="employer-field ">Сфера</p>
-    </div>
-    <div class="col-auto" >
-      <img class="check-icon " src="../../../../assets/img/icons/cards/check_mark.png" alt="0" height="30" width="30">
-    </div>
-    <div class="col-auto">
-      <div class="employer-photo ">
-
-        <!--        СЮДИ ФОТО-->
-
-      </div>
-    </div>
+  <div *ngIf="!shortVersionJob" class="font-16-regular" style="margin-top: 8px; margin-bottom: 12px">
+    {{ dataJob.description | truncate:200 }}
   </div>
 
-  <app-chip-job></app-chip-job>
-
-  <div class="row" style="margin-top: 10px">
-    <div class="col">
-      <a href="#" class="company-site-link">
-        <img src="../../../../assets/img/icons/cards/link.png" alt="Company Site" class="company-icon">
-        Сайт компанії
-      </a>
-    </div>
+  <div *ngIf="!shortVersionJob">
+    <app-chip-job [IsBig]="true"></app-chip-job>
   </div>
-  <div class="row" style="margin-top: 10px">
-    <div class="col">
-      <img src="../../../../assets/img/icons/cards/calendar.png" alt="Established Since" class="established-icon">
-      З 2012 року на ринку
-    </div>
-  </div>
-  <hr style="border-width: 3px; border-radius: 100px; border-color: #1E1E1E; opacity: 80%">
-  <div class="row align-items-center">
-    <div class="col-auto " style="margin-left: 20px">
-      <div class="rating " style="display: flex; justify-content: center">3.5</div>
-      <div class="star-container row x" style="display: flex; justify-content: center" >
 
-      </div>
-    </div>
-    <div class="col review" >
-      <p class="review-count" style="align-self: center">11,833 відгуків</p>
-    </div>
-    <div class="col ">
-      <button class="view-button ">
-        <span>Переглянути</span>
-        <img class="" style="margin-top: 2px" src="../../../../assets/img/icons/arrows/arrow-right.png" height="23" width="20">
+  <div class="row align-items-center " style="margin-top: 16px">
+    <div class="col " >
+      <button class="view-button font-14-semibold" (click)="goToURL('/job/' + dataJob.id, true)">
+        <span>Подати заявку</span>
+        <mat-icon style="height: 23px; width: 20px;">chevron_right</mat-icon>
       </button>
     </div>
+
+    <div class="col-auto " style="margin-top: 16px">
+      <div style="display: flex; align-items: center; justify-content: center;" class="">
+
+        <button (click)="saveJob()" class="blank_button" style="margin-right: 4px; ">
+          <img class="img-icon" [src]="IsSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="24" width="24">
+        </button>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="display: flex; align-items: center; justify-content: center;">
+          <img class="" style="margin-top: 2px" src="../../../../assets/img/icons/cards/3_dots.png" height="24" width="24">
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>report</mat-icon>
+            <span>Пожалітися</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>report</mat-icon>
+            <span>Приховати</span>
+          </button>
+        </mat-menu>
+
+      </div>
+    </div>
   </div>
+
+
 </div>

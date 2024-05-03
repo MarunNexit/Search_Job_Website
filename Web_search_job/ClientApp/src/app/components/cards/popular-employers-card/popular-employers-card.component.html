@@ -1,5 +1,5 @@
 <div class="employer-card">
-  <div class="row ">
+  <div class="row " style="margin-bottom: 4px">
     <div class="col-auto">
       <div class="employer-photo ">
 
@@ -9,10 +9,14 @@
       </div>
     </div>
     <div class="col ">
-      <p class="employer-name "><strong>Назва роботодавця</strong></p>
-      <p class="employer-field ">Сфера</p>
+      <p class="employer-name font-18-bold">
+        Назва роботодавця
+      </p>
+      <p class="employer-field font-14-regular">
+        Сфера
+      </p>
     </div>
-    <div class="col-auto" >
+    <div *ngIf="employer_checked" class="col-auto" >
       <img class="check-icon " src="../../../../assets/img/icons/cards/check_mark.png" alt="0" height="30" width="30">
     </div>
   </div>
@@ -21,22 +25,24 @@
 
   <div class="row" style="margin-top: 10px">
     <div class="col">
-      <a href="#" class="company-site-link">
+      <a href="#" class="company-site-link font-14-regular">
         <img src="../../../../assets/img/icons/cards/link.png" alt="Company Site" class="company-icon">
-        Сайт компанії
+        Вебсайт компанії
       </a>
     </div>
   </div>
   <div class="row" style="margin-top: 10px">
-    <div class="col">
+    <div class="col font-14-regular">
       <img src="../../../../assets/img/icons/cards/calendar.png" alt="Established Since" class="established-icon">
       З 2012 року на ринку
     </div>
   </div>
   <hr style="border-width: 3px; border-radius: 100px; border-color: #1E1E1E; opacity: 80%">
-  <div class="row align-items-center">
-    <div class="col-auto " style="margin-left: 20px">
-      <div class="rating " style="display: flex; justify-content: center">3.5</div>
+  <div class="row align-items-center " >
+    <div class="col-auto " style="margin-left: 20px; margin-bottom: 4px">
+      <div class="rating font-18-bold" style="display: flex; justify-content: center">
+        {{rating}}
+      </div>
       <div class="star-container row x" style="display: flex; justify-content: center" >
         <ng-container *ngFor="let star of stars">
           <div class="col-auto  star">
@@ -46,10 +52,10 @@
       </div>
     </div>
     <div class="col review" >
-      <p class="review-count" style="align-self: center">11,833 відгуків</p>
+      <p class="review-count font-10-regular" style="align-self: center">11,833 відгуків</p>
     </div>
     <div class="col ">
-      <button class="view-button ">
+      <button class="view-button font-14-semibold">
         <span>Переглянути</span>
         <img class="" style="margin-top: 2px" src="../../../../assets/img/icons/arrows/arrow-right.png" height="23" width="20">
       </button>

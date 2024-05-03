@@ -1,0 +1,172 @@
+<div xmlns="http://www.w3.org/1999/html">
+  <div class="flex-content-between" style="padding: 16px">
+    <button class="get-back-button button-blank font-18-bold" (click)="goBack()">
+      <img ngSrc="../../../../assets/img/icons/arrows/arrow-back.png" width="24" height="24" alt="">
+      Повернутися
+    </button>
+    <div>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="display: flex; align-items: center; justify-content: center;">
+        <img class="" style="margin-top: 2px" src="../../../../assets/img/icons/cards/3_dots.png" height="24" width="24" alt="">
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>report</mat-icon>
+          <span>Поскаржитись</span>
+        </button>
+        <button mat-menu-item>
+          <img class="img-icon" style="margin-right: 16px" src="../../../../assets/img/icons/report/report-old.png" height="24" width="24">
+          <span>Приховати</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-9'">
+      <div class="block-with-job ">
+        <div *ngIf="dataEmployer.banner_picture != '' && dataEmployer.banner_picture != null" class="job-photo ">
+          <!--        СЮДИ ФОТО-->
+          <img id="job-photo" src="{{dataEmployer.banner_picture}}" (error)='handleImageError($event, "assets/img/alt-image.png")' alt="">
+        </div>
+        <div class="block-with-job-with-padding">
+          <div class="row "  style="margin-top: 16px">
+            <div class="col " style="padding: 0; margin-left: 8px">
+              <div>
+                <p class="job-text job-name font-32-bold">
+                  {{dataEmployer.title}}
+                </p>
+              </div>
+
+              <div class="row" style="margin-top: 10px">
+                <div class="col font-14-regular">
+                  <mat-icon class="company-icon">people</mat-icon>
+                  близько {{dataEmployer.numberWorkers}} працівників
+                </div>
+              </div>
+              <div class="row" style="margin-top: 10px">
+                <div class="col font-14-regular">
+                  <mat-icon class="company-icon">calendar_today</mat-icon>
+                  з {{dataEmployer.marketDate}} року на ринку
+                </div>
+              </div>
+              <div class="row" style="margin-top: 10px">
+                <div class="col">
+                  <button (click)="goToURL('/', true)" class="company-site-link font-14-regular blank_button" >
+                    <mat-icon class="company-icon">link</mat-icon>
+                    Вебсайт компанії
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+
+            <div *ngIf="employer_checked" class=" company-icon-div"  >
+              <img  src="../../../../assets/img/icons/cards/check_mark.png" alt="0">
+            </div>
+          </div>
+          <div style="margin-top: 8px">
+            <div class="font-18-bold" style="margin-bottom: 8px">
+              Переваги роботи в компанії
+            </div>
+            <app-chip-job [IsBig]="true" ></app-chip-job>
+
+          </div>
+
+          <div style="margin-top: 24px; margin-bottom: 12px" class="job-description font-14-regular">
+            {{ dataEmployer.description}}
+          </div>
+
+          <div class="row align-items-center " style="margin-top: 24px">
+            <div class="col ">
+              <div style="display: flex">
+                <button class="view-button font-18-semibold" (click)="goToURL('/', true)" style="margin-right: 24px">
+                  <span>Написати роботодавцю</span>
+                  <mat-icon style="height: 23px; width: 20px;">chevron_right</mat-icon>
+                </button>
+
+                <button class="blank_button report font-18-bold "  style="margin-right: 24px; display: flex; align-items: center">
+                  <mat-icon  style="margin-right: 8px">report</mat-icon>
+                  <span>Поскаржитися</span>
+                </button>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+<!--
+    New Column
+-->
+
+    <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-3'">
+      <div class="block-with-job-small block-with-job-small-with-padding">
+        <div class=" align-items-center " >
+          <app-comments-rating></app-comments-rating>
+        </div>
+      </div>
+
+      <div class="block-with-job-small block-with-job-small-with-padding">
+
+      </div>
+
+      <div class="block-with-job-small block-with-job-small-with-padding">
+        <div class="font-14-bold text-grey" >
+          <p style="padding: 0;  margin-bottom: 8px">{{numberWatch}} переглядів</p>
+          <p style="padding: 0; margin: 0">{{numberCandidates}} кандидатів</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+  ............................
+  -->
+
+  <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-9'">
+    <app-employer-jobs-list></app-employer-jobs-list>
+  </div>
+
+
+  <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-9'" class="flex-justify-centre font-18-bold" style="margin-top: 64px; margin-bottom: 64px" >
+    <div class="messages_links" style="padding: 24px">
+      <div style="padding-bottom: 25px; ">
+        Отримуйте повідомлення про нові вакансії "{{dataEmployer.company}}"
+      </div>
+      <div class="row" style="solid; margin: 0; padding: 10px">
+
+        <div class="styled-select" >
+          <!--
+            [ngClass]="arrowPossition[0] ? 'background-down': 'background-up' "
+-->      <mat-icon>location_on</mat-icon>
+          <select
+            class="font-14-regular background-down" id="selectSelector" (change)="onChange($event)">
+            <option value="option1" selected>Індустрія</option>
+            <option value="option2">Індустрія</option>
+            <option value="option3">Індустрія</option>
+          </select>
+        </div>
+
+
+        <button class="col flex-justify-centre button-blank" [routerLink]="'https://t.me/Marun_Ykraini'" target="_blank">
+          <div style="padding-right: 5px">
+            <img ngSrc="../../../assets/img/icons/message.png" height="24" width="24">
+          </div>
+          <div>
+            <strong>Telegram</strong>
+          </div>
+        </button>
+        <button class="col flex-justify-centre button-blank" >
+          <div style="padding-right: 5px">
+            <img ngSrc="assets/img/icons/mail.png" height="24" width="24">
+          </div>
+          <div>
+            <strong>Viber</strong>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

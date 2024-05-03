@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {JsonPipe} from '@angular/common';
 import {expandCollapse} from "./animation_filter_card";
 
@@ -11,7 +11,7 @@ import {expandCollapse} from "./animation_filter_card";
   templateUrl: './filter-search-card.component.html',
   styleUrls: ['./filter-search-card.component.scss'],
   standalone: true,
-  imports: [MatCheckboxModule, FormsModule, NgForOf, ReactiveFormsModule, JsonPipe, NgIf],
+  imports: [MatCheckboxModule, FormsModule, NgForOf, ReactiveFormsModule, JsonPipe, NgIf, NgClass],
   animations: [expandCollapse] // Додайте анімацію до списку анімацій
 })
 export class FilterSearchCardComponent {

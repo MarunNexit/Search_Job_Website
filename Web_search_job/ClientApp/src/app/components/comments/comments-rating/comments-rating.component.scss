@@ -1,0 +1,12 @@
+@import '../../../../../src/colors';
+@import '../../../../../src/icon';
+
+.progress-bar{
+  background-color: $primary-color;
+}
+
+.progress{
+  --bs-progress-bg: #737373;
+  --bs-progress-border-radius: 1.25rem;
+  --bs-progress-height: 0.25rem;
+}

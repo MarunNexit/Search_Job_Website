@@ -1,7 +1,7 @@
 <div >
   <form  >
-    <mat-form-field class="example-chip-list"  >
-      <mat-chip-grid #chipGrid aria-label="Fruit selection" style="display: flex; flex-direction: column;">
+    <mat-form-field class="example-chip-list font-14-semibold" >
+      <mat-chip-grid  #chipGrid aria-label="Fruit selection" style="display: flex; flex-direction: column;">
         <ng-container *ngFor="let fruit of fruits; index as i">
           <mat-chip-row (removed)="remove_chip(fruit)">
             {{fruit}}
@@ -11,16 +11,16 @@
           </mat-chip-row>
         </ng-container>
         <div *ngIf="isFiltersExists" style="align-self: center;">
-          <button class="remove-filters" (click)="remove_all_chip()">
+          <button class="remove-filters font-14-regular" (click)="remove_all_chip()">
             Скинути фільтри
           </button>
         </div>
       </mat-chip-grid>
 
-      <input [disabled]="true" class="opacity_zero"
+      <input [disabled]="true"
+             style="height: 0; width: 0; padding: 0; margin: 0"
              [matChipInputFor]="chipGrid"
              (matChipInputTokenEnd)="add_chip($event)"/>
-
 
     </mat-form-field>
   </form>

@@ -13,6 +13,10 @@ export class PopularEmployersComponent {
     { name: 'Company 1', field: 'Field 1' },
     { name: 'Company 2', field: 'Field 2' },
     { name: 'Company 3', field: 'Field 3' },
+    { name: 'Company 3', field: 'Field 3' },
+    { name: 'Company 3', field: 'Field 3' },
+    { name: 'Company 3', field: 'Field 3' },
+    { name: 'Company 3', field: 'Field 3' },
     { name: 'Company 3', field: 'Field 3' }
   ];
 }

@@ -1,0 +1,60 @@
+<div class="  " >
+  <p class="font-24-bold">Відповідність</p>
+  <div style="display: flex; justify-content: space-between; align-items: start">
+    <div class="font-18-bold" style="display: flex; ">
+      <img style="margin-right: 8px" [src]="isAppropriatenessAll ? 'assets/img/icons/job/check-approve-icon.png' : 'assets/img/icons/job/cancel-icon.png'" height="24" width="24" alt="Icon">
+      <span *ngIf="isAppropriatenessAll">
+                Відповідає Вашому профілю
+              </span>
+      <span *ngIf="!isAppropriatenessAll">
+                Не відповідає Вашому профілю
+              </span>
+    </div>
+    <button (click)="expandField = !expandField" class="blank_button  ">
+      <img [src]="expandField ? '../../../../assets/img/icons/arrows/arrow-up.png' : '../../../../assets/img/icons/arrows/arrow-down.png'" alt="" height="24" width="24">
+    </button>
+  </div>
+
+  <div [@expandCollapse]="expandField ? 'expanded' : 'collapsed'" >
+    <hr style="border-width: 1px; border-radius: 100px; border-color: #1E1E1E; opacity: 100%">
+    <div style="display: flex; ">
+      <img style="margin-right: 8px" [src]="isAppropriateness[0] ? 'assets/img/icons/job/check-approve-icon.png' : 'assets/img/icons/job/cancel-icon.png'" height="24" width="24" alt="Icon">
+      <span class="font-14-semibold">
+                ... досвіду
+              </span>
+    </div>
+    <span *ngIf="!isAppropriateness[0]" class="font-14-regular text-grey" style="margin-left: 32px;  margin-top: 0px" >
+              Ваш текст тут
+            </span>
+
+    <div style="display: flex; margin-top: 8px">
+      <img style="margin-right: 8px" [src]="isAppropriateness[1] ? 'assets/img/icons/job/check-approve-icon.png' : 'assets/img/icons/job/cancel-icon.png'" height="24" width="24" alt="Icon">
+      <span *ngIf="isAppropriatenessAll" class="font-14-semibold">
+                Відповідає Вашим очікуванням  щодо зарплатні
+              </span>
+      <span *ngIf="!isAppropriatenessAll" class="font-14-semibold">
+                Не відповідає Вашим очікуванням  щодо зарплатні
+              </span>
+    </div>
+
+    <span *ngIf="!isAppropriateness[1]"  class="font-14-regular text-grey" style="margin-left: 32px; margin-top: 0px" >
+              Ваші очікування ...
+            </span>
+
+
+    <div style="display: flex; margin-top: 8px">
+      <img style="margin-right: 8px" [src]="isAppropriateness[2] ? 'assets/img/icons/job/check-approve-icon.png' : 'assets/img/icons/job/cancel-icon.png'" height="24" width="24" alt="Icon">
+      <span class="font-14-semibold">Категорія: ...</span>
+    </div>
+
+    <div style="display: flex; margin-top: 8px">
+      <img style="margin-right: 8px" [src]="isAppropriateness[3] ? 'assets/img/icons/job/check-approve-icon.png' : 'assets/img/icons/job/cancel-icon.png'" height="24" width="24" alt="Icon">
+      <span class="font-14-semibold">
+                Мова: ...
+              </span>
+    </div>
+
+    <span class="font-14-regular text-grey" style="margin-left: 32px;  margin-top: 0px;" >У Вас ...</span>
+
+  </div>
+</div>

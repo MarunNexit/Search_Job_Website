@@ -1,7 +1,7 @@
 <div class="container">
   <app-chip-search-job></app-chip-search-job>
-  <div class="row">
-    <div class="filters-col col-md-4">
+  <div class="row" style="margin-top: 0; padding-top: 0">
+    <div class="filters-col col-md-4 " >
       <div>
         <app-filter-search-list></app-filter-search-list>
       </div>
@@ -13,8 +13,13 @@
     </div>
   </div>
 
-
-  <div class="jobs-col">
-
+  <div #myButtonDiv style="padding-bottom: 100px">
+    <button class="scroll-to-top-static"  [class.show]="!showScrollButton"  (click)="scrollToTop()" [ngStyle]="{ 'top.px': this.divHeight }">
+      <img src="../../../../assets/img/icons/arrows/arrow-up-scroll.png" alt="Scroll to Top">
+    </button>
   </div>
+  <button class="scroll-to-top" [class.show]="showScrollButton" (click)="scrollToTop()">
+    <img src="../../../../assets/img/icons/arrows/arrow-up-scroll.png" alt="Scroll to Top">
+  </button>
+
 </div>

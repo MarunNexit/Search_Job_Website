@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {RegistrationLoginPageComponent} from "./registration-login-page.component";
@@ -18,6 +18,9 @@ import {RiveModule} from "ng-rive";
   ],
   exports: [
     RegistrationLoginPageComponent,
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA // Додайте CUSTOM_ELEMENTS_SCHEMA для використання веб-компонентів
   ]
 })
 export class RegistrationLoginModule { }

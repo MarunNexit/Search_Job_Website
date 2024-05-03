@@ -1,0 +1,30 @@
+<div class=" ">
+  <div>
+    <div class="row">
+      <div class="col">
+        <p class="font-18-bold" style="margin-bottom: 0">Рейтинг</p>
+        <p class="font-14-regular text-grey" style="margin-top: 0">На основі {{numberComments}} відгуків</p>
+      </div>
+      <div class="col-auto">
+        <div style="display: flex">
+          <p class="font-18-bold">{{rating}}</p>
+            <img class="img-icon" style="margin: 2px" ngSrc="assets/img/icons/stars/full_star_big.png" height="24" width="24" alt="">
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let num of numbersArray; let i = index" class="row font-14-semibold" style="margin-top: 4px">
+      <div class="col-md-9" style="display: flex; align-items: center; justify-content: right">
+        <p style="margin: 0">{{ num }} </p>
+        <img class="img-icon" style="margin: 2px" ngSrc="assets/img/icons/stars/full_star_big.png" height="24" width="24" alt="">
+        <div style="width: 100%" >
+          <div class="progress" style="margin-left: 20px">
+            <div class="progress-bar" role="progressbar" [style.width.%]="commentsArray[i] / numberComments * 100" [attr.aria-valuenow]="commentsArray[i]"  aria-valuemin="0" [attr.aria-valuemax]="numberComments"></div>
+          </div>
+        </div>
+      </div>
+      <p class="col-auto" style="margin: 0">{{ commentsArray[i] }} </p>
+
+
+    </div>
+  </div>
+</div>

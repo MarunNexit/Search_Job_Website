@@ -1,41 +1,57 @@
-<footer class="gray-footer footer">
+<footer class="gray-footer footer" >
   <div class="black-footer">
     <div class="gray-footer-top " style="padding-top: 40px">
     </div>
     <div class="container" style="padding-top: 40px;">
       <div class="row">
         <div class="col">
-          <img class="logo" ngSrc="../../../assets/img/JobLogo.png" alt="Logo" [routerLink]="['/']" width="80" height="80">
+          <img class="logo" ngSrc="../../../assets/img/icons/header/JobLogo.png" alt="Logo" [routerLink]="['/']" width="80" height="80">
         </div>
         <div class="col-auto" >
-          <p style="font-size: 18px; font-weight: bold">Мапа переходів</p>
-          <div class="col grid-container" style="padding-top: 24px; list-style-type: none;">
+          <p class="font-18-bold">
+            Мапа переходів
+          </p>
+          <div class="font-16-regular col grid-container" style="padding-top: 24px; list-style-type: none;">
             <li class="grid-item" [routerLinkActive]="['link-active']">
-              <a [routerLink]="['/search-job']">Знайти роботу</a>
+              <a [routerLink]="['/search-job']">
+                Знайти роботу
+              </a>
             </li>
             <li class="grid-item" [routerLinkActive]="['link-active']">
-              <a [routerLink]="['/counter']">Більше про нас</a>
+              <a [routerLink]="['/counter']">
+                Більше про нас
+              </a>
             </li>
             <li class="grid-item" [routerLinkActive]="['link-active']">
-              <a [routerLink]="['/counter']">Послуги</a>
+              <a [routerLink]="['/counter']">
+                Моє резюме
+              </a>
             </li>
             <li class="grid-item" [routerLinkActive]="['link-active']">
-              <a [routerLink]="['/counter']">Популярні роботодавці</a>
+              <a [routerLink]="['/counter']">
+                Популярні роботодавці
+              </a>
             </li>
             <li class="grid-item" [routerLinkActive]="['link-active']">
-              <a [routerLink]="['/counter']">Аналітика діяльності</a>
+              <a [routerLink]="['/counter']">
+                Аналітика діяльності
+              </a>
             </li>
             <li class="grid-item" [routerLinkActive]="['link-active']">
-              <a [routerLink]="['/counter']">Мої рекомендації</a>
+              <a [routerLink]="['/counter']">
+                Мої рекомендації
+              </a>
             </li>
 
           </div>
         </div>
         <div class="col " style="display: flex; align-items: center;">
-          <p style="font-size: 18px; font-weight: bold; margin-right: 10px;"><a routerLink="/contact">Роботодавцю <img src="assets/img/icons/arrows/arrow-right-thin.png" height="24" width="24"></a></p>
+          <p class="font-18-bold" style="margin-right: 10px;"><a routerLink="/contact">
+            Роботодавцю
+            <img src="assets/img/icons/arrows/arrow-right-thin.png" height="24" width="24"></a></p>
         </div>
       </div>
-      <div style="padding-bottom: 40px">
+      <div class="font-12-regular" style="padding-bottom: 40px">
         2024 JoBloom - Всі права захищені
       </div>
     </div>

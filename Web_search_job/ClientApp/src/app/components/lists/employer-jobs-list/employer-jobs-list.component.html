@@ -1,0 +1,19 @@
+<div>
+  <p class="font-24-bold" style="margin: 32px 8px;">
+    {{numberEmployerJobs}} вакансій компанії
+  </p>
+  <div class="app-job-search-card" *ngFor="let jobComponent of dataEmployerJobs; let i = index">
+    <app-job-short-card
+      [dataJob]="jobComponent"
+      [shortVersionJob]=true
+    >
+    </app-job-short-card>
+  </div>
+  <div style="width: 100%; margin: 16px" class="flex-justify-centre-content">
+    <button class="blank_button font-18-bold text-grey" style="display: flex; align-items: center; justify-content: center">
+      Переглянути ще схожі
+      <img ngSrc="assets/img/icons/arrows/arrow-right-grey.png" height="24" width="24">
+    </button>
+  </div>
+
+</div>

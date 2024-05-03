@@ -1,9 +1,9 @@
 <div >
 
-  <div class="block-heading ">
+  <div class="block-heading font-35-semibold">
     Переглядайте найбільш високооплачувані вакансії за {{ filter }}
   </div>
-  <div style="font-size: 22px;">
+  <div class="font-22-regular">
     <div *ngIf="filter === 'галузями'; else OnGPS">
       Вибрати індустрію
     </div>
@@ -11,7 +11,7 @@
 
 
   <div class="styled-select" >
-    <select class="" id="selectSelector" (change)="onChange($event)">
+    <select class="font-14-regular" id="selectSelector" (change)="onChange($event)">
       <option value="option1" selected>Індустрія</option>
       <option value="option2">Індустрія</option>
       <option value="option3">Індустрія</option>
@@ -24,7 +24,9 @@
     </div>
     <div style="width: 100%; text-align: end" class="get_more_popular_jobs">
       <li class="grid-item" [routerLinkActive]="['link-active']">
-        <a style="color: #1E1E1E" [routerLink]="['/popular-employer']">більше</a>
+        <a class="font-24-semibold" style="color: #1E1E1E" [routerLink]="['/popular-employers']">
+          більше
+        </a>
       </li>
     </div>
   </div>

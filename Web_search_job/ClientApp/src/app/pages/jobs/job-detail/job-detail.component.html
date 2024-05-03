@@ -1,0 +1,147 @@
+<div xmlns="http://www.w3.org/1999/html">
+  <div class="flex-content-between" style="padding: 16px">
+    <button class="get-back-button button-blank font-18-bold" (click)="goBack()">
+      <img ngSrc="../../../../assets/img/icons/arrows/arrow-back.png" width="24" height="24" alt="">
+      Повернутися
+    </button>
+    <div>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="display: flex; align-items: center; justify-content: center;">
+        <img class="" style="margin-top: 2px" src="../../../../assets/img/icons/cards/3_dots.png" height="24" width="24" alt="">
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>report</mat-icon>
+          <span>Поскаржитись</span>
+        </button>
+        <button mat-menu-item>
+          <img class="img-icon" style="margin-right: 16px" src="../../../../assets/img/icons/report/report-old.png" height="24" width="24">
+          <span>Приховати</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-9'">
+      <div class="block-with-job ">
+        <div *ngIf="dataJob.banner_picture != '' && dataJob.banner_picture != null" class="job-photo ">
+          <!--        СЮДИ ФОТО-->
+          <img id="job-photo" src="{{dataJob.banner_picture}}" (error)='handleImageError($event, "assets/img/alt-image.png")' alt="">
+        </div>
+        <div class="block-with-job-with-padding">
+          <app-chips-job-priority [dataJob]="dataJob"></app-chips-job-priority>
+          <div class="row "  style="margin-top: 16px">
+            <div class="col " style="padding: 0; margin-left: 8px">
+              <div>
+                <p class="job-text job-name font-32-bold">
+                  {{dataJob.title}}
+                </p>
+              </div>
+
+              <div class="row" >
+                <div class="col-auto ">
+                <img ngSrc="assets/img/icons/job/company-icon.png" height="24" width="24" alt="">
+                </div>
+                <div class="col " >
+                  <button *ngIf="dataJob.company != null" (click)="goToURL('/', true) "
+                          class="job-company button-blank font-20-regular" style="padding: 0; margin-bottom: 4px">
+                    {{ dataJob.company}}
+                  </button>
+                  <p  class="job-company-description font-14-regular">
+                    {{dataJob.company_description}} фівфівіфв
+                  </p>
+                </div>
+              </div>
+
+              <div class="row " >
+                <div class="col-auto ">
+                  <mat-icon style="margin-top: 4px; margin-bottom: 4px">monetization_on</mat-icon>
+                </div>
+                <div class="col ">
+                  <p class="job-company font-20-regular" style="text-decoration: none;">
+                    {{dataJob.salary}}
+                  </p>
+                </div>
+              </div>
+
+
+            </div>
+            <div  class=" company-icon-div"  >
+              <img (click)="goToURL('/', true)"
+                   class="company-icon" src="{{dataJob.company_picture}}" alt="0" (error)='handleImageError($event, "assets/img/alt-image.png")'>
+            </div>
+          </div>
+          <div style="margin-top: 8px">
+            <app-chip-job [IsBig]="true" ></app-chip-job>
+          </div>
+
+          <div style="margin-top: 24px; margin-bottom: 12px" class="job-description font-14-regular">
+            {{ dataJob.description}}
+          </div>
+
+          <div class="row align-items-center " style="margin-top: 24px">
+            <div class="col ">
+              <div style="display: flex">
+                <button class="view-button font-18-semibold" (click)="goToURL('/', true)" style="margin-right: 24px">
+                  <span>Подати заявку</span>
+                  <mat-icon style="height: 23px; width: 20px;">chevron_right</mat-icon>
+                </button>
+
+                <button class="blank_button report font-18-bold "  style="margin-right: 24px; display: flex; align-items: center">
+                  <mat-icon style="margin-right: 8px">report</mat-icon>
+                  <span>Поскаржитися</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="col-auto " >
+              <div style="display: flex; align-items: center; justify-content: center;" class="">
+                <button (click)="saveJob()" class="blank_button" style="margin-right: 4px; ">
+                  <img class="img-icon" [src]="isSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="26" width="26">
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-3'">
+      <div class="block-with-job-small block-with-job-small-with-padding-buttons">
+        <div class=" align-items-center " >
+          <div class=" ">
+            <div style="display: grid; justify-content: center; align-items: center" class="">
+              <button class="view-button font-18-semibold" (click)="goToURL('/', true)" style="margin-bottom: 8px">
+                <span>Подати заявку</span>
+                <mat-icon style="margin-top: 2px; height: 23px; width: 20px;">chevron_right</mat-icon>
+              </button>
+
+              <button class="blank_button save font-18-bold" (click)="saveJob()" >
+                <span>Зберегти вакансію</span>
+                <img class="img-icon" style="margin-left: 4px" [src]="isSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="26" width="26">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="block-with-job-small block-with-job-small-with-padding-buttons">
+        <app-appropriateness-job></app-appropriateness-job>
+      </div>
+
+      <div class="block-with-job-small block-with-job-small-with-padding">
+        <div class="font-14-bold text-grey" >
+          <p style="padding: 0;  margin-bottom: 8px">{{numberWatch}} переглядів</p>
+          <p style="padding: 0; margin: 0">{{numberCandidates}} кандидатів</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-9'">
+    <app-similar-jobs-list></app-similar-jobs-list>
+  </div>
+</div>

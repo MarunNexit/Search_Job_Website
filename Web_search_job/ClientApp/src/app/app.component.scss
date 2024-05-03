@@ -1,7 +1,7 @@
 @import "../colors";
 
 .container{
-  padding-right: 6.25rem !important;
+  padding-right: 5.25rem !important;
   padding-left: 5.25rem !important;
 }
 
@@ -10,6 +10,7 @@ body{
   font-family: Mulish, sans-serif;
   display:flex; flex-direction:column;
   min-height: 100vh; margin:0;
+
 }
 
 article{ flex:1; }

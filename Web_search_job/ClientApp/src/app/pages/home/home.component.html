@@ -4,28 +4,28 @@
   <app-highest-paying-jobs [filter] = "'галузями'"></app-highest-paying-jobs>
   <app-highest-paying-jobs [filter] = "'місцезнаходженням'"></app-highest-paying-jobs>
 
-  <div class="flex-justify-centre " style="margin-top: 64px" >
+  <div class="flex-justify-centre font-18-bold" style="margin-top: 64px; margin-bottom: 64px" >
     <div class="messages_links" style="padding: 24px">
       <div style="padding-bottom: 25px; ">
-        <strong>Отримуйте повідомлення про нові вакансії у месенджерах</strong>
+        Отримуйте повідомлення про нові вакансії у месенджерах
       </div>
       <div class="row" style="solid; margin: 0; padding: 10px">
-        <div class="col flex-justify-centre">
+        <button class="col flex-justify-centre button-blank" [routerLink]="'https://t.me/Marun_Ykraini'" target="_blank">
           <div style="padding-right: 5px">
             <img ngSrc="../../../assets/img/icons/message.png" height="24" width="24">
           </div>
           <div>
             <strong>Telegram</strong>
           </div>
-        </div>
-        <div class="col flex-justify-centre" >
+        </button>
+        <button class="col flex-justify-centre button-blank" >
           <div style="padding-right: 5px">
             <img ngSrc="assets/img/icons/mail.png" height="24" width="24">
           </div>
           <div>
             <strong>Viber</strong>
           </div>
-        </div>
+        </button>
       </div>
     </div>
   </div>

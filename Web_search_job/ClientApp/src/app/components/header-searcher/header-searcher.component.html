@@ -1,92 +1,103 @@
-<header>
+<header >
+  <ng-container *ngIf="isSideBarRight" >
+    <ng-container *ngTemplateOutlet="sidebar_right"></ng-container>
+  </ng-container>
+
   <div class="gray-header ">
     <div class="black-header " >
       <div class=" row  header-menu ">
         <div class="col-auto " >
-          <img class="logo" ngSrc="../../../assets/img/JobLogo.png" alt="Logo" [routerLink]="['/']" width="80" height="80"
-               (click)="setActiveMenuItem('item0')">
+          <img class="logo" src="../../../assets/img/icons/header/JobLogo.png" alt="Logo" [routerLink]="['/']"
+               (click)="setActiveMenuItem('/')">
         </div>
-        <nav class="col-md-6 offset-md-1  ">
-          <ul class="menu " >
-            <div class="row row-menu ">
-              <div class="col-auto " >
-                <div *ngIf="activeMenuItem && activeMenuItem === 'item1'; else blank_margin_for_line" class="line"></div>
-                <div style="height: 100%"></div>
-                <li class="menu-item " [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('item1')">
-                  <a [ngClass]="{'active_menu': activeMenuItem === 'item1'}" [routerLink]="['/search-job']">Пошук</a>
-                </li>
-              </div>
-              <div class="col-auto ">
-                <div *ngIf="activeMenuItem === 'item2'; else blank_margin_for_line" class="line"></div>
-                <div style="height: 100%"></div>
-                <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('item2')">
-                  <a [ngClass]="{'active_menu': activeMenuItem === 'item2'}" [routerLink]="['/popular-employer']">Популярні роботодавці</a>
-                </li>
-              </div>
-              <div class="col-auto ">
-                <div *ngIf="activeMenuItem === 'item3'; else blank_margin_for_line" class="line"></div>
-                <div style="height: 100%"></div>
-                <div style="display: grid; place-items: center">
-                  <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('item3')">
-                    <a [ngClass]="{'active_menu': activeMenuItem === 'item3'}" [routerLink]="['/fetch-data']">Fetch data</a>
+        <div *ngIf="!isScreenSmall;" class="col-auto  " style="margin-left: 32px">
+          <nav >
+            <ul class="menu " >
+              <div class="row row-menu ">
+                <div class="col-auto " >
+                  <div *ngIf="activeMenuItem && activeMenuItem === '/search-job'; else blank_margin_for_line" class="line"></div>
+                  <div style="height: 100%"></div>
+                  <li class="menu-item " [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('/search-job')">
+                    <a class="font-16-bold" [ngClass]="{'active_menu': activeMenuItem === '/search-job'}" [routerLink]="['/search-job']">
+                      Пошук
+                    </a>
                   </li>
                 </div>
+                <div class="col-auto ">
+                  <div *ngIf="activeMenuItem === '/popular-employers'; else blank_margin_for_line" class="line"></div>
+                  <div style="height: 100%"></div>
+                  <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('/popular-employers')">
+                    <a class="font-16-bold" [ngClass]="{'active_menu': activeMenuItem === '/popular-employers'}" [routerLink]="['/popular-employers']">
+                      Популярні роботодавці
+                    </a>
+                  </li>
+                </div>
+                <div *ngIf="isLogin;" class="col-auto " >
+                  <div *ngIf="activeMenuItem && activeMenuItem === '/search-job'; else blank_margin_for_line" class="line"></div>
+                  <div style="height: 100%"></div>
+                  <li class="menu-item " [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('/search-job')">
+                    <a class="font-16-bold" [ngClass]="{'active_menu': activeMenuItem === '/search-job'}" [routerLink]="['/search-job']">
+                      Community
+                    </a>
+                  </li>
+                </div>
+                <div class="col-auto ">
+                  <div *ngIf="activeMenuItem === '/fetch-data'; else blank_margin_for_line" class="line"></div>
+                  <div style="height: 100%"></div>
+                  <div style="display: grid; place-items: center">
+                    <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('/fetch-data')">
+                      <a class="font-16-bold" [ngClass]="{'active_menu': activeMenuItem === '/fetch-data'}" [routerLink]="['/fetch-data']">
+                        Про нас
+                      </a>
+                    </li>
+                  </div>
+                </div>
               </div>
-              <div class="col-auto ">
-                <div *ngIf="activeMenuItem === 'item4'; else blank_margin_for_line" class="line"></div>
-                <div style="height: 100%"></div>
-                <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('item4')">
-                  <a [ngClass]="{'active_menu': activeMenuItem === 'item4'}" [routerLink]="['/fetch-data']">Fetch </a>
-                </li>
-              </div>
-              <div class="col-auto ">
-                <div *ngIf="activeMenuItem === 'item5'; else blank_margin_for_line" class="line"></div>
-                <div style="height: 100%"></div>
-                <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('item5')">
-                  <a [ngClass]="{'active_menu': activeMenuItem === 'item5'}" [routerLink]="['/fetch-data']">Fetch data</a>
-                </li>
-              </div>
-            </div>
-          </ul>
-        </nav>
-        <div class=" col-auto  align-items-center justify-content-center row  " >
-          <div class="col-auto ">
-            <div class="search-bar " style="padding-right: 20px; padding-left: 20px">
+            </ul>
+          </nav>
+        </div>
+
+        <div class=" col align-items-center justify-content-center row  "  style="margin-left: 15px;">
+          <div class="col " style="display: flex; justify-content: right">
+            <div class="search-bar search-bar-small" style="padding-right: 20px; padding-left: 20px">
+              <input type="text" placeholder="Пошук..." class="font-14-regular">
               <div>
-                <input type="text" placeholder="Пошук...">
-              </div>
-              <div >
-                <button class="blue-button-header-small" ><img ngSrc="assets/img/icons/search.png" height="24" width="24"></button>
+                <button class="blue-button-header-small" >
+                  <img ngSrc="assets/img/icons/search.png" height="24" width="24">
+                </button>
               </div>
             </div>
           </div>
-          <div class="col-auto button-header-block">
-            <button [routerLink]="['/login-register']" class="button-header">Увійти</button>
+          <div *ngIf="!isScreenSmall; else small_screen" class="col-auto button-header-block">
+            <div *ngIf="!isLogin; else is_login_menu">
+              <button [routerLink]="['/login-register']" class="font-16-bold button-header">
+                Увійти
+              </button>
+            </div>
           </div>
         </div>
       </div>
       <div *ngIf="isHeaderSectionVisible()">
-        <div class="block-how-work-need-work container">
+        <div class="block-how-work-need-work container font-42-medium">
           Як робота повинна <strong>працювати</strong>
-          <img style="margin-left: 20px" ngSrc="assets/img/icons/sparkle.png" height="55" width="55">
+          <img style="margin-left: 20px" src="assets/img/icons/sparkle.png" height="55" width="55">
         </div>
         <div class="container " style="width: 100%">
           <div class="search-bar-big  " >
             <div class=" align-items-center flex-container-space-between" style="padding-left: 40px; padding-right: 40px">
-              <div class="search-bar ">
-                <img ngSrc="assets/img/icons/search.png" height="30" width="30" style="margin-left: 30px; margin-right: 10px">
-                <input type="text" placeholder="Пошук...">
-              </div>
+              <img src="assets/img/icons/search.png" height="30" width="30" style="margin-left: 30px; margin-right: 10px">
+              <input type="text" placeholder="Пошук..." class="font-20-regular">
               <div class=" blue-button-header-block  ">
-                <button class="blue-button-header">Знайти</button>
+                <button class="font-16-bold blue-button-header">
+                  Знайти
+                </button>
               </div>
             </div>
           </div>
           <div style="background: #1E1E1E; height: 1px"></div>
         </div>
-        <div class="gray-footer-top black-footer-top" style="padding-top: 40px">
-
-        </div>
+      </div>
+      <div class="gray-footer-top black-footer-top" style="padding-top: 40px">
       </div>
     </div>
   </div>
@@ -96,4 +107,87 @@
 
 <ng-template #blank_margin_for_line>
   <div style="height: 2px"></div>
+</ng-template>
+
+
+<ng-template #small_screen>
+  <div class="col-auto ">
+    <button class="blank_button button-burger" (click)="isSideBarRight = !isSideBarRight">
+      <img ngSrc="assets/img/icons/header/burger-menu.png" height="48" width="48" >
+    </button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #is_login_menu>
+  <div style="display: flex">
+
+    <button class="blank_button button-icon"  style="margin-left: 4px; margin-right: 4px">
+      <mat-icon matBadge="15"  fontIcon="email" class="message-header"></mat-icon>
+    </button>
+
+    <button class="blank_button button-icon" style="margin-left: 4px; margin-right: 4px">
+      <mat-icon  matBadge="15" fontIcon="notifications" class="message-header" ></mat-icon>
+    </button>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" [ngClass]="'user-picture'" style="margin-left: 16px; margin-right: 4px">
+      <!-- user.image user.image user.image user.image -->
+      <img *ngIf="isUserImage" src="{{user.image}}" alt="User Avatar">
+
+      <!-- !user.image -->
+      <div *ngIf="!isUserImage" class="initials">
+        {{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}
+      </div>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <div class="font-14-regular">
+        <button mat-menu-item>
+          <mat-icon height="24" width="24">person</mat-icon>
+          <span>Мій профіль</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon height="24" width="24">history</mat-icon>
+          <span>Мої заявки</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon height="24" width="24">thumb_up</mat-icon>
+          <span>Рекомендовані вакансії</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon height="24" width="24">trending_up</mat-icon>
+          <span>Аналітика діяльності</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon height="24" width="24">star_border</mat-icon>
+          <span>Збережені вакансії</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon height="24" width="24">announcement</mat-icon>
+          <span>Налаштування приватності</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon height="24" width="24">settings</mat-icon>
+          <span>Налаштування акаунта</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon height="24" width="24">power_settings_new</mat-icon>
+          <span>Вийти</span>
+        </button>
+      </div>
+    </mat-menu>
+
+  </div>
+</ng-template>
+
+
+
+<ng-template #sidebar_right>
+  <div *ngIf="isLogin" class="sidebar-right" [ngClass]="{'show': isSideBarRight}">
+    фівфівіф
+  </div>
+  <div *ngIf="!isLogin" class="sidebar-right" [ngClass]="{'show': isSideBarRight}">
+    фівфівіф
+  </div>
 </ng-template>

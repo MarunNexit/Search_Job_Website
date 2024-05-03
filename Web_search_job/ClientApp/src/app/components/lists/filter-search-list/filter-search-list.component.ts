@@ -83,6 +83,7 @@ export class FilterSearchListComponent {
     {
       name: 'Пошуковий запит',
       filters: [
+        { name: 'Рекомендовані вакансії', checked: false },
         { name: 'Лише вакансії в ЗСУ', checked: false },
         { name: 'Приховати Гарячі вакансії', checked: false },
       ]

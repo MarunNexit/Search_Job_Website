@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 
 
-interface Filter {
-  name: string;
-  checked: boolean;
-}
+interface DataJob {
+  id: number;
+  title: string;
+  salary:string;
+  company:string;
+  description: string;
+  tags: string[];
+  company_picture:string;
+  banner_picture:string;
+  hot_new_marks:boolean[];
 
-interface FilterComponent {
-  name: string;
-  filters: Filter[];
 }
-
 
 @Component({
   selector: 'app-job-short-list',
@@ -19,74 +21,50 @@ interface FilterComponent {
 })
 export class JobShortListComponent {
 
-  job_data: FilterComponent[] = [
-    {
-      name: 'Професійна сфера',
-      filters: [
-        { name: 'IT', checked: false },
-        { name: 'Адміністративний персонал - Водії - Кур\'єри', checked: false },
-        { name: 'Дизайн - Графіка - Фото', checked: false },
-        { name: 'Культура - Шоу-бізнес - Розваги', checked: false },
-        { name: 'Маркетинг - Реклама - PR', checked: false },
-      ]
-    },
-    {
-      name: 'Характер роботи',
-      filters: [
-        { name: 'Віддалено', checked: false },
-        { name: 'В офісі', checked: false },
-        { name: 'Гібридно', checked: false },
-      ]
-    },
-    {
-      name: 'Рівень зарплати',
-      filters: [
-        { name: 'Від 10 000 грн', checked: false },
-        { name: 'Від 15 000 грн', checked: false },
-        { name: 'Від 20 000 грн', checked: false },
-        { name: 'Від 30 000 грн', checked: false },
-        { name: 'Від 50 000 грн', checked: false },
-      ]
-    },
-    {
-      name: 'Розташування',
-      filters: [
-        { name: 'Київ', checked: false },
-        { name: 'Дніпро', checked: false },
-        { name: 'Харків', checked: false },
-        { name: 'Запоріжжя', checked: false },
-        { name: 'Івано-Франківськ', checked: false },
-      ]
-    },
-    {
-      name: 'Рівень необхідного досвіду',
-      filters: [
-        { name: 'Початковий рівень', checked: false },
-        { name: 'Середній', checked: false },
-        { name: 'Експерт', checked: false },
-      ]
-    },
+  dataJobs: DataJob[] = [];
+  constructor() {
 
-    {
-      name: 'Тип зайнятості',
-      filters: [
-        { name: 'Повний робочий день', checked: false },
-        { name: 'Неповний робочий день', checked: false },
-        { name: 'Позмінна робота', checked: false },
-        { name: 'Тимчасова робота', checked: false },
-        { name: 'Навчання', checked: false },
-        { name: 'Стажування', checked: false },
-      ]
-    },
+    // Створення трьох екземплярів об'єктів DataJob
+    let dataJob1: DataJob = {
+      id: 1,
+      title: "Розробник програмного забезпечення",
+      salary: "90000 USD",
+      company: "ABC Inc.",
+      description: "Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення",
+      tags: ["IT", "Програмування", "Розробка"],
+      company_picture: "../../../../assets/img/icons/cards/check_mark.png",
+      banner_picture: "url/to/banner_picture_1.jpg",
+      hot_new_marks: [true, true, false] // Приклад оцінок "гарячої новини"
+    };
 
-    {
-      name: 'Пошуковий запит',
-      filters: [
-        { name: 'Лише вакансії в ЗСУ', checked: false },
-        { name: 'Приховати Гарячі вакансії', checked: false },
-      ]
-    },
+    let dataJob2: DataJob = {
+      id: 2,
+      title: "Менеджер з продажів",
+      salary: "70000 USD",
+      company: "XYZ Corp.",
+      description: "Опис посади менеджера з продажів...",
+      tags: ["Продажі", "Маркетинг", "Бізнес"],
+      company_picture: "../../../../assets/img/JobLogo.png",
+      banner_picture: "",
+      hot_new_marks: [false, false, false] // Приклад оцінок "гарячої новини"
+    };
 
-  ];
+    let dataJob3: DataJob = {
+      id: 3,
+      title: "Дизайнер UX/UI",
+      salary: "80000 USD",
+      company: "DEF Design Studio",
+      description: "Опис посади дизайнера UX/UI...",
+      tags: ["Дизайн", "UX", "UI"],
+      company_picture: "url/to/company_picture_3.jpg",
+      banner_picture: "",
+      hot_new_marks: [false, false, true] // Приклад оцінок "гарячої новини"
+    };
+
+
+    this.dataJobs[0] = dataJob1;
+    this.dataJobs[1] = dataJob2;
+    this.dataJobs[2] = dataJob3;
+  }
 
 }

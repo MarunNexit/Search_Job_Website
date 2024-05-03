@@ -1,13 +1,49 @@
 @import '../../../colors';
 
-
-
 .filters-col{
   min-width: 250px;
   max-width: 320px;
-  border: #4E0C8D 1px solid;
 }
 
 .remove-filters{
 
+}
+
+
+.scroll-to-top-static {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  border: none;
+
+  height: 100px;
+  background: none;
+  max-width: 7%;
+
+}
+
+.scroll-to-top-static img {
+  width: 100%;
+}
+
+.scroll-to-top {
+  background: none;
+  border: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+  max-width: 7%;
+  height: 100px;
+}
+
+.scroll-to-top img {
+  width: 100%;
+}
+
+
+.scroll-to-top.show {
+  opacity: 1;
 }

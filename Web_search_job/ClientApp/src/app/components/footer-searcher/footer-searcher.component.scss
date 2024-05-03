@@ -70,7 +70,7 @@ a {
 
 .grid-container {
   display: grid;
-  grid-template-columns: 200px 200px 200px;
+  grid-template-columns: 40% 40% 40%;
   grid-template-rows: 30px 50px;
   gap: 10px; /* Optional gap between grid items */
 }

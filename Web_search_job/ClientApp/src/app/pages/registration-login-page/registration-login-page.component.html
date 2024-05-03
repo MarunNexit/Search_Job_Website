@@ -1,7 +1,5 @@
 
 <div>
-
-
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,10 +11,10 @@
   <div class="container_new " id="container_new" >
     <div class="form-container register-container ">
       <form action="#">
-        <h1>Register hire.</h1>
+        <h1>Реєстрація пошукача</h1>
         <input type="text" placeholder="Name">
         <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
+        <input type="password" (focus)="onFocusPassword()" (blur)="onBlurPassword()" placeholder="Password">
         <button>Register</button>
         <span>or use your account</span>
         <div class="social-container">
@@ -27,16 +25,15 @@
     <div class="form-container login-container ">
     <form action="#">
 
-      <canvas riv="mascot_penguin" width="200" height="200" >
-        <riv-state-machine
-          name="State Machine 1" play
-        >
+      <canvas riv="my_mascot" width="200" height="200" >
+        <riv-state-machine name="State Machine 2" play (stateChange)=ShowEvent($event) >
+          <riv-input name="Boolean 1" [value]="IsPasswordFieldActive"></riv-input>
         </riv-state-machine>
       </canvas>
 
-      <h1>Login hire.</h1>
+      <h1>Увійти</h1>
       <input type="email" placeholder="Email">
-      <input type="password" placeholder="Password">
+      <input type="password" (focus)="onFocusPassword()" (blur)="onBlurPassword()" placeholder="Password">
       <div class="content">
         <div class="checkbox">
           <input type="checkbox" name="checkbox" id="checkbox" >
@@ -59,10 +56,9 @@
       <div class="overlay">
         <div class="overlay-panel overlay-left">
 
-          <canvas riv="mascot_penguin" width="200" height="200" >
-            <riv-state-machine
-              name="State Machine 1" play
-            >
+          <canvas riv="my_mascot" width="200" height="200" >
+            <riv-state-machine name="State Machine 2" play (stateChange)=ShowEvent($event) >
+              <riv-input name="Boolean 1" [value]="IsPasswordFieldActive"></riv-input>
             </riv-state-machine>
           </canvas>
 

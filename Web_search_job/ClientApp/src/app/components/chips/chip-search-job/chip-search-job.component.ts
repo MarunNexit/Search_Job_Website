@@ -7,7 +7,6 @@ import {MatAutocompleteModule, MatAutocompleteSelectedEvent} from "@angular/mate
 import {AsyncPipe} from "@angular/common";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {map, Observable, startWith} from "rxjs";
-import {LiveAnnouncer} from "@angular/cdk/a11y";
 import { CommonModule } from '@angular/common';
 
 @Component({

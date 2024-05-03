@@ -21,6 +21,14 @@ import {SearchJobPageModule} from "./pages/search-job-page/search-job-page.modul
 import {JobShortListComponent} from "./components/lists/job-short-list/job-short-list.component";
 import {RegistrationLoginModule} from "./pages/registration-login-page/registration-login.module";
 import {RegistrationLoginPageComponent} from "./pages/registration-login-page/registration-login-page.component";
+import {JobDetailComponent} from "./pages/jobs/job-detail/job-detail.component";
+import {JobsModule} from "./pages/jobs/jobs.module";
+import {MatBadgeModule} from "@angular/material/badge";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
+import {EmployerModule} from "./pages/employers/employer.module";
+import {EmployerPageComponent} from "./pages/employers/employer-page/employer-page.component";
 
 @NgModule({
   declarations: [
@@ -38,21 +46,32 @@ import {RegistrationLoginPageComponent} from "./pages/registration-login-page/re
     HomeModule,
     SearchJobPageModule,
     RegistrationLoginModule,
+    JobsModule,
+    EmployerModule,
+
 
     FormsModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: 'search-job', component: SearchJobPageComponent},
-      {path: 'popular-employer', component: PopularEmployersPageComponent},
+      {path: 'popular-employers', component: PopularEmployersPageComponent},
       {path: 'login-register', component: RegistrationLoginPageComponent},
+      {path: 'job/:id', component: JobDetailComponent},
+      {path: 'employer/:id', component: EmployerPageComponent},
       {path: 'counter', component: CounterComponent},
       {path: 'fetch-data', component: FetchDataComponent},
     ]),
     NgOptimizedImage,
     BrowserAnimationsModule,
-    ChipSearchJobComponent
+    ChipSearchJobComponent,
+    MatBadgeModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule
   ],
   providers: [],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

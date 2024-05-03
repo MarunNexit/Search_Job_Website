@@ -8,11 +8,13 @@ import {handleImageError} from "../../../functions/handleImageError";
 })
 export class PopularEmployersCardComponent {
   stars: string[] = [];
+  employer_checked: boolean = true;
+  rating: number = 3.5;
 
   ngOnInit(): void {
-    const rating = 3.5; // ваше значення рейтингу
-    const fullStars = Math.floor(rating);
-    const halfStar = rating - fullStars >= 0.5 ? '../../../../assets/img/icons/stars/half_star.png' : '';
+    this.rating = 3.5; // ваше значення рейтингу
+    const fullStars = Math.floor(this.rating);
+    const halfStar = this.rating - fullStars >= 0.5 ? '../../../../assets/img/icons/stars/half_star.png' : '';
     const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
     console.log(emptyStars);
