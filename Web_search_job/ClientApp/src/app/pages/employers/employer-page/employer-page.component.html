@@ -1,5 +1,5 @@
-<div xmlns="http://www.w3.org/1999/html">
-  <div class="flex-content-between" style="padding: 16px">
+<div xmlns="http://www.w3.org/1999/html" style="margin-bottom: 32px">
+  <div class="flex-content-between" style="padding: 16px;">
     <button class="get-back-button button-blank font-18-bold" (click)="goBack()">
       <img ngSrc="../../../../assets/img/icons/arrows/arrow-back.png" width="24" height="24" alt="">
       Повернутися
@@ -22,7 +22,7 @@
   </div>
 
 
-  <div class="row">
+  <div class="row" style="padding-left: 8px" >
     <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-9'">
       <div class="block-with-job ">
         <div *ngIf="dataEmployer.banner_picture != '' && dataEmployer.banner_picture != null" class="job-photo ">
@@ -58,7 +58,6 @@
                   </button>
                 </div>
               </div>
-
             </div>
 
 
@@ -70,7 +69,7 @@
             <div class="font-18-bold" style="margin-bottom: 8px">
               Переваги роботи в компанії
             </div>
-            <app-chip-job [IsBig]="true" ></app-chip-job>
+            <app-chip-job-list [IsBig]="true" ></app-chip-job-list>
 
           </div>
 
@@ -95,13 +94,29 @@
         </div>
       </div>
     </div>
+
+      <!--
+      ............................
+      -->
+
+      <div [ngClass]="isSmallScreen ? 'col-auto' : 'col'">
+        <app-employer-jobs-list></app-employer-jobs-list>
+      </div>
+
+      <div *ngIf="!isSmallScreen" class="col" style="margin-top: 32px">
+        <div>
+          <app-subscribe-to-employer
+            [dataEmployer]="dataEmployer"
+          ></app-subscribe-to-employer>
+        </div>
+      </div>
     </div>
 
 <!--
     New Column
 -->
 
-    <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-3'">
+    <div [ngClass]="isSmallScreen ? '' : 'col-md-3'">
       <div class="block-with-job-small block-with-job-small-with-padding">
         <div class=" align-items-center " >
           <app-comments-rating></app-comments-rating>
@@ -109,64 +124,22 @@
       </div>
 
       <div class="block-with-job-small block-with-job-small-with-padding">
-
+        <app-comments-list></app-comments-list>
       </div>
 
       <div class="block-with-job-small block-with-job-small-with-padding">
-        <div class="font-14-bold text-grey" >
-          <p style="padding: 0;  margin-bottom: 8px">{{numberWatch}} переглядів</p>
-          <p style="padding: 0; margin: 0">{{numberCandidates}} кандидатів</p>
-        </div>
+        <app-about-employer></app-about-employer>
+      </div>
+
+      <div class="block-with-job-small block-with-job-small-with-padding">
+        <app-subscribe-to-employer
+          [dataEmployer]="dataEmployer"
+          [isShortView] = true
+        ></app-subscribe-to-employer>
       </div>
     </div>
   </div>
 
-  <!--
-  ............................
-  -->
-
-  <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-9'">
-    <app-employer-jobs-list></app-employer-jobs-list>
-  </div>
 
 
-  <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-9'" class="flex-justify-centre font-18-bold" style="margin-top: 64px; margin-bottom: 64px" >
-    <div class="messages_links" style="padding: 24px">
-      <div style="padding-bottom: 25px; ">
-        Отримуйте повідомлення про нові вакансії "{{dataEmployer.company}}"
-      </div>
-      <div class="row" style="solid; margin: 0; padding: 10px">
-
-        <div class="styled-select" >
-          <!--
-            [ngClass]="arrowPossition[0] ? 'background-down': 'background-up' "
--->      <mat-icon>location_on</mat-icon>
-          <select
-            class="font-14-regular background-down" id="selectSelector" (change)="onChange($event)">
-            <option value="option1" selected>Індустрія</option>
-            <option value="option2">Індустрія</option>
-            <option value="option3">Індустрія</option>
-          </select>
-        </div>
-
-
-        <button class="col flex-justify-centre button-blank" [routerLink]="'https://t.me/Marun_Ykraini'" target="_blank">
-          <div style="padding-right: 5px">
-            <img ngSrc="../../../assets/img/icons/message.png" height="24" width="24">
-          </div>
-          <div>
-            <strong>Telegram</strong>
-          </div>
-        </button>
-        <button class="col flex-justify-centre button-blank" >
-          <div style="padding-right: 5px">
-            <img ngSrc="assets/img/icons/mail.png" height="24" width="24">
-          </div>
-          <div>
-            <strong>Viber</strong>
-          </div>
-        </button>
-      </div>
-    </div>
-  </div>
 </div>

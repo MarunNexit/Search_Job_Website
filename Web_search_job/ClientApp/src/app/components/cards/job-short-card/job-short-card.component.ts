@@ -23,6 +23,7 @@ import {ChipsModule} from "../../chips/chips.module";
 export class JobShortCardComponent {
   @Input() dataJob: any;
   @Input() shortVersionJob: boolean = false;
+  @Input() isRecommendation: boolean = false;
 
   constructor(
     private routerHelper: RouterHelperService,
@@ -42,6 +43,13 @@ export class JobShortCardComponent {
   saveJob() {
     this.IsSaved = !this.IsSaved;
   }
+
+
+  handleButtonClick(event: MouseEvent) {
+    event.stopPropagation();
+  }
+
+  protected readonly console = console;
 }
 
 interface DataJobInterface {

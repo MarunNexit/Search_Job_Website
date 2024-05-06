@@ -3,13 +3,15 @@ import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {ChipsJobPriorityComponent} from "./chips-job-priority/chips-job-priority.component";
 import {ChipSearchJobComponent} from "./chip-search-job/chip-search-job.component";
-import {ChipJobComponent} from "./chip-job/chip-job.component";
+import {ChipJobListComponent} from "../lists/chip-job-list/chip-job-list.component";
+import {ChipAboutEmployerComponent} from "./chip-about-employer/chip-about-employer.component";
 
 
 @NgModule({
   declarations: [
     ChipsJobPriorityComponent,
-    ChipJobComponent
+    ChipJobListComponent,
+    ChipAboutEmployerComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import {ChipJobComponent} from "./chip-job/chip-job.component";
   exports: [
     ChipsJobPriorityComponent,
     ChipSearchJobComponent,
-    ChipJobComponent
+    ChipJobListComponent,
+    ChipAboutEmployerComponent
   ]
 })
 export class ChipsModule { }

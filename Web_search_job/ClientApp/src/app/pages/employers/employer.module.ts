@@ -12,6 +12,12 @@ import {HomeModule} from "../home/home.module";
 import {CommentsRatingComponent} from "../../components/comments/comments-rating/comments-rating.component";
 import {CommentsListComponent} from "../../components/lists/comments-list/comments-list.component";
 import {CommentCardComponent} from "../../components/cards/comment-card/comment-card.component";
+import {PipeModule} from "../../pipes/pipes.module";
+import {
+  SubscribeToEmployerComponent
+} from "../../components/view-blocks/subscribe-to-employer/subscribe-to-employer.component";
+import {AboutEmployerComponent} from "../../components/lists/about-employer/about-employer.component";
+import {FilterSearchCardComponent} from "../../components/cards/filter-search-card/filter-search-card.component";
 
 @NgModule({
   declarations: [
@@ -19,7 +25,9 @@ import {CommentCardComponent} from "../../components/cards/comment-card/comment-
     EmployerJobsListComponent,
     CommentsRatingComponent,
     CommentsListComponent,
-    CommentCardComponent
+    CommentCardComponent,
+    SubscribeToEmployerComponent,
+    AboutEmployerComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +40,8 @@ import {CommentCardComponent} from "../../components/cards/comment-card/comment-
     ChipsModule,
     JobShortCardComponent,
     HomeModule,
+    PipeModule,
+    FilterSearchCardComponent,
 
   ],
   exports: [

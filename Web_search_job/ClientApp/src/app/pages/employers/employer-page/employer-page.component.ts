@@ -64,18 +64,8 @@ export class EmployerPageComponent {
     this.routerHelper.goToUrl(s, b);
   }
 
-  saveJob() {
-    this.isSaved = !this.isSaved;
-  }
-
   goBack(): void {
     this.location.back();
-  }
-
-  onChange(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    const selectedValue = target.value;
-    console.log('Selected value:', selectedValue);
   }
 
 

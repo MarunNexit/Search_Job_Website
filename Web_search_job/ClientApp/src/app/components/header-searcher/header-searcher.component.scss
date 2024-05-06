@@ -253,15 +253,6 @@
   border-radius: var(--mdc-shape-medium, 20px)!important;
 }
 
-// SHADOW
-
-::ng-deep .mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8{
-  box-shadow: none !important;
-}
-
-::ng-deep .mdc-menu-surface{
-  box-shadow: none !important;
-}
 
 
 ::ng-deep .mat-mdc-menu-panel.mat-mdc-menu-panel{

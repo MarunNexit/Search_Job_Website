@@ -4,6 +4,7 @@ import {filter, Subject, takeUntil} from "rxjs";
 import {Router, Event as RouterEvent, NavigationEnd, NavigationStart} from '@angular/router';
 import {ScreenSizeService} from "../../services/screen-size.sevice";
 import {UserHeader} from "../../models/user-header.model";
+import {RouterHelperService} from "../../services/router-helper.service";
 
 
 @Component({
@@ -51,8 +52,6 @@ export class HeaderSearcherComponent implements OnInit {
   }
 
 
-
-
   activeMenuItem: string = "item0";
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -60,6 +59,7 @@ export class HeaderSearcherComponent implements OnInit {
     private router: Router,
     private headerStateService: HeaderStateService,
     private screenSizeService: ScreenSizeService,
+    private routerHelper: RouterHelperService
   ) {
     const storedValue = localStorage.getItem('activeMenuItem');
     if (storedValue !== null) {
@@ -119,8 +119,9 @@ export class HeaderSearcherComponent implements OnInit {
     return this.headerStateService.getIsHeaderSectionVisible();
   }
 
-
-
+  goToURL(s: string, b: boolean) {
+    this.routerHelper.goToUrl(s, b);
+  }
 
   newBadge = true;
 

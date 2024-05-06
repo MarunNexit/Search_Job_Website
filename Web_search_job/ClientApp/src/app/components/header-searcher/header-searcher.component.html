@@ -143,27 +143,27 @@
 
     <mat-menu #menu="matMenu">
       <div class="font-14-regular">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="goToURL('/profile', true)">
           <mat-icon height="24" width="24">person</mat-icon>
           <span>Мій профіль</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="goToURL('/history', true)">
           <mat-icon height="24" width="24">history</mat-icon>
           <span>Мої заявки</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="goToURL('/recommendations', true)">
           <mat-icon height="24" width="24">thumb_up</mat-icon>
           <span>Рекомендовані вакансії</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="goToURL('/statistics', true)">
           <mat-icon height="24" width="24">trending_up</mat-icon>
           <span>Аналітика діяльності</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="goToURL('/saved_jobs', true)">
           <mat-icon height="24" width="24">star_border</mat-icon>
           <span>Збережені вакансії</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item >
           <mat-icon height="24" width="24">announcement</mat-icon>
           <span>Налаштування приватності</span>
         </button>
@@ -171,7 +171,7 @@
           <mat-icon height="24" width="24">settings</mat-icon>
           <span>Налаштування акаунта</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="goToURL('/logout', true)">
           <mat-icon height="24" width="24">power_settings_new</mat-icon>
           <span>Вийти</span>
         </button>

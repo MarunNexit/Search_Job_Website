@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChipJobComponent } from './chip-job.component';
+import { ChipJobListComponent } from './chip-job-list.component';
 
 describe('ChipJobComponent', () => {
-  let component: ChipJobComponent;
-  let fixture: ComponentFixture<ChipJobComponent>;
+  let component: ChipJobListComponent;
+  let fixture: ComponentFixture<ChipJobListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChipJobComponent ]
+      declarations: [ ChipJobListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ChipJobComponent);
+    fixture = TestBed.createComponent(ChipJobListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

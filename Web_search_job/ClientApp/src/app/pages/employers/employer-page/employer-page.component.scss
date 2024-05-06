@@ -230,64 +230,6 @@ a{
 
 
 
-/* Змінює колір фону */
-#selectSelector {
-  background-color: $tertiary-color;
-}
-
-/* Додає округлення кутів */
-#selectSelector {
-  border-radius: 20px;
-  border: none;
-  width: 20%;
-  height: 2.5rem;
-  padding-left: 20px;
-}
-
-#selectSelector::-webkit-inner-spin-button,
-#selectSelector::-webkit-outer-spin-button {
-  appearance: none;
-  -webkit-appearance: none;
-  background-color: transparent;
-}
-
-
-#selectSelector {
-  background-size: 24px; /* Розмір вашої іконки */
-  background-repeat: no-repeat;
-  background-position: right center; /* Позиція іконки відносно тексту */
-  padding-right: 20px; /* Розмір місця для іконки */
-}
-
-.background-down{
-  background-image: url('../../../../assets/img/icons/arrows/arrow-drop-down.png');
-}
-
-
-
-.styled-select{
-  padding-top: 8px;
-}
-
-
-.styled-select select {
-  -moz-appearance:none; /* Firefox */
-  -webkit-appearance:none; /* Safari and Chrome */
-  appearance:none;
-}
-
-
-
-
-// SHADOW
-
-::ng-deep .mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8{
-  box-shadow: none !important;
-}
-
-::ng-deep .mdc-menu-surface{
-  box-shadow: none !important;
-}
 
 
 

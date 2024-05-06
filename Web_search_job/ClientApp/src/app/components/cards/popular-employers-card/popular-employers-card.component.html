@@ -1,4 +1,4 @@
-<div class="employer-card">
+<div class="employer-card" (click)="goToURL('/employer/' + dataEmployer.id, true)">
   <div class="row " style="margin-bottom: 4px">
     <div class="col-auto">
       <div class="employer-photo ">
@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <app-chip-job></app-chip-job>
+  <app-chip-job-list></app-chip-job-list>
 
   <div class="row" style="margin-top: 10px">
     <div class="col">

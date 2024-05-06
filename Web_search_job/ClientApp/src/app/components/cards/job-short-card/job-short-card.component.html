@@ -1,4 +1,4 @@
-<div class="block-with-job">
+<div class="block-with-job" (click)="goToURL('/job/' + dataJob.id, true)">
   <div *ngIf="!shortVersionJob && dataJob.banner_picture != '' && dataJob.banner_picture != null" class="job-photo">
     <!--        СЮДИ ФОТО-->
     <img id="job-photo" src="assets/img/JobLogo1.png" (error)='handleImageError($event, "assets/img/alt-image.png")'>
@@ -9,7 +9,7 @@
 
   <div class="row "  style="margin-top: 16px">
     <div class="col " style="padding: 0; margin-left: 8px">
-      <button (click)="goToURL('/job/' + dataJob.id, true)" class="blank_button " tabindex="0"  >
+      <button class="blank_button " tabindex="0"  >
         <p class="job-text job-name font-18-bold">
           {{dataJob.title}}
         </p>
@@ -26,7 +26,7 @@
     </div>
     <div  class=" company-icon-div"  >
       <img (click)="goToURL('/employer/' + dataJob.id, true)"
-        class="company-icon" src="{{dataJob.company_picture}}" alt="0" (error)='handleImageError($event, "assets/img/alt-image.png")'>
+        class="company-icon" src="{{dataJob.company_picture}}" alt="0" (error)='handleImageError($event, "assets/img/loading-picture.png")'>
     </div>
   </div>
 
@@ -35,10 +35,10 @@
   </div>
 
   <div *ngIf="!shortVersionJob">
-    <app-chip-job [IsBig]="true"></app-chip-job>
+    <app-chip-job-list [IsBig]="true"></app-chip-job-list>
   </div>
 
-  <div class="row align-items-center " style="margin-top: 16px">
+  <div class="row align-items-center " (click)="handleButtonClick($event)"  style="margin-top: 16px">
     <div class="col " >
       <button class="view-button font-14-semibold" (click)="goToURL('/job/' + dataJob.id, true)">
         <span>Подати заявку</span>
@@ -49,7 +49,7 @@
     <div class="col-auto " style="margin-top: 16px">
       <div style="display: flex; align-items: center; justify-content: center;" class="">
 
-        <button (click)="saveJob()" class="blank_button" style="margin-right: 4px; ">
+        <button (click)="saveJob()"  class="blank_button" style="margin-right: 4px; ">
           <img class="img-icon" [src]="IsSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="24" width="24">
         </button>
 

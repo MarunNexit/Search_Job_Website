@@ -1,0 +1,9 @@
+<div style="display: flex; align-items: center; justify-content: center" class="font-14-bold">
+  <div *ngFor="let page of pages; let i = index">
+    <div style="display: flex; align-items: center; justify-content: center" class="">
+      <button (click)="goToPage(page)" style="margin: 8px; padding: 0" class="" [ngClass]="currentPageValue == page ? 'selected-button' : 'blank_button'"  >{{ page }}</button>
+      <p class="font-12-bold" style="margin: 4px 0;" *ngIf="spaceDots[i]">...</p>
+    </div>
+  </div>
+</div>
+

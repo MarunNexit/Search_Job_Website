@@ -155,3 +155,6 @@ li {
 }
 
 
+::ng-deep .mat-mdc-checkbox.mat-accent .mdc-checkbox--selected~.mdc-checkbox__ripple{
+  background: black;
+}

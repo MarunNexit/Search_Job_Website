@@ -1,0 +1,10 @@
+@import '../../../../../src/colors';
+
+.selected-button{
+  border-radius: 100px;
+  background: $primary-color;
+  border: none;
+  color: $tertiary-color;
+  width: 24px;
+  height: 30px;
+}

@@ -1,1 +1,57 @@
-<p>comment-card works!</p>
+<div style="margin-bottom: 40px">
+  <div class="row " style="padding-right: 10px; padding-left: 10px;">
+    <div class="col-auto" style="margin-bottom: 4px">
+      <div class="rating font-18-bold" style="display: flex; justify-content: center">
+        {{rating}}
+      </div>
+      <div class="star-container row x" style="display: flex; justify-content: center" >
+        <ng-container *ngFor="let star of stars">
+          <div class="col-auto  star">
+            <img class="star-box " [src]="star" alt="assets/img/alt-image.png">
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="col  " >
+      <p class="font-12-bold" style="margin: 0">{{dataComment.title}}</p>
+      <p style="padding: 0; margin-bottom: 4px" class="font-10-regular">{{dataComment.people_description}}</p>
+    </div>
+    <div class="col-auto " style="padding: 0" >
+      <div class="small_icon">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="display: flex; align-items: center; justify-content: center;">
+          <img class="" style="margin-top: 2px" src="../../../../assets/img/icons/cards/3_dots.png"  alt="">
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>report</mat-icon>
+            <span>Поскаржитись</span>
+          </button>
+          <button mat-menu-item>
+            <img class="img-icon" style="margin-right: 16px" src="../../../../assets/img/icons/report/report-old.png" height="24" width="24">
+            <span>Приховати</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div *ngIf="!isShortView" class="font-14-regular col" style=" margin-bottom: 12px;" >
+      <div class="">
+        <p  style="flex-grow: 1;">{{ dataComment.text }}</p>
+        <button class="blank_button" (click)="isShortView = !isShortView">
+          <mat-icon style="padding: 0; margin: 0; font-size: 14px">expand_less</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="isShortView" class="font-14-regular col" style=" margin-bottom: 12px">
+      {{ dataComment.text | truncate:50 : false }}
+      <button class="blank_button" (click)="isShortView = !isShortView">
+        ...
+      </button>
+    </div>
+  </div>
+</div>
+
+

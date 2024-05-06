@@ -9,7 +9,6 @@
 
 .employer-card {
   //border: 1px solid #ccc;
-  cursor: pointer;
   font-size: 0.875rem;
   border: none;
   border-radius: 20px;
@@ -73,26 +72,6 @@
   color: $text-grey-color;
 }
 
-.view-button {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $icons-buttons-color;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  width: 100%;
-}
-
-.view-button span {
-  flex-grow: 1; /* Дозволяє тексту займати всю доступну ширину, залишаючи зображення в крайній правій частині */
-  white-space: nowrap; /* Запобігає переносу тексту на новий рядок */
-  overflow: hidden; /* Запобігає виходу тексту за межі кнопки */
-  text-overflow: ellipsis; /* Відображає трохи тексту з кінця та додає мінімальний маркер, щоб показати, що текст обрізаний */
-}
 
 
 .star-container {
@@ -100,7 +79,7 @@
 }
 
 .star-box {
-  max-width: 0.8vw;
+  max-width: 0.6vw;
   min-width: 5px;
   min-height: 5px;
 }
@@ -114,4 +93,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+.small_icon ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base{
+  width: 24px;
+  height: 24px;
+}
+
+.small_icon ::ng-deep .mat-mdc-icon-button .mat-mdc-button-touch-target{
+  width: 36px;
+  height: 36px;
+}
+
+.small_icon ::ng-deep .mat-mdc-icon-button svg, .mat-mdc-icon-button img {
+  width: var(--mdc-icon-button-icon-size, 18px);
+  height: var(--mdc-icon-button-icon-size, 18px);
 }

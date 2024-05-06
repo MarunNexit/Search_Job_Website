@@ -10,7 +10,7 @@
           <img class="img-icon" src="assets/img/icons/chips/bolt-icon.png" height="17" width="17">
           Нова
         </div>
-        <div *ngIf="IsRecommendJob" class="recommendation" style="display: inline-block; margin-top: 4px; margin-bottom: 8px; margin-right: 12px">
+        <div (click)="goToURL('/recommendations', true)" *ngIf="IsRecommendJob" class="recommendation" style="display: inline-block; margin-top: 4px; margin-bottom: 8px; margin-right: 12px">
           <img class="img-icon" src="assets/img/icons/chips/recommendation-icon.png" height="17" width="17">
           Рекомендація
         </div>

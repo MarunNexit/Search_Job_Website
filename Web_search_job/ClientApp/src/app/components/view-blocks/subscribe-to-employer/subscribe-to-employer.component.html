@@ -1,0 +1,40 @@
+<div class="messages_links" [ngClass]="isShortView ? 'align-left': 'align-center'" style="padding: 16px">
+  <div class="font-18-bold" [ngStyle]="isShortView ? {} : { 'padding-bottom': '25px' }" >
+    <p *ngIf="!isShortView">
+      Отримуйте повідомлення про нові вакансії "{{dataEmployer.company}}"
+    </p>
+    <p *ngIf="isShortView">
+      Отримуйте нові вакансії "{{dataEmployer.company}}"
+    </p>
+  </div>
+  <div class="row " style=" margin: 0; " >
+    <div [ngClass]="isShortView ? '' : 'col'"  >
+      <select
+        class="styled-select font-14-regular background-location" id="selectSelector1" (change)="onChange($event)">
+        <option value="option1" selected>Індустрія</option>
+        <option value="option2">Індустрія</option>
+        <option value="option3">Індустрія</option>
+      </select>
+    </div>
+    <div [ngClass]="isShortView ? '' : 'col'" >
+      <select
+        class="styled-select font-14-regular background-work" id="selectSelector2" (change)="onChange($event)">
+        <option value="option1" selected>Індустрія</option>
+        <option value="option2">Індустрія</option>
+        <option value="option3">Індустрія</option>
+      </select>
+    </div>
+  </div>
+  <div style="width: 100%; display: flex; justify-content: center; margin-top: 32px" >
+    <button class="font-18-bold blank_button flex-justify-centre-content">
+      <mat-icon>mail_outline</mat-icon>
+      <p *ngIf="isShortView" style="margin: 0 0 0 8px;">
+        Підписатись
+      </p>
+      <p *ngIf="!isShortView" style="margin: 0 0 0 8px;">
+        Підписатись на вакансії
+      </p>
+    </button>
+  </div>
+
+</div>

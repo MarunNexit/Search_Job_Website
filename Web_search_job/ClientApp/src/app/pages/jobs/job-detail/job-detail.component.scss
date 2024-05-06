@@ -16,6 +16,20 @@
   border: none;
 }
 
+.margin-block{
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-right: 0px;
+}
+
+.margin-block-right{
+  padding-right: 8px;
+  padding-left: 0px;
+}
+
+.padding-block-left{
+  padding-left: 8px;
+}
 
 
 .block-with-job{
@@ -199,14 +213,5 @@ a{
 
 
 
-// SHADOW
-
-::ng-deep .mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8{
-  box-shadow: none !important;
-}
-
-::ng-deep .mdc-menu-surface{
-  box-shadow: none !important;
-}
 
 

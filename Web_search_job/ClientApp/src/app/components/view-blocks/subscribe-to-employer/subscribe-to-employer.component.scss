@@ -1,0 +1,47 @@
+@import '../../../../../src/colors';
+
+.messages_links{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background: $tertiary-color;
+  border-radius: 20px;
+  font-size: 18px;
+}
+
+.align-center{
+  text-align: center;
+}
+
+.align-left{
+  text-align: start;
+}
+
+.styled-select{
+  border-radius: 20px;
+  border: none;
+  width: 100%;
+  max-width: 150px;
+  height: 2.5rem;
+  padding-left: 30px;
+  background-size: 24px; /* Розмір вашої іконки */
+  background-repeat: no-repeat;
+  background-position: left center; /* Позиція іконки відносно тексту */
+  padding-right: 20px; /* Розмір місця для іконки */
+}
+
+
+.styled-select select {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+}
+
+.background-location{
+  background-image: url('../../../../assets/img/icons/cards/location.png');
+}
+
+.background-work{
+  background-image: url('../../../../assets/img/icons/cards/work.png');
+}
+

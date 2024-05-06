@@ -22,9 +22,9 @@
   </div>
 
 
-  <div class="row">
-    <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-9'">
-      <div class="block-with-job ">
+  <div class="row" style="padding-left: 8px">
+    <div [ngClass]="isSmallScreen ? 'col-auto ' : 'col-md-9'" >
+      <div class="block-with-job " >
         <div *ngIf="dataJob.banner_picture != '' && dataJob.banner_picture != null" class="job-photo ">
           <!--        СЮДИ ФОТО-->
           <img id="job-photo" src="{{dataJob.banner_picture}}" (error)='handleImageError($event, "assets/img/alt-image.png")' alt="">
@@ -64,8 +64,6 @@
                   </p>
                 </div>
               </div>
-
-
             </div>
             <div  class=" company-icon-div"  >
               <img (click)="goToURL('/', true)"
@@ -73,7 +71,7 @@
             </div>
           </div>
           <div style="margin-top: 8px">
-            <app-chip-job [IsBig]="true" ></app-chip-job>
+            <app-chip-job-list [IsBig]="true" ></app-chip-job-list>
           </div>
 
           <div style="margin-top: 24px; margin-bottom: 12px" class="job-description font-14-regular">
@@ -105,43 +103,48 @@
           </div>
         </div>
       </div>
+      <div  *ngIf="!isSmallScreen" >
+        <app-similar-jobs-list></app-similar-jobs-list>
+      </div>
     </div>
 
-    <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-3'">
-      <div class="block-with-job-small block-with-job-small-with-padding-buttons">
-        <div class=" align-items-center " >
-          <div class=" ">
-            <div style="display: grid; justify-content: center; align-items: center" class="">
-              <button class="view-button font-18-semibold" (click)="goToURL('/', true)" style="margin-bottom: 8px">
-                <span>Подати заявку</span>
-                <mat-icon style="margin-top: 2px; height: 23px; width: 20px;">chevron_right</mat-icon>
-              </button>
+    <div [ngClass]="isSmallScreen ? 'col row  margin-block' : 'col-md-3'">
+      <div *ngIf="!isSmallScreen"> <!--[ngClass]="isSmallScreen ? ' order-last' : ''"-->
+        <div class="block-with-job-small block-with-job-small-with-padding-buttons">
+          <div class=" align-items-center " >
+            <div class=" ">
+              <div style="display: grid; justify-content: center; align-items: center" class="">
+                <button class="view-button font-18-semibold" (click)="goToURL('/', true)" style="margin-bottom: 8px">
+                  <span>Подати заявку</span>
+                  <mat-icon style="margin-top: 2px; height: 23px; width: 20px;">chevron_right</mat-icon>
+                </button>
 
-              <button class="blank_button save font-18-bold" (click)="saveJob()" >
-                <span>Зберегти вакансію</span>
-                <img class="img-icon" style="margin-left: 4px" [src]="isSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="26" width="26">
-              </button>
+                <button class="blank_button save font-18-bold" (click)="saveJob()" >
+                  <span>Зберегти вакансію</span>
+                  <img class="img-icon" style="margin-left: 4px" [src]="isSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="26" width="26">
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
+      <div [ngClass]="isSmallScreen ? 'margin-block-right' : ''">
+        <div  class="block-with-job-small block-with-job-small-with-padding-buttons">
+          <app-appropriateness-job></app-appropriateness-job>
+        </div>
 
-
-      <div class="block-with-job-small block-with-job-small-with-padding-buttons">
-        <app-appropriateness-job></app-appropriateness-job>
-      </div>
-
-      <div class="block-with-job-small block-with-job-small-with-padding">
-        <div class="font-14-bold text-grey" >
-          <p style="padding: 0;  margin-bottom: 8px">{{numberWatch}} переглядів</p>
-          <p style="padding: 0; margin: 0">{{numberCandidates}} кандидатів</p>
+        <div  class="block-with-job-small block-with-job-small-with-padding">
+          <div class="font-14-bold text-grey" >
+            <p style="padding: 0;  margin-bottom: 8px">{{numberWatch}} переглядів</p>
+            <p style="padding: 0; margin: 0">{{numberCandidates}} кандидатів</p>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
-
-  <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-9'">
+  <div *ngIf="isSmallScreen" class="padding-block-left" >
     <app-similar-jobs-list></app-similar-jobs-list>
   </div>
 </div>
