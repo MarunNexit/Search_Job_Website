@@ -1,0 +1,211 @@
+@import '../../../../colors';
+@import '../../../../icon';
+
+.flex-content-between{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.get-back-button{
+  font-weight: bold;
+}
+
+.button-blank{
+  background: none;
+  border: none;
+}
+
+.margin-block{
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-right: 0px;
+}
+
+.margin-block-right{
+  padding-right: 8px;
+  padding-left: 0px;
+}
+
+.padding-block-left{
+  padding-left: 8px;
+}
+
+
+.block-with-job{
+  border-radius: 20px;
+  background-color: $tertiary-color;
+  min-width: 200px;
+  margin-bottom: 16px;
+}
+
+.block-with-job-small{
+  border-radius: 20px;
+  background-color: $tertiary-color;
+  min-width: 100px;
+  margin-bottom: 16px;
+}
+
+.flex-justify-align-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.block-with-job-small-with-padding-buttons{
+  padding: 32px 16px;
+  //padding: 16px;
+}
+
+.block-with-job-small-with-padding{
+  padding: 16px;
+}
+
+.block-with-job-with-padding {
+  padding: 30px;
+}
+
+.border-color-class{
+  border-color: $blue-color; /* Колір межі */
+  border-style: solid; /* Стиль межі (в даному випадку, лінія) */
+  border-width: 3px; /* Ширина межі */
+}
+
+.flex-justify-between{
+  display: flex;
+  justify-content: space-between;
+}
+
+.job-photo {
+  width: 100%;
+  height: 100%;
+}
+
+.job-photo img {
+  border-radius: 20px;
+  width: 100%; /* Зробіть ширину картинки 100% блока */
+  max-height: 250px;
+  object-fit: cover; /* Це забезпечить, що зображення буде відображене в центрі блока та обрізане, якщо воно не підходить по висоті або ширині */
+}
+
+.view-button {
+  display: flex;
+  border: none;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $icons-buttons-color;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 100%;
+  min-width: 80px;
+  max-width: 200px;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.view-button span {
+  flex-grow: 1; /* Дозволяє тексту займати всю доступну ширину, залишаючи зображення в крайній правій частині */
+  white-space: nowrap; /* Запобігає переносу тексту на новий рядок */
+  overflow: hidden; /* Запобігає виходу тексту за межі кнопки */
+  text-overflow: ellipsis; /* Відображає трохи тексту з кінця та додає мінімальний маркер, щоб показати, що текст обрізаний */
+}
+
+a{
+  text-decoration: none;
+  color: $primary-color;
+}
+
+
+
+.job-company-description{
+  font-size: 0.875rem;
+  color: $text-grey-color;
+}
+
+
+.job-text .small{
+  font-size: 1rem;
+}
+
+
+.icon-div {
+  width: 24px;
+  height: 24px;
+  max-width: 20%;
+  margin-top: 4px;
+  border: none;
+  background: none;
+}
+
+.company-icon-div img {
+  border-radius: 50%;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.job-name {
+  font-size: 2rem;
+}
+
+.job-field {
+  font-style: italic;
+}
+
+.blank_button{
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  line-height: 1; /* Встановлюємо висоту рядка такою ж, як фонтовий розмір */
+  max-width: max-content;
+}
+
+.report{
+  color: $text-grey-color;
+  font-size: 1.125rem;
+}
+
+.report span {
+  flex-grow: 1; /* Дозволяє тексту займати всю доступну ширину, залишаючи зображення в крайній правій частині */
+  white-space: nowrap; /* Запобігає переносу тексту на новий рядок */
+  overflow: hidden; /* Запобігає виходу тексту за межі кнопки */
+  text-overflow: ellipsis; /* Відображає трохи тексту з кінця та додає мінімальний маркер, щоб показати, що текст обрізаний */
+}
+
+.save{
+  color: $text-grey-color;
+  font-size: 1.125rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  min-width: 80px;
+  max-width: 300px;
+  margin-top: 8px;
+}
+
+.save span {
+  flex-grow: 1; /* Дозволяє тексту займати всю доступну ширину, залишаючи зображення в крайній правій частині */
+  white-space: nowrap; /* Запобігає переносу тексту на новий рядок */
+  overflow: hidden; /* Запобігає виходу тексту за межі кнопки */
+  text-overflow: ellipsis; /* Відображає трохи тексту з кінця та додає мінімальний маркер, щоб показати, що текст обрізаний */
+}
+
+.job-description{
+  font-size: 0.875rem;
+}
+
+.text-grey{
+  color: $text-grey-color
+}
+
+
+
+
+

@@ -1,0 +1,12 @@
+@import '../../../../colors';
+@import '../../../../icon';
+
+
+::ng-deep .mat-mdc-dialog-container {
+  --mdc-dialog-container-color: #F9F3FFFF;
+}
+
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface{
+  border-radius: 40px !important;
+}

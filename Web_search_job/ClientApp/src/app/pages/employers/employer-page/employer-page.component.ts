@@ -1,8 +1,16 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {RouterHelperService} from "../../../services/router-helper.service";
 import {Location} from "@angular/common";
 import {ScreenSizeService} from "../../../services/screen-size.sevice";
 import {handleImageError} from "../../../functions/handleImageError";
+import {EmployerDTO} from "../../../models/backend/dtos/employers/employer-full.dto";
+import {ActivatedRoute} from "@angular/router";
+import {EmployerService} from "../../../services/backend/employer.service";
+import {UserData} from "../../../services/backend/auth/dtos/user-data";
+import {UserService} from "../../../services/backend/user.service";
+import {EmployerTagDTO} from "../../../models/backend/dtos/employers/employer-tag.dto";
+import {catchError} from "rxjs";
+import {AllFilters} from "../../../models/backend/dtos/filters/allFilters";
 
 @Component({
   selector: 'app-employer-page',
@@ -10,7 +18,13 @@ import {handleImageError} from "../../../functions/handleImageError";
   styleUrls: ['./employer-page.component.scss']
 })
 export class EmployerPageComponent {
-  dataEmployer: any;
+  employer: EmployerDTO | undefined;
+  userId: number = 1;
+  @ViewChild('parentDiv') parentDiv: ElementRef;
+
+  isLoaded = false;
+  hasError = false;
+
   employer_checked: boolean = true;
   arrowPossition: boolean[] = [false, false]
 
@@ -18,31 +32,24 @@ export class EmployerPageComponent {
   isSaved: boolean = false;
   isAppropriateness: boolean[] = [false, true, true, true];
   isAppropriatenessAll: boolean = false;
+
   numberWatch: number = 231;
   numberCandidates: number = 15;
+
   expandField: boolean = true;
 
+  userData: UserData | null = null;
 
-
-  dataEmployer1 = {
-    id: 1,
-    title: "Розробник програмного забезпечення",
-    salary: "90000 USD",
-    company: "ABC Inc.",
-    description: "Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення",
-    tags: ["IT", "Програмування", "Розробка"],
-    company_picture: "../../../../assets/img/icons/cards/check_mark.png",
-    banner_picture: "url/to/banner_picture_1.jpg",
-    hot_new_marks: [true, true, false]
-  };
 
   constructor(
     private routerHelper: RouterHelperService,
     private location: Location,
     private screenSizeService: ScreenSizeService,
+    private route: ActivatedRoute,
+    private employerService: EmployerService,
+    private userService: UserService,
+    private cdr: ChangeDetectorRef,
   ) {
-    this.dataEmployer = this.dataEmployer1;
-
     this.screenSizeService.setIsSmallScreen('(max-width: 1200px)');
 
     this.screenSizeService.isScreenSmall$.subscribe(isSmall => {
@@ -53,8 +60,53 @@ export class EmployerPageComponent {
   }
 
   ngOnInit(): void {
+    this.userService.getUserData().subscribe(userData => {
+      this.userData = userData;
+      const id = +this.route.snapshot.paramMap.get('id')!;
+      if (this.userData) {
+        this.getEmployer(id, this.userData.id);
+      }
+      else {
+        this.getEmployer(id, null);
+      }
+    });
+
     this.checkAllAppropriateness();
   }
+
+
+  getEmployer(id: number, userId: string | null): void {
+
+    this.employerService
+      .getEmployerById(id, userId)
+      .pipe(
+        catchError(() => {
+          this.isLoaded = false;
+          this.hasError = true;
+          return []
+        })
+      )
+      .subscribe((result: EmployerDTO) => {
+        this.employer = result;
+        this.isLoaded = true;
+        this.hasError = false
+
+        console.log(this.employer);
+        console.log(result);
+
+        //this.employer.companyDescription = this.formatDescription(this.employer.companyDescription);
+        // Manually trigger change detection after async operation completes
+        this.cdr.detectChanges();
+      });
+
+
+  /*  this.employerService.getEmployerById(id, userId).subscribe(
+      (employer) => this.employer = employer,
+      (error) => console.error(error)
+    );*/
+
+  }
+
 
   checkAllAppropriateness() {
     this.isAppropriatenessAll = this.isAppropriateness.every(value => value);
@@ -64,10 +116,27 @@ export class EmployerPageComponent {
     this.routerHelper.goToUrl(s, b);
   }
 
+  navigateToExternalUrl(url: string): void {
+    window.open(url, '_blank');
+  }
+
   goBack(): void {
     this.location.back();
   }
 
+  formatDescription(text: string): string {
+    // Заміна форматованих тегів на відповідний текст і збереження стилів
+    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Заміна жирного тексту
+    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>'); // Заміна курсивного тексту
+    // Додаткові правила для інших форматувань можуть бути додані, якщо потрібно
+
+    // Заміна нових рядків на HTML теги для переносу рядків
+    text = text.replace(/\\n/g, '<br>');
+
+    return text;
+  }
+
+  public itemHasIntensities = (item: EmployerTagDTO): boolean => item.tagType === 'about';
 
 
   protected readonly handleImageError = handleImageError;

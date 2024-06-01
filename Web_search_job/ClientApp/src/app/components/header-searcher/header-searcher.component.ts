@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {HeaderStateService} from "../../services/header-searcher-state.service";
-import {filter, Subject, takeUntil} from "rxjs";
+import {debounceTime, filter, Subject, Subscription, takeUntil} from "rxjs";
 import {Router, Event as RouterEvent, NavigationEnd, NavigationStart} from '@angular/router';
 import {ScreenSizeService} from "../../services/screen-size.sevice";
 import {UserHeader} from "../../models/user-header.model";
 import {RouterHelperService} from "../../services/router-helper.service";
+import {AuthService} from "../../services/backend/auth/auth-service";
+import {handleImageError} from "../../functions/handleImageError";
+import {AuthenticationClient} from "../../services/backend/auth/auth-client";
+import {UserId} from "../../services/backend/auth/dtos/user-id";
+import {UserData} from "../../services/backend/auth/dtos/user-data";
+import {UserService} from "../../services/backend/user.service";
+import {MainSearchService} from "../../services/main-search.service";
 
 
 @Component({
@@ -15,10 +22,12 @@ import {RouterHelperService} from "../../services/router-helper.service";
 export class HeaderSearcherComponent implements OnInit {
   isExpanded = false;
   isScreenSmall = false;
-  isLogin = true;
+  isLogin = false;
   isUserImage = false;
   isSideBarRight = false;
-
+  isProfileUser = false;
+  isAboutPage = false;
+  isSearchBarFilled = false;
 
   userData = {
     id: 1,
@@ -27,48 +36,33 @@ export class HeaderSearcherComponent implements OnInit {
     email:'ф',
     image:'',
   }
-  /*userFetching*/
-  /*constructor(private userService: UserService) { }
 
-  ngOnInit(): void {
-    this.userService.getUserData().subscribe(
-      (userData: User) => {
-        this.user = userData;
-      },
-      (error) => {
-        console.error('Error fetching user data:', error);
-      }
-    );
-  } */
+  user: UserHeader = this.userData;
 
-  user: UserHeader;
+  userHeadData: UserData;
+  searchQuery: string = '';
+  searchQuerySmall: string = '';
 
-  ngOnInit(): void {
-    this.user = this.userData;
-
-    if(this.user.image && this.user.image != ""){
-      this.isUserImage = true;
-    }
-  }
-
-
-  activeMenuItem: string = "item0";
-  private unsubscribe$: Subject<void> = new Subject<void>();
+  private paramSubscription: Subscription;
 
   constructor(
     private router: Router,
     private headerStateService: HeaderStateService,
     private screenSizeService: ScreenSizeService,
-    private routerHelper: RouterHelperService
+    private routerHelper: RouterHelperService,
+    private authService: AuthService,
+    private userClient: AuthenticationClient,
+    private userService: UserService,
+    private mainSearchService: MainSearchService
+
   ) {
     const storedValue = localStorage.getItem('activeMenuItem');
+
     if (storedValue !== null) {
       this.activeMenuItem = JSON.parse(storedValue);
     }
 
-
     this.screenSizeService.setIsSmallScreen('(max-width: 1200px)');
-
 
     this.screenSizeService.isScreenSmall$.subscribe(isSmall => {
       this.isScreenSmall = isSmall;
@@ -79,14 +73,71 @@ export class HeaderSearcherComponent implements OnInit {
       takeUntil(this.unsubscribe$)
     ).subscribe((event: NavigationStart) => {
       this.activeMenuItem = event.url;
-      if (event.url === '/search-job' || event.url === '/' || event.url === '/popular-employers') {
+      if (event.url.startsWith('/search-job') || event.url === '/' || event.url === '/popular-employers') {
+        this.isProfileUser = false;
         this.headerStateService.toggleHeaderSectionVisibilityMakeTrue();
+        this.isAboutPage = false;
+      }
+      else if (event.url === '/about-us') {
+        this.isProfileUser = false;
+        this.headerStateService.toggleHeaderSectionVisibilityMakeTrue();
+        this.isAboutPage = true;
+      }
+      else if(event.url.startsWith('/profile/')){
+        this.isProfileUser = true;
+        this.headerStateService.toggleHeaderSectionVisibilityMakeFalse();
+        this.isAboutPage = false;
       }
       else{
+        this.isProfileUser = false;
         this.headerStateService.toggleHeaderSectionVisibilityMakeFalse();
+        this.isAboutPage = false;
       }
     });
   }
+
+  getUserData(): void {
+    if(this.isLogin){
+      if (this.userService.isUserDataEmpty()) {
+        this.userClient.getUserData().subscribe(userData => {
+          this.userHeadData = userData;
+          this.userService.setUserData(userData);
+        });
+      }
+      else{
+      }
+    }
+  }
+
+  ngOnInit(): void {
+    this.IsAuthUser();
+    this.getUserData()
+
+    this.paramSubscription = this.mainSearchService.getParamObservable().pipe(debounceTime(300)).subscribe(params => {
+      const { sort, filter, request } = params;
+      this.searchQuery = params.request || '';
+      console.log(params, this.searchQuery, params.request);
+
+      if (sort && filter && request) {
+        this.searchQuery = request;
+        this.searchQuerySmall = request;
+      }
+
+      if( this.searchQuery != ''){
+        this.isSearchBarFilled = true
+      }
+      else{
+        this.isSearchBarFilled = false
+      }
+    });
+
+    if(this.user && this.user.image && this.user.image != ""){
+      this.isUserImage = true;
+    }
+  }
+
+  activeMenuItem: string = "item0";
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
@@ -98,6 +149,19 @@ export class HeaderSearcherComponent implements OnInit {
     this.activeMenuItem = id;
     localStorage.setItem('activeMenuItem', JSON.stringify(id));
   }
+
+
+  IsAuthUser(): void {
+    this.authService.isLoggedIn().subscribe(isLoggedIn => {
+      this.isLogin = isLoggedIn;
+      if (isLoggedIn) {
+        this.getUserData();
+      } else {
+        // Користувач не увійшов у систему, виконуйте необхідні дії
+      }
+    });
+  }
+
 
   collapse() {
     this.isExpanded = false;
@@ -129,4 +193,27 @@ export class HeaderSearcherComponent implements OnInit {
     this.newBadge = !this.newBadge;
   }
 
+  protected readonly handleImageError = handleImageError;
+
+  emptySearchBar(){
+    this.isSearchBarFilled = false;
+
+    if(this.searchQuery !=''){
+      this.mainSearchService.setParamsRequest("");
+    }
+  }
+
+  onSearchBarSubmit(){
+    if(!this.activeMenuItem.startsWith("/search-job")) {
+      console.log('/search-job');
+      this.goToURL('/search-job', true);
+    }
+
+    if(this.searchQuerySmall != ""){
+      this.isSearchBarFilled = true;
+      this.searchQuery = this.searchQuerySmall;
+    }
+
+    this.mainSearchService.setParamsRequest(this.searchQuery);
+  }
 }

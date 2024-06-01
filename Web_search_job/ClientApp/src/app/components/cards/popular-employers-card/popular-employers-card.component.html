@@ -1,64 +1,82 @@
-<div class="employer-card" (click)="goToURL('/employer/' + dataEmployer.id, true)">
-  <div class="row " style="margin-bottom: 4px">
-    <div class="col-auto">
-      <div class="employer-photo ">
+<div *ngIf="dataEmployer" style="height: 100%; display: flex; flex-direction: column; ">
 
-<!--        СЮДИ ФОТО-->
-        <img id="employer-photo" src="assets/img/Photo.png" (error)='handleImageError($event, "assets/img/alt-image.png")' />
+  <!-- id?: number;
+  companyName: string;
+  companyIndustryDescription?: string;
+  companyShortDescription?: string;
+  companyChecked: boolean;
+  companyImg: string;
+  commentCount: number;
+  comments?: CommentShortDTO[];
+  tags?: EmployerTagDTO[];-->
 
+  <div class="employer-card "  (click)="goToURL('/employer/' + dataEmployer.id, true)" style="height: 100%; display: flex; flex-direction: column;">
+    <div class="row " style="margin-bottom: 4px">
+      <div class="col-auto">
+        <div class="employer-photo ">
+
+          <!--        СЮДИ ФОТО-->
+          <img id="employer-photo" src="assets/img/Photo.png" (error)='handleImageError($event, "assets/img/loading-picture.png")' />
+
+        </div>
+      </div>
+      <div class="col ">
+        <p class="employer-name font-18-bold">
+          {{dataEmployer.companyName}}
+        </p>
+        <p class="employer-field font-14-regular">
+          {{dataEmployer.companyIndustryDescription}}
+        </p>
+      </div>
+      <div *ngIf="employer_checked" class="col-auto" >
+        <img class="check-icon " src="../../../../assets/img/icons/cards/check_mark.png" alt="0" height="30" width="30">
       </div>
     </div>
-    <div class="col ">
-      <p class="employer-name font-18-bold">
-        Назва роботодавця
-      </p>
-      <p class="employer-field font-14-regular">
-        Сфера
-      </p>
-    </div>
-    <div *ngIf="employer_checked" class="col-auto" >
-      <img class="check-icon " src="../../../../assets/img/icons/cards/check_mark.png" alt="0" height="30" width="30">
-    </div>
-  </div>
 
-  <app-chip-job-list></app-chip-job-list>
+    <app-chip-job-list></app-chip-job-list>
 
-  <div class="row" style="margin-top: 10px">
-    <div class="col">
-      <a href="#" class="company-site-link font-14-regular">
-        <img src="../../../../assets/img/icons/cards/link.png" alt="Company Site" class="company-icon">
-        Вебсайт компанії
-      </a>
-    </div>
-  </div>
-  <div class="row" style="margin-top: 10px">
-    <div class="col font-14-regular">
-      <img src="../../../../assets/img/icons/cards/calendar.png" alt="Established Since" class="established-icon">
-      З 2012 року на ринку
-    </div>
-  </div>
-  <hr style="border-width: 3px; border-radius: 100px; border-color: #1E1E1E; opacity: 80%">
-  <div class="row align-items-center " >
-    <div class="col-auto " style="margin-left: 20px; margin-bottom: 4px">
-      <div class="rating font-18-bold" style="display: flex; justify-content: center">
-        {{rating}}
+    <div class="row" style="margin-top: 10px">
+      <div class="col">
+        <button style="border: none; background: none" class="company-site-link font-14-regular" (click)="handleWebsite($event, dataEmployer.companyURL)">
+          <img src="../../../../assets/img/icons/cards/link.png" alt="Company Site" class="company-icon">
+          Вебсайт компанії
+        </button>
       </div>
-      <div class="star-container row x" style="display: flex; justify-content: center" >
-        <ng-container *ngFor="let star of stars">
-          <div class="col-auto  star">
-            <img class="star-box " [src]="star" alt="assets/img/alt-image.png">
+    </div>
+    <div class="row" style="margin-top: 10px">
+      <div class="col font-14-regular">
+        <img src="../../../../assets/img/icons/cards/calendar.png" alt="Established Since" class="established-icon">
+        З {{dataEmployer.companyYear}} року на ринку
+      </div>
+    </div>
+    <div style="margin-top: auto" class="">
+      <div  class="">
+        <hr style="border-width: 3px; border-radius: 100px; border-color: #1E1E1E; opacity: 80%" >
+        <div class="row align-items-center " >
+          <div  *ngIf="dataEmployer.commentCount > 0" class="col-auto " style="margin-left: 20px; margin-bottom: 4px">
+            <div class="rating font-18-bold" style="display: flex; justify-content: center">
+              {{dataEmployer.companyRating}}
+            </div>
+            <div class="star-container row x" style="display: flex; justify-content: center" >
+              <ng-container *ngFor="let star of stars">
+                <div class="col-auto  star">
+                  <img class="star-box " [src]="star" alt="assets/img/alt-image.png">
+                </div>
+              </ng-container>
+            </div>
           </div>
-        </ng-container>
+          <div *ngIf="dataEmployer.commentCount > 0" class="col review" style="display: flex; justify-content: flex-start" >
+            <p class="review-count font-10-regular" style="align-self: center">{{dataEmployer.commentCount}} відгуків</p>
+          </div>
+          <div class="col " >
+            <button class="view-button font-14-semibold">
+              <span>Переглянути</span>
+              <img class="" style="margin-top: 2px" src="../../../../assets/img/icons/arrows/arrow-right.png" height="23" width="20">
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col review" >
-      <p class="review-count font-10-regular" style="align-self: center">11,833 відгуків</p>
-    </div>
-    <div class="col ">
-      <button class="view-button font-14-semibold">
-        <span>Переглянути</span>
-        <img class="" style="margin-top: 2px" src="../../../../assets/img/icons/arrows/arrow-right.png" height="23" width="20">
-      </button>
-    </div>
+      </div>
   </div>
+
 </div>

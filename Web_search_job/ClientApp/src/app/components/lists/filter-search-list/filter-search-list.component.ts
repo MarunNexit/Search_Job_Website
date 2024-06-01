@@ -1,16 +1,10 @@
-import { Component } from '@angular/core';
-
-
-interface Filter {
-  name: string;
-  checked: boolean;
-}
-
-interface FilterComponent {
-  name: string;
-  filters: Filter[];
-}
-
+import {ChangeDetectorRef, Component} from '@angular/core';
+import {Job} from "../../../models/backend/dtos/jobs/job";
+import {JobService} from "../../../services/backend/job.service";
+import {FilterService} from "../../../services/backend/filter.service";
+import {AllFilters} from "../../../models/backend/dtos/filters/allFilters";
+import {catchError} from "rxjs";
+import {SearchParamService} from "../../../services/search-param.service";
 
 @Component({
   selector: 'app-filter-search-list',
@@ -20,83 +14,34 @@ interface FilterComponent {
 
 
 export class FilterSearchListComponent {
-  filters_data: FilterComponent[] = [
-    {
-      name: 'Професійна сфера',
-      filters: [
-        { name: 'IT', checked: false },
-        { name: 'Адміністративний персонал - Водії - Кур\'єри', checked: false },
-        { name: 'Дизайн - Графіка - Фото', checked: false },
-        { name: 'Культура - Шоу-бізнес - Розваги', checked: false },
-        { name: 'Маркетинг - Реклама - PR', checked: false },
-      ]
-    },
-    {
-      name: 'Характер роботи',
-      filters: [
-        { name: 'Віддалено', checked: false },
-        { name: 'В офісі', checked: false },
-        { name: 'Гібридно', checked: false },
-      ]
-    },
-    {
-      name: 'Рівень зарплати',
-      filters: [
-        { name: 'Від 10 000 грн', checked: false },
-        { name: 'Від 15 000 грн', checked: false },
-        { name: 'Від 20 000 грн', checked: false },
-        { name: 'Від 30 000 грн', checked: false },
-        { name: 'Від 50 000 грн', checked: false },
-      ]
-    },
-    {
-      name: 'Розташування',
-      filters: [
-        { name: 'Київ', checked: false },
-        { name: 'Дніпро', checked: false },
-        { name: 'Харків', checked: false },
-        { name: 'Запоріжжя', checked: false },
-        { name: 'Івано-Франківськ', checked: false },
-      ]
-    },
-    {
-      name: 'Рівень необхідного досвіду',
-      filters: [
-        { name: 'Початковий рівень', checked: false },
-        { name: 'Середній', checked: false },
-        { name: 'Експерт', checked: false },
-      ]
-    },
 
-    {
-      name: 'Тип зайнятості',
-      filters: [
-        { name: 'Повний робочий день', checked: false },
-        { name: 'Неповний робочий день', checked: false },
-        { name: 'Позмінна робота', checked: false },
-        { name: 'Тимчасова робота', checked: false },
-        { name: 'Навчання', checked: false },
-        { name: 'Стажування', checked: false },
-      ]
-    },
+  filtersData: AllFilters;
+  isFiltersLoaded: boolean = false;
+  hasError: boolean = false;
+  constructor(
+    private filterService: FilterService, private cdr: ChangeDetectorRef,
+  ) {
+  }
 
-    {
-      name: 'Пошуковий запит',
-      filters: [
-        { name: 'Рекомендовані вакансії', checked: false },
-        { name: 'Лише вакансії в ЗСУ', checked: false },
-        { name: 'Приховати Гарячі вакансії', checked: false },
-      ]
-    },
+  ngOnInit() {
+    this.filterService
+      .GetAllFilters()
+      .pipe(
+        catchError(() => {
+          this.isFiltersLoaded = true;
+          this.hasError = true;
+          return []
+        })
+      )
+      .subscribe((result: AllFilters) => {
+        this.filtersData = result;
+        this.isFiltersLoaded = true;
+        this.hasError = false
 
-  ];
-  addingSearchField:boolean[] = [
-    true,
-    false,
-    false,
-    true,
-    false,
-    false,
-    false,
-  ]
+        // Manually trigger change detection after async operation completes
+        this.cdr.detectChanges();
+      });
+  }
+
+  protected readonly Object = Object;
 }

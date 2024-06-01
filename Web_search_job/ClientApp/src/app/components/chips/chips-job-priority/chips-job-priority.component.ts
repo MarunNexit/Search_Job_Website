@@ -19,10 +19,10 @@ export class ChipsJobPriorityComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if (this.dataJob && this.dataJob.hot_new_marks) {
-      this.IsNewJob = this.dataJob.hot_new_marks[0];
-      this.IsHotJob = this.dataJob.hot_new_marks[1];
-      this.IsRecommendJob = this.dataJob.hot_new_marks[2];
+    if (this.dataJob && this.dataJob.jobTagsMarks) {
+      this.IsNewJob = this.dataJob.jobTagsMarks.tagNew;
+      this.IsHotJob = this.dataJob.jobTagsMarks.tagHot;
+      this.IsRecommendJob = this.dataJob.jobTagsMarks.tagRecommend
     }
   }
 

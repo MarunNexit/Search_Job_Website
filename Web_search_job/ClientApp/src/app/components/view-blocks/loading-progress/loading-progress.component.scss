@@ -1,0 +1,15 @@
+@import '../../../../colors';;
+
+.loading-progress{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+::ng-deep .mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #198BFFFF;
+}
+
+

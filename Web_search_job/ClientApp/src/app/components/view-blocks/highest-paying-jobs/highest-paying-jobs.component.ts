@@ -18,7 +18,6 @@ export class HighestPayingJobsComponent {
   onChange(event: Event) {
     const target = event.target as HTMLSelectElement;
     const selectedValue = target.value;
-    console.log('Selected value:', selectedValue);
   }
 
 }

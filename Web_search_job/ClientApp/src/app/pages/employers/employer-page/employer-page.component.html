@@ -22,37 +22,37 @@
   </div>
 
 
-  <div class="row" style="padding-left: 8px" >
+  <div *ngIf="employer && isLoaded" class="row" style="padding-left: 8px" >
     <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-9'">
       <div class="block-with-job ">
-        <div *ngIf="dataEmployer.banner_picture != '' && dataEmployer.banner_picture != null" class="job-photo ">
+        <div *ngIf="employer.companyBackgroundImg != '' && employer.companyBackgroundImg != null" class="job-photo ">
           <!--        СЮДИ ФОТО-->
-          <img id="job-photo" src="{{dataEmployer.banner_picture}}" (error)='handleImageError($event, "assets/img/alt-image.png")' alt="">
+          <img id="job-photo" src="{{employer.companyBackgroundImg}}" (error)='handleImageError($event, "assets/img/alt-image.png")' alt="">
         </div>
         <div class="block-with-job-with-padding">
           <div class="row "  style="margin-top: 16px">
             <div class="col " style="padding: 0; margin-left: 8px">
               <div>
                 <p class="job-text job-name font-32-bold">
-                  {{dataEmployer.title}}
+                  {{employer.companyName}}
                 </p>
               </div>
 
               <div class="row" style="margin-top: 10px">
                 <div class="col font-14-regular">
                   <mat-icon class="company-icon">people</mat-icon>
-                  близько {{dataEmployer.numberWorkers}} працівників
+                  близько {{employer.numberWorkers}} працівників
                 </div>
               </div>
               <div class="row" style="margin-top: 10px">
                 <div class="col font-14-regular">
                   <mat-icon class="company-icon">calendar_today</mat-icon>
-                  з {{dataEmployer.marketDate}} року на ринку
+                  з {{employer.companyYear}} року на ринку
                 </div>
               </div>
               <div class="row" style="margin-top: 10px">
                 <div class="col">
-                  <button (click)="goToURL('/', true)" class="company-site-link font-14-regular blank_button" >
+                  <button (click)="navigateToExternalUrl(employer.companyURL)" class="company-site-link font-14-regular blank_button" >
                     <mat-icon class="company-icon">link</mat-icon>
                     Вебсайт компанії
                   </button>
@@ -61,7 +61,7 @@
             </div>
 
 
-            <div *ngIf="employer_checked" class=" company-icon-div"  >
+            <div *ngIf="employer.companyChecked" class=" company-icon-div"  >
               <img  src="../../../../assets/img/icons/cards/check_mark.png" alt="0">
             </div>
           </div>
@@ -69,12 +69,12 @@
             <div class="font-18-bold" style="margin-bottom: 8px">
               Переваги роботи в компанії
             </div>
-            <app-chip-job-list [IsBig]="true" ></app-chip-job-list>
+            <app-chip-job-list [Tags]="employer.tags" [IsBig]="true" ></app-chip-job-list>
 
           </div>
 
-          <div style="margin-top: 24px; margin-bottom: 12px" class="job-description font-14-regular">
-            {{ dataEmployer.description}}
+          <div style="margin-top: 36px; margin-bottom: 36px" class="job-description font-14-regular" [innerHTML]="formatDescription(employer.companyDescription)">
+
           </div>
 
           <div class="row align-items-center " style="margin-top: 24px">
@@ -99,17 +99,27 @@
       ............................
       -->
 
-      <div [ngClass]="isSmallScreen ? 'col-auto' : 'col'">
-        <app-employer-jobs-list></app-employer-jobs-list>
+      <div *ngIf="employer.jobsCount > 0">
+        <div [ngClass]="isSmallScreen ? 'col-auto' : 'col'">
+          <app-employer-jobs-list [dataEmployerJobs] = "employer.jobs" [employer]="employer"></app-employer-jobs-list>
+        </div>
+      </div>
+
+      <div  #parentDiv *ngIf="employer.comments.length > 0 && !isSmallScreen" class="block-with-job-small block-with-job-small-with-padding">
+        <app-comments-list [employer]="employer" [isSmallScreen] = isSmallScreen [isRightSide] = false></app-comments-list>
       </div>
 
       <div *ngIf="!isSmallScreen" class="col" style="margin-top: 32px">
         <div>
           <app-subscribe-to-employer
-            [dataEmployer]="dataEmployer"
+            [dataEmployer]="employer"
           ></app-subscribe-to-employer>
         </div>
       </div>
+
+
+
+
     </div>
 
 <!--
@@ -117,29 +127,36 @@
 -->
 
     <div [ngClass]="isSmallScreen ? '' : 'col-md-3'">
-      <div class="block-with-job-small block-with-job-small-with-padding">
+      <div *ngIf="employer.commentCount > 0" class="block-with-job-small block-with-job-small-with-padding">
         <div class=" align-items-center " >
-          <app-comments-rating></app-comments-rating>
+          <app-comments-rating [employer]="employer"></app-comments-rating>
         </div>
       </div>
 
-      <div class="block-with-job-small block-with-job-small-with-padding">
-        <app-comments-list></app-comments-list>
+      <div *ngIf="employer.comments.length > 0 " class="block-with-job-small block-with-job-small-with-padding">
+        <app-comments-list [employer]="employer" [isSmallScreen] = isSmallScreen [scrollTo]="" [isRightSide] = true></app-comments-list>
       </div>
 
-      <div class="block-with-job-small block-with-job-small-with-padding">
-        <app-about-employer></app-about-employer>
+
+      <div *ngIf="employer.tags.some(itemHasIntensities)" class="font-14-regular block-with-job-small block-with-job-small-with-padding">
+        <ng-container>
+          <app-about-employer [aboutEmployerData]="employer.tags"></app-about-employer>
+        </ng-container>
       </div>
 
-      <div class="block-with-job-small block-with-job-small-with-padding">
+      <div class="block-with-job-small block-with-job-small-with-padding" >
         <app-subscribe-to-employer
-          [dataEmployer]="dataEmployer"
+          [dataEmployer]="employer"
+          [isSmallScreen] = isSmallScreen
           [isShortView] = true
+          [isRightPanel] = true
         ></app-subscribe-to-employer>
       </div>
     </div>
   </div>
 
-
+  <div *ngIf="!employer || !isLoaded">
+    <app-loading-progress></app-loading-progress>
+  </div>
 
 </div>

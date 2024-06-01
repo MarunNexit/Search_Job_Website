@@ -1,15 +1,24 @@
-<div>
+<div *ngIf="employer && employer.comments.length > 0">
   <p class="font-18-bold" >
     Відгуки про роботодавця
   </p>
-  <div class="app-job-search-card" *ngFor="let commentComponent of dataEmployerComments; let i = index">
+  <div class="app-job-search-card" *ngFor="let commentComponent of employer.comments.slice(0, currentNumberComments); let i = index">
     <app-comment-card
       [dataComment]="commentComponent"
+      [isRightSide]="isSmallScreen? false : isRightSide"
     >
     </app-comment-card>
   </div>
-  <div style="width: 100%; " class="flex-justify-centre-content">
+
+  <div *ngIf="isSmallScreen" style="width: 100%; " class="flex-justify-centre-content">
     <button class="blank_button font-18-bold text-grey" style="display: flex; align-items: center; justify-content: center">
+      Переглянути ще
+      <mat-icon>expand_more</mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="!isSmallScreen" style="width: 100%; " class="flex-justify-centre-content">
+    <button (click)="OnClick()" class="blank_button font-18-bold text-grey" style="display: flex; align-items: center; justify-content: center">
       Переглянути ще
       <mat-icon>expand_more</mat-icon>
     </button>

@@ -4,17 +4,19 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'truncate'
 })
 export class TruncatePipe implements PipeTransform {
-  transform(value: string, limit: number, withDots: boolean = true): string {
-    if(withDots){
-      if (value.length > limit) {
-        return value.substring(0, limit) + '...';
+  transform(value: string | undefined, limit: number, withDots: boolean = true): string {
+    if(value){
+      if(withDots){
+        if (value.length > limit) {
+          return value.substring(0, limit) + '...';
+        }
+      }
+      else{
+        if (value.length > limit) {
+          return value.substring(0, limit) ;
+        }
       }
     }
-    else{
-      if (value.length > limit) {
-        return value.substring(0, limit) ;
-      }
-    }
-    return value;
+    return <string>value;
   }
 }

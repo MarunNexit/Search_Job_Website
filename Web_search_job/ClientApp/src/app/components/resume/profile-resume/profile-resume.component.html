@@ -1,0 +1,115 @@
+<ng-container>
+  <div xmlns="http://www.w3.org/1999/html" style="margin-top: 20px" class="row">
+    <!--<div class="flex-content-between" style="padding: 16px">
+      <button class="get-back-button button-blank font-18-bold" (click)="goBack()">
+        <img ngSrc="../../../../assets/img/icons/arrows/arrow-back.png" width="24" height="24" alt="">
+        Повернутися
+      </button>
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="display: flex; align-items: center; justify-content: center;">
+          <img class="" style="margin-top: 2px" src="../../../../assets/img/icons/cards/3_dots.png" height="24" width="24" alt="">
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>report</mat-icon>
+            <span>Поскаржитись</span>
+          </button>
+          <button mat-menu-item>
+            <img class="img-icon" style="margin-right: 16px" src="../../../../assets/img/icons/report/report-old.png" height="24" width="24">
+            <span>Приховати</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>-->
+    <div [ngClass]="isSmallScreen ? 'col-auto ' : 'col-md-4'" >
+      <div class="" >
+        <app-resume-section [sections]="['age','location']" [title]="'Особиста інформація *'" ></app-resume-section>
+      </div>
+
+      <div class="" >
+        <app-resume-section [sections]="['phone','email']" [title]="'Контактна інформація *'"></app-resume-section>
+      </div>
+
+      <div class="" >
+        <app-resume-section [sections]="['skills']" [title]="'Навички'"></app-resume-section>
+      </div>
+
+      <div class="" >
+        <app-resume-section [sections]="['languages']" [title]="'Мови'"></app-resume-section>
+      </div>
+
+      <div class="" >
+        <app-resume-section [sections]="['links']" [title]="'Поєднані акаунти'"></app-resume-section>
+      </div>
+    </div>
+
+    <div [ngClass]="isSmallScreen ? 'col-auto ' : 'col-md-8'" >
+      <div class="" >
+        <app-resume-section [sections]="['wanted_job']" [title]="'Бажана посада *'"></app-resume-section>
+      </div>
+
+      <div class="" >
+        <app-resume-section [sections]="['about_self']" [title]="'Про себе'"></app-resume-section>
+      </div>
+
+      <div class="" >
+        <app-resume-section [sections]="['history']" [title]="'Про себе'"></app-resume-section>
+      </div>
+
+      <div class="" >
+        <app-resume-section [sections]="['education']" [title]="'Освіта'"></app-resume-section>
+      </div>
+
+      <div class="" >
+        <app-resume-section [sections]="['portfolio']" [title]="'Портфоліо'"></app-resume-section>
+      </div>
+
+
+    </div>
+
+
+      <!--<div [ngClass]="isSmallScreen ? 'col row  margin-block' : 'col-md-3'">
+        <div *ngIf="!isSmallScreen"> &lt;!&ndash;[ngClass]="isSmallScreen ? ' order-last' : ''"&ndash;&gt;
+          <div class="block-with-job-small block-with-job-small-with-padding-buttons">
+            <div class=" align-items-center " >
+              <div class=" ">
+                <div style="display: grid; justify-content: center; align-items: center" class="">
+                  <button class="view-button font-18-semibold" (click)="openDialog()" style="margin-bottom: 8px">
+                    <span>Подати заявку</span>
+                    <mat-icon style="margin-top: 2px; height: 23px; width: 20px;">chevron_right</mat-icon>
+                  </button>
+
+                  <button class="blank_button save font-18-bold" (click)="saveJob()" >
+                    <span>Зберегти вакансію</span>
+                    <img class="img-icon" style="margin-left: 4px" [src]="isSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="26" width="26">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div [ngClass]="isSmallScreen ? 'margin-block-right' : ''">
+          <div  class="block-with-job-small block-with-job-small-with-padding-buttons">
+&lt;!&ndash;
+            <app-appropriateness-job></app-appropriateness-job>
+&ndash;&gt;
+          </div>
+
+          <div  class="block-with-job-small block-with-job-small-with-padding">
+            <div class="font-14-bold text-grey" >
+              <p style="padding: 0;  margin-bottom: 8px">{{numberWatch}} переглядів</p>
+              <p style="padding: 0; margin: 0">{{numberCandidates}} кандидатів</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div *ngIf="isSmallScreen" class="padding-block-left" >
+      &lt;!&ndash;
+          <app-similar-jobs-list></app-similar-jobs-list>
+      &ndash;&gt;
+    </div>-->
+  </div>
+</ng-container>

@@ -1,0 +1,28 @@
+@import '../../../../colors';
+
+.user-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  align-items: center;
+  border: none;
+  padding: 0;
+}
+
+.profile-button{
+  border-radius: 20px;
+  padding: 4px 20px;
+  width: 60%;
+  color: $primary-color;
+  min-width: 200px;
+  //margin: 4px;
+}
+
+.pink{
+  background-color: $button-pink;
+}
+
+.beige{
+  background-color: $button-beige ;
+}

@@ -1,8 +1,29 @@
 <div>
-  <div class="app-job-search-card" *ngFor="let jobComponent of dataJobs; let i = index">
-    <app-job-short-card
-      [dataJob]="jobComponent">
-    </app-job-short-card>
+  <div *ngIf="dataJobs && dataJobs.length != 0">
+    <div class="app-job-search-card" *ngFor="let jobComponent of dataJobs; let i = index">
+      <app-job-short-card
+        [isSearchPage]="true"
+        [job]="jobComponent"
+        [userData]="userData"
+      >
+      </app-job-short-card>
+    </div>
+  </div>
+  <div *ngIf="dataJobs.length == 0 && onLoadedJobs">
+    <app-blank-block-no-result [text]="'За вашим запитом поки немає вакансій'"></app-blank-block-no-result>
+  </div>
+
+  <div *ngIf="onLoadedJobs">
+    <app-pagination-list
+      [numberElement]="totalElements"
+      [maxElementOnPage]="elementsPerPage"
+      (currentPage)="handlePageChange($event)"
+    >
+    </app-pagination-list>
+  </div>
+
+  <div *ngIf="!onLoadedJobs" style="margin-top: 50px">
+    <app-loading-progress></app-loading-progress>
   </div>
 </div>
 

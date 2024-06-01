@@ -1,14 +1,15 @@
-<div >
+<div *ngIf="isLoaded && similarJobs.length > 0">
   <p class="font-24-bold" style="margin: 32px 8px;">Схожі вакансії</p>
-  <div class="app-job-search-card" *ngFor="let jobComponent of dataJobs; let i = index">
+  <div class="app-job-search-card" *ngFor="let jobComponent of similarJobs; let i = index">
     <app-job-short-card
-      [dataJob]="jobComponent"
+      [job]="jobComponent"
       [shortVersionJob]=true
+      [userData]="userData"
     >
     </app-job-short-card>
   </div>
   <div style="width: 100%; margin: 16px" class="flex-justify-centre-content">
-    <button class="blank_button font-18-bold text-grey" style="display: flex; align-items: center; justify-content: center">
+    <button class="blank_button font-18-bold text-grey" style="display: flex; align-items: center; justify-content: center" (click)="showMore()">
       Переглянути ще схожі
       <img ngSrc="assets/img/icons/arrows/arrow-right-grey.png" height="24" width="24">
     </button>

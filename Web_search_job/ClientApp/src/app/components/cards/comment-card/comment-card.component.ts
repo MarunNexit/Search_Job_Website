@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {CommentDTO} from "../../../models/backend/dtos/employers/Comment.dto";
 
 @Component({
   selector: 'app-comment-card',
@@ -6,16 +7,19 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./comment-card.component.scss']
 })
 export class CommentCardComponent {
-  @Input() dataComment: any;
+  @Input() dataComment: CommentDTO;
+  @Input() isRightSide: boolean;
 
   stars: string[] = [];
-  rating: number = 3.5;
+  rating: number = 0;
   isShortView: boolean = true;
 
   ngOnInit(): void {
-    this.rating = 3.5; // ваше значення рейтингу
-    const fullStars = Math.floor(this.rating);
-    const halfStar = this.rating - fullStars >= 0.5 ? '../../../../assets/img/icons/stars/half_star.png' : '';
+    console.log(this.dataComment)
+
+    this.rating = this.dataComment.commentStars; // ваше значення рейтингу
+    const fullStars = Math.floor(this.dataComment.commentStars);
+    const halfStar = this.dataComment.commentStars - fullStars >= 0.5 ? '../../../../assets/img/icons/stars/half_star.png' : '';
     const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
     console.log(emptyStars);

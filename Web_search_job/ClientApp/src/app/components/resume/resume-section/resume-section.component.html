@@ -1,0 +1,254 @@
+<div class="wrap-text" style="padding-top: 0px; padding-bottom: 0px; margin: 0px" >
+  <div >
+    <div class="block-with-job ">
+      <div class="block-with-job-with-padding">
+        <div class="row "  style="margin-top: 8px; ">
+          <div class="col " style="padding: 0; margin-left: 8px">
+            <div>
+              <p class="text-grey font-24-bold">
+                {{title}}
+              </p>
+            </div>
+          </div>
+          <button *ngIf="!isPublicView"  class="col-auto icon-div " style="padding: 0"  >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+
+        <div style="margin-left: 16px">
+          <div *ngIf="sections.includes('age')" class="row font-14-regular" >
+            <div class="col-auto ">
+              <mat-icon  style="margin-bottom: 4px">person</mat-icon>
+            </div>
+            <div class="col ">
+              <p class=" " style="text-decoration: none;">
+                20 років
+              </p>
+            </div>
+          </div>
+
+          <div *ngIf="sections.includes('location')"  class="row font-14-regular" >
+            <div class="col-auto ">
+              <mat-icon style="margin-bottom: 4px">location_on</mat-icon>
+            </div>
+            <div class="col ">
+              <p class=" " style="text-decoration: none; " >
+                Івано-Франківськ
+              </p>
+            </div>
+          </div>
+
+          <div *ngIf="sections.includes('phone')" class="row font-14-regular" >
+            <div class="col-auto ">
+              <mat-icon  style="margin-bottom: 4px">phone</mat-icon>
+            </div>
+            <div class="col ">
+              <p class=" " style="text-decoration: none;">
+                38 (068) 234-09-82
+              </p>
+            </div>
+          </div>
+
+          <div *ngIf="sections.includes('email')" class="row font-14-regular" >
+            <div class="col-auto ">
+              <mat-icon style="margin-bottom: 4px">email</mat-icon>
+            </div>
+            <div class="col ">
+              <p class=" " style="text-decoration: none; " >
+                searcher_1@gmail.com
+              </p>
+            </div>
+          </div>
+
+          <div *ngIf="sections.includes('skills')">
+            <app-about-employer [isProfile]="true"></app-about-employer>
+          </div>
+
+          <div *ngIf="sections.includes('languages')"  class="row font-14-regular" >
+            <div *ngFor="let language of languages">
+              <p>{{language.language}}:{{language.level}}</p>
+            </div>
+          </div>
+
+          <div *ngIf="sections.includes('links')"  class=" font-14-regular" >
+            <div class="row">
+              <div class="col-auto  img-icon" style="padding-right: 0px">
+                <img class="img-icon link" src="assets/img/icons/links/dribbble.png" width="20" height="20">
+              </div>
+              <div class="col ">
+                <p class=" " style="text-decoration: none; margin-bottom: 8px" >
+                  Dribble
+                </p>
+                <p class="font-12-regular" style="text-decoration: underline; " >
+                  link
+                </p>
+              </div>
+            </div>
+
+            <div  class="row">
+              <div class="col-auto img-icon" style="padding-right: 0px">
+                <img class="img-icon link" src="assets/img/icons/links/behance.png" width="20" height="20">
+              </div>
+              <div class="col " >
+                <p class=" " style="text-decoration: none; margin-bottom: 8px" >
+                  Behance
+                </p>
+                <p class="font-12-regular " style="text-decoration: underline; " >
+                  link
+                </p>
+              </div>
+            </div>
+
+            <div  class="row">
+              <div class="col-auto img-icon" style="padding-right: 0px">
+                <img class="img-icon link" src="assets/img/icons/links/facebook.png" width="20" height="20">
+              </div>
+              <div class="col ">
+                <p class=" " style="text-decoration: none; margin-bottom: 8px" >
+                  Facebook
+                </p>
+                <p class=" font-12-regular" style="text-decoration: underline; " >
+                  link
+                </p>
+              </div>
+            </div>
+
+            <div  class="row">
+              <div class="col-auto img-icon" style="padding-right: 0px">
+                <img class="img-icon link" src="assets/img/icons/links/linkedin.png" width="20" height="20">
+              </div>
+              <div class="col ">
+                <p class=" " style="text-decoration: none; margin-bottom: 8px" >
+                  LinkedIn
+                </p>
+                <p class=" font-12-regular" style="text-decoration: underline; " >
+                  link
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+          <div *ngIf="sections.includes('wanted_job')" class=" font-14-regular" >
+            <p class="font-18-bold">Graphic Design and Web Development | Print and Digital Media</p>
+            <div class="row">
+              <div class="col-auto ">
+                <mat-icon style="margin-bottom: 4px">account_balance_wallet</mat-icon>
+              </div>
+              <div class="col ">
+                <p class=" " style="text-decoration: none; " >
+                  $32.00/год
+                </p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-auto ">
+                <img src="../../../../assets/img/icons/profile/activity.png" height="24" width="24"/>
+              </div>
+              <div class="col ">
+                <p class=" " style="text-decoration: none; " >
+                  проектна робота, неповна зайнятість, повна зайнятість, позмінна робота, віддалена робота, стажування / практика
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div *ngIf="sections.includes('about_self')" class=" font-14-regular" >
+            <div style="">
+              <div [@openClose]="showLess ? 'collapsed' : 'expanded'" class="font-16-regular" style="margin-top: 8px; margin-bottom: 12px; word-wrap: break-word;">
+                {{ 'asdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasda sdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasda sdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasda sdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasda sdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasda sdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasda sdsadasdasdasdasdaasdasdsadasdasdasdasda'
+                }}
+              </div>
+              <p *ngIf="showLess">...</p>
+            </div>
+
+            <button (click)="toggleShow()" class="blank_button show-less">
+              {{ showLess ? 'більше' : 'менше' }}
+            </button>
+          </div>
+
+
+          <div *ngIf="sections.includes('history')" class=" font-14-regular" >
+            <p class="font-18-bold">Менеджер</p>
+            <div  class="row">
+              <div class="col-auto img-icon" style="padding-right: 0px">
+                <mat-icon>work</mat-icon>
+              </div>
+              <div class="col ">
+                <p class=" " style="text-decoration: none; margin-bottom: 8px" >
+                  SkyUp Airlines
+                </p>
+                <p class=" font-12-regular" style="text-decoration: underline; " >
+                  Компанія авіаліній
+                </p>
+              </div>
+            </div>
+
+            <div  class="row">
+              <div class="col-auto img-icon" style="padding-right: 0px">
+                <mat-icon>calendar_today</mat-icon>
+              </div>
+              <div class="col ">
+                <div style="display: flex; align-items: center">
+                  <p class=" " style="text-decoration: none; margin-bottom: 8px" >
+                    5 років 4 місяці
+                  </p>
+                  <p class="font-12-regular text-grey" style="text-decoration: none; margin-bottom: 8px; margin-left: 8px; /*margin-top: 5px*/" >
+                    09.2015 — 01.2021
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <p style="margin-top: 24px">
+                TEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXT
+              </p>
+            </div>
+          </div>
+
+
+          <div *ngIf="sections.includes('education')" class=" font-14-regular" >
+            <p class="font-18-bold">Черкаська медична академія</p>
+            <div  class="row">
+              <div class="col-auto img-icon" style="padding-right: 0px">
+                <mat-icon>work_outline</mat-icon>
+              </div>
+              <div class="col ">
+                <p class=" " style="text-decoration: none; margin-bottom: 8px" >
+                  Медицина, магістр
+                </p>
+              </div>
+            </div>
+            <div  class="row" style="margin-top: 8px">
+              <div class="col-auto img-icon" style="padding-right: 0px">
+                <mat-icon>location_on</mat-icon>
+              </div>
+              <div class="col ">
+                <p class=" " style="text-decoration: none; margin-bottom: 8px" >
+                  Черкаси, 2021
+                </p>
+              </div>
+            </div>
+        </div>
+
+
+          <div *ngIf="sections.includes('portfolio')" class=" font-14-regular row" >
+            <div *ngFor="let language of languages" class="col-md-3 " style="padding: 12px; display: inline; justify-content: center; align-items: center" >
+              <div class="" style="border-radius: 20px; width: 100%; height: 100px; overflow: hidden;">
+                <img
+                  src=" "
+                  (error)='handleImageError($event, "../../../../assets/img/loading-picture.png")'
+                  style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <p style="" class="font-12-bold">asdasdsad</p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

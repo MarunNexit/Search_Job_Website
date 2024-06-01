@@ -12,12 +12,6 @@ export class ScreenSizeService {
 
   setIsSmallScreen(size: string){
     this.screenMax = size;
-    console.log(this.screenMax)
-
-    console.log("....")
-    console.log(this.screenMax)
-    console.log(this.screenMax)
-    console.log(this.screenMax)
 
     if(this.screenMax && this.screenMax != "")
     {

@@ -1,14 +1,16 @@
-<div >
+<div class="" >
   <form  >
-    <mat-form-field class="example-chip-list font-14-semibold" >
-      <mat-chip-grid  #chipGrid aria-label="Fruit selection" style="display: flex; flex-direction: column;">
-        <ng-container *ngFor="let fruit of fruits; index as i">
-          <mat-chip-row (removed)="remove_chip(fruit)">
-            {{fruit}}
-            <button matChipRemove [attr.aria-label]="'remove ' + fruit">
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip-row>
+    <mat-form-field class="example-chip-list font-14-semibold " >
+      <mat-chip-grid class=""  #chipGrid aria-label="Fruit selection" style="display: flex; flex-direction: column;">
+        <ng-container *ngFor="let fruit of filters_true | keyvalue">
+          <ng-container *ngIf="fruit.value">
+            <mat-chip-row (removed)="remove_chip(fruit)">
+              {{ fruit.key }}
+              <button matChipRemove [attr.aria-label]="'remove ' + fruit.key">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </ng-container>
         </ng-container>
         <div *ngIf="isFiltersExists" style="align-self: center;">
           <button class="remove-filters font-14-regular" (click)="remove_all_chip()">
@@ -17,10 +19,12 @@
         </div>
       </mat-chip-grid>
 
-      <input [disabled]="true"
-             style="height: 0; width: 0; padding: 0; margin: 0"
-             [matChipInputFor]="chipGrid"
-             (matChipInputTokenEnd)="add_chip($event)"/>
+      <div class="" style="height: 0px !important;">
+        <input [disabled]="true"
+               style="height: 0; width: 0; padding: 0; margin: 0"
+               [matChipInputFor]="chipGrid"
+               (matChipInputTokenEnd)="add_chip($event)"/>
+      </div>
 
     </mat-form-field>
   </form>

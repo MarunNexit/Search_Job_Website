@@ -1,0 +1,70 @@
+<ng-container>
+  <div>
+    <div class="row"style="display: flex; align-items: center">
+      <div  class="col-auto border">
+        <p style="margin: 16px 16px 16px 0px" class="font-32-bold">Мої чати</p>
+      </div>
+      <div *ngIf="isScreenSmall" class="col row border" style="display: flex; align-items: center; min-width: 100px"  >
+        <p class="col text-right" style="margin: 0; text-align: end" >  </p>
+        <div class="col-auto" style="text-align: end">
+          <select style="width: 100%; min-width: 100px; max-width: 300px"
+                  class="styled-select font-14-regular background-location" id="selectSelectorSorting"  [(ngModel)]="selectedOption" (change)="onChange($event)">
+            <option [value]="'new'" >Спочатку нові</option>
+            <option [value]="'old'">Спочатку старі</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col search-bar row" style="margin-left: 8px; margin-right: 8px; min-width: 400px" >
+        <div class="col search-bar-input  font-14-regular" >
+          <input type="text" placeholder="Пошук..." >
+        </div>
+        <button class="col-auto  blank_button " style="margin-right: 10px" >
+          <img src='../../../../assets/img/icons/search.png' height="24" width="24">
+        </button>
+      </div>
+      <div *ngIf="!isScreenSmall" class="col row " style="display: flex; align-items: center; margin-bottom: 20px; min-width: 400px"  >
+        <p class="col " style="margin: 0; text-align: end" >Сортувати: </p>
+        <div class="col-auto " style="text-align: end">
+          <select style="width: 100%; min-width: 200px; max-width: 300px"
+                  class="styled-select font-14-regular background-location" id="selectSelectorSorting"  [(ngModel)]="selectedOption" (change)="onChange($event)">
+            <option [value]="'new'" >Спочатку нові</option>
+            <option [value]="'old'">Спочатку старі</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 8px">
+      <div class="col-auto">
+        <mat-checkbox class="example-margin font-16-medium"
+                      [checked]="false"
+                      (change)="onChangeCheckbox($event, 'vacancy')"
+        >
+          Тільки вакансії
+        </mat-checkbox>
+      </div>
+      <div class="col-auto">
+        <mat-checkbox class="example-margin font-16-medium"
+                      [checked]="false"
+                      (change)="onChangeCheckbox($event, 'saved')"
+        >
+          Обрані
+        </mat-checkbox>
+      </div>
+    </div>
+<!--
+    CHANGE
+-->
+    <div style="margin-top: 16px">
+      <app-chat-room-card></app-chat-room-card>
+    </div>
+    <div style="margin-top: 16px">
+      <app-chat-room-card></app-chat-room-card>
+    </div>
+    <div style="margin-top: 16px">
+      <app-chat-room-card></app-chat-room-card>
+    </div>
+  </div>
+</ng-container>

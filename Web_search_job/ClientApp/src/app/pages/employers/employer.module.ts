@@ -18,6 +18,8 @@ import {
 } from "../../components/view-blocks/subscribe-to-employer/subscribe-to-employer.component";
 import {AboutEmployerComponent} from "../../components/lists/about-employer/about-employer.component";
 import {FilterSearchCardComponent} from "../../components/cards/filter-search-card/filter-search-card.component";
+import {ViewBlocksModule} from "../../components/view-blocks/view-blocks.module";
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,7 @@ import {FilterSearchCardComponent} from "../../components/cards/filter-search-ca
     CommentsListComponent,
     CommentCardComponent,
     SubscribeToEmployerComponent,
-    AboutEmployerComponent
+    AboutEmployerComponent,
   ],
   imports: [
     CommonModule,
@@ -42,10 +44,13 @@ import {FilterSearchCardComponent} from "../../components/cards/filter-search-ca
     HomeModule,
     PipeModule,
     FilterSearchCardComponent,
+    ViewBlocksModule,
+    PipeModule,
 
   ],
-  exports: [
-    EmployerPageComponent,
-  ]
+    exports: [
+        EmployerPageComponent,
+        AboutEmployerComponent,
+    ]
 })
 export class EmployerModule { }

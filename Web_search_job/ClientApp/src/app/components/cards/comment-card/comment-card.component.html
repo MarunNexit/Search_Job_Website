@@ -2,7 +2,7 @@
   <div class="row " style="padding-right: 10px; padding-left: 10px;">
     <div class="col-auto" style="margin-bottom: 4px">
       <div class="rating font-18-bold" style="display: flex; justify-content: center">
-        {{rating}}
+        {{dataComment.commentStars}}
       </div>
       <div class="star-container row x" style="display: flex; justify-content: center" >
         <ng-container *ngFor="let star of stars">
@@ -13,8 +13,8 @@
       </div>
     </div>
     <div class="col  " >
-      <p class="font-12-bold" style="margin: 0">{{dataComment.title}}</p>
-      <p style="padding: 0; margin-bottom: 4px" class="font-10-regular">{{dataComment.people_description}}</p>
+      <p class="font-12-bold" style="margin: 0">{{dataComment.commentTitle}}</p>
+      <p style="padding: 0; margin-bottom: 4px" class="font-10-regular">{{dataComment.user?.workNow}}</p>
     </div>
     <div class="col-auto " style="padding: 0" >
       <div class="small_icon">
@@ -35,21 +35,44 @@
     </div>
   </div>
 
-  <div class="row">
-
+  <div *ngIf="isRightSide" class="row">
     <div *ngIf="!isShortView" class="font-14-regular col" style=" margin-bottom: 12px;" >
       <div class="">
-        <p  style="flex-grow: 1;">{{ dataComment.text }}</p>
+        <p  style="flex-grow: 1;">{{ dataComment.commentText }}</p>
         <button class="blank_button" (click)="isShortView = !isShortView">
           <mat-icon style="padding: 0; margin: 0; font-size: 14px">expand_less</mat-icon>
         </button>
       </div>
     </div>
     <div *ngIf="isShortView" class="font-14-regular col" style=" margin-bottom: 12px">
-      {{ dataComment.text | truncate:50 : false }}
+      {{ dataComment.commentText | truncate:50 : false }}
       <button class="blank_button" (click)="isShortView = !isShortView">
         ...
       </button>
+    </div>
+  </div>
+
+  <div *ngIf="!isRightSide" class="row">
+    <div *ngIf="dataComment.commentText.length <= 400">
+      <div class="font-14-regular col" style=" margin-bottom: 12px">
+        {{ dataComment.commentText }}
+      </div>
+    </div>
+    <div *ngIf="dataComment.commentText.length > 400">
+      <div *ngIf="!isShortView" class="font-14-regular col" style=" margin-bottom: 12px;" >
+        <div class="">
+          <p  style="flex-grow: 1;">{{ dataComment.commentText }}</p>
+          <button class="blank_button" (click)="isShortView = !isShortView">
+            <mat-icon style="padding: 0; margin: 0; font-size: 14px">expand_less</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="isShortView" class="font-14-regular col" style=" margin-bottom: 12px">
+        {{ dataComment.commentText | truncate:400 : false }}
+        <button class="blank_button" (click)="isShortView = !isShortView">
+          ...
+        </button>
+      </div>
     </div>
   </div>
 </div>

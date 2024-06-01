@@ -1,0 +1,117 @@
+@import '../../../../../src/colors';
+
+
+
+.white-container{
+  border-radius: 20px;
+  background-color: $tertiary-color;
+  padding: 32px;
+}
+
+.about-img{
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px 20px 0px 0px;
+
+}
+
+
+.member-img{
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px 20px 20px 20px;
+}
+
+
+/* Змінює колір фону */
+#selectSelectorSorting {
+  background-color: $tertiary-color;
+  min-width: 150px;
+}
+
+/* Додає округлення кутів */
+#selectSelectorSorting {
+  border-radius: 20px;
+  border: none;
+  height: 2.5rem;
+  padding-left: 20px;
+
+}
+
+#selectSelectorSorting::-webkit-inner-spin-button,
+#selectSelectorSorting::-webkit-outer-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+
+
+#selectSelectorSorting {
+  background-image: url('/../../../../../../../assets/img/icons/arrows/arrow-drop-down.png');
+  background-size: 24px; /* Розмір вашої іконки */
+  background-repeat: no-repeat;
+  background-position: right center; /* Позиція іконки відносно тексту */
+  padding-right: 20px; /* Розмір місця для іконки */
+}
+
+
+
+
+.styled-select select {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+}
+
+
+
+.search-bar {
+  display: flex;
+  align-content: center;
+  border-radius: 20px;
+  height: 5vh;
+  min-height: 40px;
+  min-width: 100px;
+  place-items: center;
+  padding-right: 10px;
+  padding-left: 20px;
+  background: $tertiary-color;
+  position: relative;
+}
+
+.search-bar-input {
+  position: relative;
+}
+
+.search-bar-input input {
+  border: none;
+  border-bottom: 2px solid transparent;
+  outline: none;
+  width: 100%;
+  padding: 5px;
+  transition: border-bottom-color 0.3s;
+}
+
+.search-bar-input input:focus {
+  border-bottom-color: $primary-color;
+}
+
+/* Додавання лінії після активного інпута */
+.search-bar-input input:focus::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: $blue-color;
+}
+
+.underline{
+  text-decoration: underline $primary-color 1px;
+}
+

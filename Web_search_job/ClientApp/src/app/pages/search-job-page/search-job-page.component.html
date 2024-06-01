@@ -1,14 +1,34 @@
 <div class="container">
   <app-chip-search-job></app-chip-search-job>
+
+  <div class="row" style="margin-bottom: 12px">
+    <div style="margin-top: 6px; margin-bottom: 20px" *ngIf="jobs " class="col-auto">
+      <p class="font-18-bold" style="margin-left: 20px; margin-bottom: 0px">Знайдено {{jobs.length}} вакансій</p>
+    </div>
+    <div style="margin-top: 6px; margin-bottom: 20px" *ngIf="!jobs " class="col">
+    </div>
+    <div class="col row " style="display: flex; align-items: center; margin-bottom: 20px"  >
+      <p class="col " style="margin: 0; text-align: end" >Сортувати за: </p>
+      <div class="col-auto " style="text-align: end">
+        <select style="width: 100%; min-width: 200px; max-width: 300px"
+          class="styled-select font-14-regular background-location" id="selectSelector"  [(ngModel)]="selectedOption" (change)="onChange($event)">
+          <option [value]="'new'" >Спочатку нові</option>
+          <option [value]="'recommend'">Спочатку рекомендовані</option>
+          <option [value]="'popular'">За популярністю</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
   <div class="row" style="margin-top: 0; padding-top: 0">
-    <div class="filters-col col-md-4 " >
+    <div class="filters-col col-lg-4 "  >
       <div>
         <app-filter-search-list></app-filter-search-list>
       </div>
     </div>
-    <div class="job-col col">
+    <div class="job-col col ">
       <div>
-        <app-job-short-list></app-job-short-list>
+        <app-job-short-list (dataJobsOutput)="onJobsOutput($event)"></app-job-short-list>
       </div>
     </div>
   </div>

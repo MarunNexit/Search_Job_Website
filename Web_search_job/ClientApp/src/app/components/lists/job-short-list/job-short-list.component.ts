@@ -1,18 +1,17 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Output} from '@angular/core';
+import {JobService} from "../../../services/backend/job.service";
+import {Job} from "../../../models/backend/dtos/jobs/job";
+import {JobShortDTO} from "../../../models/backend/dtos/jobs/job-short.dto";
+import {UserService} from "../../../services/backend/user.service";
+import {UserData} from "../../../services/backend/auth/dtos/user-data";
+import {ActivatedRoute} from "@angular/router";
+import {SearchParamService} from "../../../services/search-param.service";
+import {catchError, debounceTime, Subscription} from "rxjs";
+import {SearchBarService} from "../../../services/search-bar.service";
+import {MainSearchService} from "../../../services/main-search.service";
+import {EmployerShortDTO} from "../../../models/backend/dtos/employers/employer-short.dto";
 
 
-interface DataJob {
-  id: number;
-  title: string;
-  salary:string;
-  company:string;
-  description: string;
-  tags: string[];
-  company_picture:string;
-  banner_picture:string;
-  hot_new_marks:boolean[];
-
-}
 
 @Component({
   selector: 'app-job-short-list',
@@ -20,51 +19,106 @@ interface DataJob {
   styleUrls: ['./job-short-list.component.scss']
 })
 export class JobShortListComponent {
+  dataJobs: JobShortDTO[] = [];
+  @Output() dataJobsOutput = new EventEmitter<JobShortDTO[]>();
+  userData: UserData | null = null;
 
-  dataJobs: DataJob[] = [];
-  constructor() {
+  pageSize: number = 18;
 
-    // Створення трьох екземплярів об'єктів DataJob
-    let dataJob1: DataJob = {
-      id: 1,
-      title: "Розробник програмного забезпечення",
-      salary: "90000 USD",
-      company: "ABC Inc.",
-      description: "Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення",
-      tags: ["IT", "Програмування", "Розробка"],
-      company_picture: "../../../../assets/img/icons/cards/check_mark.png",
-      banner_picture: "url/to/banner_picture_1.jpg",
-      hot_new_marks: [true, true, false] // Приклад оцінок "гарячої новини"
-    };
+  showLess: string[] = [];
+  sortingParam: string = '';
+  filtersParam: string = '';
+  fullSearchRequest: string = '';
+  searchParam: string = '';
+  searchParamList: string[];
+  onLoadedJobs: boolean = false;
+  private searchParamSubscription: Subscription;
+  searchBarParam: string = '';
+  private paramSubscription: Subscription;
 
-    let dataJob2: DataJob = {
-      id: 2,
-      title: "Менеджер з продажів",
-      salary: "70000 USD",
-      company: "XYZ Corp.",
-      description: "Опис посади менеджера з продажів...",
-      tags: ["Продажі", "Маркетинг", "Бізнес"],
-      company_picture: "../../../../assets/img/JobLogo.png",
-      banner_picture: "",
-      hot_new_marks: [false, false, false] // Приклад оцінок "гарячої новини"
-    };
+  employerData: EmployerShortDTO[];
+  countEmployers: number = 0;
+  hasError: boolean = false;
 
-    let dataJob3: DataJob = {
-      id: 3,
-      title: "Дизайнер UX/UI",
-      salary: "80000 USD",
-      company: "DEF Design Studio",
-      description: "Опис посади дизайнера UX/UI...",
-      tags: ["Дизайн", "UX", "UI"],
-      company_picture: "url/to/company_picture_3.jpg",
-      banner_picture: "",
-      hot_new_marks: [false, false, true] // Приклад оцінок "гарячої новини"
-    };
+  //CHANGE DATA
+  totalElements: number = 0;
+  elementsPerPage: number = 9;
+  currentPage: number = 1;
+  countJobs: number = 0;
+
+  handlePageChange(newPage: number) {
+    this.currentPage =  newPage;
+  }
+
+  constructor(
+    private jobService: JobService, private userService: UserService, private route: ActivatedRoute,
+    private searchParamService: SearchParamService,
+    private mainSearchService: MainSearchService,
+    private cdr: ChangeDetectorRef
+  ) {
+  }
+
+  ngOnInit() {
+    this.userService.getUserData().subscribe(userData => {
+      this.userData = userData;
+      this.SearchParamData();
+
+    })
+  }
+
+  private GetJobsDataArray(){
+    const id = +this.route.snapshot.paramMap.get('id')!;
+    this.GetJobsDataBasedOnUser(this.userData, id);
+  }
+
+  private GetJobsDataBasedOnUser(userData: UserData | null, id: number) {
+    if (userData) {
+      this.GetJobsData(userData.id, id, this.pageSize, this.showLess, this.searchBarParam, this.sortingParam, this.filtersParam);
+    } else {
+      this.GetJobsData("", id, this.pageSize, this.showLess, this.searchBarParam, this.sortingParam, this.filtersParam);
+    }
+  }
+
+  async GetJobsData(userId: string, page: number = 1, pageSize: number = 18, showLess: string[] = [], searchBarParam: string, sortingParam: string = 'NULL', filtersParam: string = 'NULL') {
+    this.onLoadedJobs = false;
+
+      this.jobService
+        .getJobShortList(userId, page, pageSize, showLess, searchBarParam, sortingParam, filtersParam
+    ).subscribe((result: JobShortDTO[]) => {
+        if (result) {
+          this.dataJobs = result;
+          this.dataJobsOutput.emit(result);
+          this.onLoadedJobs = true;
+
+          this.totalElements = result.length;
+          if(result.length != 0){
+            this.countJobs = Math.ceil(result.length / this.elementsPerPage);
+          }
+          else{
+            this.countJobs = 0;
+          }
+        }
+      });
+  }
 
 
-    this.dataJobs[0] = dataJob1;
-    this.dataJobs[1] = dataJob2;
-    this.dataJobs[2] = dataJob3;
+  SearchParamData(){
+    this.paramSubscription = this.mainSearchService.getParamObservable()
+      .pipe(debounceTime(300))  // Wait for 300ms pause in events
+      .subscribe(params => {
+        this.onLoadedJobs = false;
+        this.searchParamList = params || '';
+        this.filtersParam = params.filter;
+        this.sortingParam = params.sort || '';
+        this.searchBarParam = params.request || '';
+        const id = +this.route.snapshot.paramMap.get('id')!;
+        //this.GetJobsDataBasedOnUser(this.userData, id);
+        this.GetJobsDataArray();
+      });
+  }
+
+  ngOnDestroy() {
+    this.paramSubscription.unsubscribe();
   }
 
 }

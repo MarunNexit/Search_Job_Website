@@ -15,7 +15,7 @@
             <ul class="menu " >
               <div class="row row-menu ">
                 <div class="col-auto " >
-                  <div *ngIf="activeMenuItem && activeMenuItem === '/search-job'; else blank_margin_for_line" class="line"></div>
+                  <div *ngIf="activeMenuItem && activeMenuItem.startsWith('/search-job') else blank_margin_for_line" class="line"></div>
                   <div style="height: 100%"></div>
                   <li class="menu-item " [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('/search-job')">
                     <a class="font-16-bold" [ngClass]="{'active_menu': activeMenuItem === '/search-job'}" [routerLink]="['/search-job']">
@@ -33,20 +33,20 @@
                   </li>
                 </div>
                 <div *ngIf="isLogin;" class="col-auto " >
-                  <div *ngIf="activeMenuItem && activeMenuItem === '/search-job'; else blank_margin_for_line" class="line"></div>
+                  <div *ngIf="activeMenuItem && activeMenuItem === '/questions'; else blank_margin_for_line" class="line"></div>
                   <div style="height: 100%"></div>
-                  <li class="menu-item " [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('/search-job')">
-                    <a class="font-16-bold" [ngClass]="{'active_menu': activeMenuItem === '/search-job'}" [routerLink]="['/search-job']">
-                      Community
+                  <li class="menu-item " [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('/questions')">
+                    <a class="font-16-bold" [ngClass]="{'active_menu': activeMenuItem === '/questions'}" [routerLink]="['/questions']">
+                      Запитання
                     </a>
                   </li>
                 </div>
                 <div class="col-auto ">
-                  <div *ngIf="activeMenuItem === '/fetch-data'; else blank_margin_for_line" class="line"></div>
+                  <div *ngIf="activeMenuItem === '/about-us'; else blank_margin_for_line" class="line"></div>
                   <div style="height: 100%"></div>
                   <div style="display: grid; place-items: center">
-                    <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('/fetch-data')">
-                      <a class="font-16-bold" [ngClass]="{'active_menu': activeMenuItem === '/fetch-data'}" [routerLink]="['/fetch-data']">
+                    <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('/about-us')">
+                      <a class="font-16-bold" [ngClass]="{'active_menu': activeMenuItem === '/about-us'}" [routerLink]="['/about-us']">
                         Про нас
                       </a>
                     </li>
@@ -59,18 +59,20 @@
 
         <div class=" col align-items-center justify-content-center row  "  style="margin-left: 15px;">
           <div class="col " style="display: flex; justify-content: right">
-            <div class="search-bar search-bar-small" style="padding-right: 20px; padding-left: 20px">
-              <input type="text" placeholder="Пошук..." class="font-14-regular">
-              <div>
-                <button class="blue-button-header-small" >
-                  <img ngSrc="assets/img/icons/search.png" height="24" width="24">
-                </button>
+            <form (ngSubmit)="onSearchBarSubmit()">
+              <div class="search-bar search-bar-small" style="padding-right: 20px; padding-left: 20px">
+                <input type="text" placeholder="Пошук..." class="font-14-regular" [(ngModel)]="searchQuerySmall" name="searchQuerySmall">
+                <div>
+                  <button type="submit" class="blue-button-header-small" (click)="onSearchBarSubmit()">
+                    <img src="assets/img/icons/search.png" height="24" width="24" alt="Search">
+                  </button>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
           <div *ngIf="!isScreenSmall; else small_screen" class="col-auto button-header-block">
             <div *ngIf="!isLogin; else is_login_menu">
-              <button [routerLink]="['/login-register']" class="font-16-bold button-header">
+              <button [routerLink]="['/auth-login']" class="font-16-bold button-header">
                 Увійти
               </button>
             </div>
@@ -78,25 +80,35 @@
         </div>
       </div>
       <div *ngIf="isHeaderSectionVisible()">
-        <div class="block-how-work-need-work container font-42-medium">
+        <div class="block-how-work-need-work container font-42-medium img-icon" style="margin-bottom: 20px">
           Як робота повинна <strong>працювати</strong>
           <img style="margin-left: 20px" src="assets/img/icons/sparkle.png" height="55" width="55">
         </div>
-        <div class="container " style="width: 100%">
-          <div class="search-bar-big  " >
-            <div class=" align-items-center flex-container-space-between" style="padding-left: 40px; padding-right: 40px">
-              <img src="assets/img/icons/search.png" height="30" width="30" style="margin-left: 30px; margin-right: 10px">
-              <input type="text" placeholder="Пошук..." class="font-20-regular">
-              <div class=" blue-button-header-block  ">
-                <button class="font-16-bold blue-button-header">
-                  Знайти
-                </button>
+        <div *ngIf="!isAboutPage" class="container " style="width: 100%">
+          <form (ngSubmit)="onSearchBarSubmit()">
+            <div class="search-bar-big">
+              <div class="align-items-center flex-container-space-between" style="padding-left: 40px; padding-right: 40px">
+                <img src="assets/img/icons/search.png" height="30" width="30" style="margin-left: 30px; margin-right: 10px">
+                <input type="text" placeholder="Пошук..." class="font-20-regular" [(ngModel)]="searchQuery" name="searchQuery">
+                <div  class="blue-button-header-block">
+                  <button *ngIf="!isSearchBarFilled" class="font-16-bold blue-button-header" (click)="onSearchBarSubmit()">
+                    Знайти
+                  </button>
+                  <button *ngIf="isSearchBarFilled" type="submit" class="blue-button-header-small" (click)="emptySearchBar()">
+                    <mat-icon style="margin-top: 8px; padding: 0" class="font-24-bold">close</mat-icon>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          </form>
           <div style="background: #1E1E1E; height: 1px"></div>
         </div>
       </div>
+
+      <div *ngIf="isProfileUser">
+        <app-profile-header></app-profile-header>
+      </div>
+
       <div class="gray-footer-top black-footer-top" style="padding-top: 40px">
       </div>
     </div>
@@ -143,13 +155,17 @@
 
     <mat-menu #menu="matMenu">
       <div class="font-14-regular">
-        <button mat-menu-item (click)="goToURL('/profile', true)">
+        <button mat-menu-item (click)="goToURL('/profile/' + userHeadData.id, true)">
           <mat-icon height="24" width="24">person</mat-icon>
           <span>Мій профіль</span>
         </button>
         <button mat-menu-item (click)="goToURL('/history', true)">
           <mat-icon height="24" width="24">history</mat-icon>
           <span>Мої заявки</span>
+        </button>
+        <button mat-menu-item (click)="goToURL('/chat-rooms', true)">
+          <mat-icon height="24" width="24">chat</mat-icon>
+          <span>Мої чати</span>
         </button>
         <button mat-menu-item (click)="goToURL('/recommendations', true)">
           <mat-icon height="24" width="24">thumb_up</mat-icon>
@@ -185,9 +201,9 @@
 
 <ng-template #sidebar_right>
   <div *ngIf="isLogin" class="sidebar-right" [ngClass]="{'show': isSideBarRight}">
-    фівфівіф
+     IN FUTURE
   </div>
   <div *ngIf="!isLogin" class="sidebar-right" [ngClass]="{'show': isSideBarRight}">
-    фівфівіф
+    IN FUTURE
   </div>
 </ng-template>

@@ -9,6 +9,10 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {ChipsModule} from "../../components/chips/chips.module";
 import {MatIconModule} from "@angular/material/icon";
+import {MatDialogModule} from "@angular/material/dialog";
+import {BrowserModule} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {PipeModule} from "../../pipes/pipes.module";
 
 @NgModule({
   declarations: [
@@ -26,6 +30,10 @@ import {MatIconModule} from "@angular/material/icon";
     MatMenuModule,
     ChipsModule,
     MatIconModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    PipeModule,
 
   ],
   exports: [

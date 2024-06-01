@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {expandCollapse} from "../filter-search-card/animation_filter_card";
+import {JobDTO} from "../../../models/backend/dtos/jobs/job.dto";
 
 @Component({
   selector: 'app-appropriateness-job',
@@ -8,6 +9,8 @@ import {expandCollapse} from "../filter-search-card/animation_filter_card";
   animations: [expandCollapse]
 })
 export class AppropriatenessJobComponent {
+
+  @Input() job: JobDTO;
 
   isAppropriateness: boolean[] = [false, true, true, true];
   isAppropriatenessAll: boolean = false;

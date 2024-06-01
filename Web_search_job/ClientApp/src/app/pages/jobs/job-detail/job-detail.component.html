@@ -22,20 +22,20 @@
   </div>
 
 
-  <div class="row" style="padding-left: 8px">
+  <div *ngIf="job && isLoaded" class="row" style="padding-left: 8px">
     <div [ngClass]="isSmallScreen ? 'col-auto ' : 'col-md-9'" >
       <div class="block-with-job " >
-        <div *ngIf="dataJob.banner_picture != '' && dataJob.banner_picture != null" class="job-photo ">
+        <div *ngIf="job.jobBackgroundImg != '' && job.jobBackgroundImg != null" class="job-photo ">
           <!--        СЮДИ ФОТО-->
-          <img id="job-photo" src="{{dataJob.banner_picture}}" (error)='handleImageError($event, "assets/img/alt-image.png")' alt="">
+          <img id="job-photo" src="{{job.jobBackgroundImg}}" (error)='handleImageError($event, "assets/img/alt-image.png")' alt="" >
         </div>
         <div class="block-with-job-with-padding">
-          <app-chips-job-priority [dataJob]="dataJob"></app-chips-job-priority>
+          <app-chips-job-priority [dataJob]="job"></app-chips-job-priority>
           <div class="row "  style="margin-top: 16px">
             <div class="col " style="padding: 0; margin-left: 8px">
               <div>
                 <p class="job-text job-name font-32-bold">
-                  {{dataJob.title}}
+                  {{job.jobTitle}}
                 </p>
               </div>
 
@@ -44,12 +44,12 @@
                 <img ngSrc="assets/img/icons/job/company-icon.png" height="24" width="24" alt="">
                 </div>
                 <div class="col " >
-                  <button *ngIf="dataJob.company != null" (click)="goToURL('/', true) "
+                  <button *ngIf="job.employer.companyName != null" (click)="goToURLCompany()"
                           class="job-company button-blank font-20-regular" style="padding: 0; margin-bottom: 4px">
-                    {{ dataJob.company}}
+                    {{ job.employer.companyName}}
                   </button>
                   <p  class="job-company-description font-14-regular">
-                    {{dataJob.company_description}} фівфівіфв
+                    {{job.employer.companyShortDescription}}
                   </p>
                 </div>
               </div>
@@ -59,29 +59,38 @@
                   <mat-icon style="margin-top: 4px; margin-bottom: 4px">monetization_on</mat-icon>
                 </div>
                 <div class="col ">
-                  <p class="job-company font-20-regular" style="text-decoration: none;">
-                    {{dataJob.salary}}
-                  </p>
+                  <div class="job-company font-20-regular" style="text-decoration: none;">
+                    <div class=" ">
+                      <div style="display: flex; align-items: center;"  *ngIf="job.jobSalaryMin != null || job.jobSalaryMax != null">
+                        <p *ngIf="job.jobSalaryMin != null" class="job-text small font-16-regular">
+                          {{ job.jobSalaryMin | currencySymbol: job.jobSalaryCurrency }}
+                        </p>
+                        <p style="margin: 0; padding: 0" *ngIf="job.jobSalaryMin != null && job.jobSalaryMax != null">-</p>
+                        <p *ngIf="job.jobSalaryMax != null" class="job-text small font-16-regular">
+                          {{ job.jobSalaryMax | currencySymbol: job.jobSalaryCurrency}}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             <div  class=" company-icon-div"  >
-              <img (click)="goToURL('/', true)"
-                   class="company-icon" src="{{dataJob.company_picture}}" alt="0" (error)='handleImageError($event, "assets/img/alt-image.png")'>
+              <img (click)="goToURLCompany()"
+                   class="company-icon" src="{{job.employer.companyImg}}" alt="0" (error)='handleImageError($event, "assets/img/loading-picture.png")'>
             </div>
           </div>
           <div style="margin-top: 8px">
             <app-chip-job-list [IsBig]="true" ></app-chip-job-list>
           </div>
 
-          <div style="margin-top: 24px; margin-bottom: 12px" class="job-description font-14-regular">
-            {{ dataJob.description}}
+          <div style="margin-top: 36px; margin-bottom: 36px" class="job-description font-14-regular" [innerHTML]="formatDescription(job.jobDescription)">
           </div>
 
           <div class="row align-items-center " style="margin-top: 24px">
             <div class="col ">
               <div style="display: flex">
-                <button class="view-button font-18-semibold" (click)="goToURL('/', true)" style="margin-right: 24px">
+                <button class="view-button font-18-semibold" (click)="openDialog()" style="margin-right: 24px">
                   <span>Подати заявку</span>
                   <mat-icon style="height: 23px; width: 20px;">chevron_right</mat-icon>
                 </button>
@@ -93,10 +102,10 @@
               </div>
             </div>
 
-            <div class="col-auto " >
+            <div *ngIf="userData" class="col-auto " >
               <div style="display: flex; align-items: center; justify-content: center;" class="">
                 <button (click)="saveJob()" class="blank_button" style="margin-right: 4px; ">
-                  <img class="img-icon" [src]="isSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="26" width="26">
+                  <img class="img-icon" [src]="!isSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="26" width="26">
                 </button>
               </div>
             </div>
@@ -104,7 +113,7 @@
         </div>
       </div>
       <div  *ngIf="!isSmallScreen" >
-        <app-similar-jobs-list></app-similar-jobs-list>
+        <app-similar-jobs-list [job]="job" [userData]="userData"></app-similar-jobs-list>
       </div>
     </div>
 
@@ -114,14 +123,14 @@
           <div class=" align-items-center " >
             <div class=" ">
               <div style="display: grid; justify-content: center; align-items: center" class="">
-                <button class="view-button font-18-semibold" (click)="goToURL('/', true)" style="margin-bottom: 8px">
+                <button class="view-button font-18-semibold" (click)="openDialog()" style="margin-bottom: 8px">
                   <span>Подати заявку</span>
                   <mat-icon style="margin-top: 2px; height: 23px; width: 20px;">chevron_right</mat-icon>
                 </button>
 
-                <button class="blank_button save font-18-bold" (click)="saveJob()" >
+                <button *ngIf="userData" class="blank_button save font-18-bold" (click)="saveJob()" >
                   <span>Зберегти вакансію</span>
-                  <img class="img-icon" style="margin-left: 4px" [src]="isSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="26" width="26">
+                  <img class="img-icon" style="margin-left: 4px" [src]="!isSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="26" width="26">
                 </button>
               </div>
             </div>
@@ -131,20 +140,20 @@
 
       <div [ngClass]="isSmallScreen ? 'margin-block-right' : ''">
         <div  class="block-with-job-small block-with-job-small-with-padding-buttons">
-          <app-appropriateness-job></app-appropriateness-job>
+          <app-appropriateness-job [job]="job"></app-appropriateness-job>
         </div>
 
         <div  class="block-with-job-small block-with-job-small-with-padding">
           <div class="font-14-bold text-grey" >
-            <p style="padding: 0;  margin-bottom: 8px">{{numberWatch}} переглядів</p>
-            <p style="padding: 0; margin: 0">{{numberCandidates}} кандидатів</p>
+            <p style="padding: 0;  margin-bottom: 8px">{{job.numberView}} переглядів</p>
+            <p style="padding: 0; margin: 0">{{job.numberCandidates}} кандидатів</p>
           </div>
         </div>
       </div>
 
     </div>
   </div>
-  <div *ngIf="isSmallScreen" class="padding-block-left" >
-    <app-similar-jobs-list></app-similar-jobs-list>
+  <div *ngIf="job && isLoaded && isSmallScreen" class="padding-block-left" >
+    <app-similar-jobs-list [job]="job" [userData]="userData"></app-similar-jobs-list>
   </div>
 </div>

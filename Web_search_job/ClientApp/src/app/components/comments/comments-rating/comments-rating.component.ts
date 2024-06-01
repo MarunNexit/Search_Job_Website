@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {EmployerDTO} from "../../../models/backend/dtos/employers/employer-full.dto";
 
 @Component({
   selector: 'app-comments-rating',
@@ -6,12 +7,34 @@ import { Component } from '@angular/core';
   styleUrls: ['./comments-rating.component.scss']
 })
 export class CommentsRatingComponent {
-  numberComments: number = 53;
-  rating: number = 3.5;
+
+  @Input() employer: EmployerDTO;
+
+  numberComments: number = 0;
+  rating: number = 0;
   numbersArray: number[] = [5, 4, 3, 2, 1];
-  commentsArray: number[] = [10, 20, 15, 5, 3];
+  commentsArray: number[] = [0, 0, 0, 0, 0];
 
   ngOnInit(): void {
+    this.numberComments = this.employer.commentCount;
+    this.CommentsRating();
+  }
+
+  CommentsRating(){
+    this.rating = this.employer.companyRating;
+    const comments = this.employer.comments;
+
+    comments.forEach(comment => {
+      // Отримуємо оцінку коментаря
+      const rating = comment.commentStars;
+      let num = 0;
+      this.numbersArray.forEach(stars => {
+        if (rating === stars) {
+          this.commentsArray[num] += 1;
+        }
+        num++;
+      });
+    });
   }
 
 

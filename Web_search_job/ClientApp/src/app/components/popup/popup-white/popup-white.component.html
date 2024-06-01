@@ -1,0 +1,35 @@
+<ng-container >
+  <div style="padding: 30px 30px" class="purple">
+    <div style="display: flex; justify-content: flex-end">
+      <button (click)="onNoClick()" class="blank_button">
+        <mat-icon style="cursor: pointer">close</mat-icon>
+      </button>
+    </div>
+    <div style="padding: 0px 30px">
+      <div *ngIf="data.type === 'NeedAuth'">
+        <app-popup-info [Data]="'Для подачі заявки перейдіть будь ласка до реєстрації'" [Type]="data.type"></app-popup-info>
+      </div>
+      <div *ngIf="data.type === 'ProblemSendRequest'">
+        <app-popup-info [Data]="'Ваша заявка не була надіслана'" [Type]="data.type"></app-popup-info>
+      </div>
+      <div *ngIf="data.type === 'SuccessSendRequest'">
+        <app-popup-info [Data]="'Ви можете перейти до діалогу з роботодавцем або продовжити переглядати пропозиції'" [Type]="data.type"></app-popup-info>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    <h1 class="font-32-bold">{{data.title}}</h1>
+  -->
+  <!--<div mat-dialog-content>
+    <p>What's your favorite animal?</p>
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.animal">
+    </mat-form-field>
+  </div>-->
+
+  <!--<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+  </div>-->
+</ng-container>

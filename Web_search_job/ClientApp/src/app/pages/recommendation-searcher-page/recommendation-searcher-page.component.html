@@ -4,8 +4,9 @@
   </p>
   <div class="" *ngFor="let jobComponent of dataJobs; let i = index" style="margin-bottom: 16px">
     <app-job-short-card
-      [dataJob]="jobComponent"
+      [job]="jobComponent"
       [isRecommendation]=true
+      [userData]="userData"
     >
     </app-job-short-card>
   </div>

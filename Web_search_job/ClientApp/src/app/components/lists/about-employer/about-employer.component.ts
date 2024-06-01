@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {EmployerTagDTO} from "../../../models/backend/dtos/employers/employer-tag.dto";
 
 @Component({
   selector: 'app-about-employer',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./about-employer.component.scss']
 })
 export class AboutEmployerComponent {
-  aboutEmployerData = ['ІТ','магазин','навчання','робота', 'не знаю']
+  @Input() aboutEmployerData: EmployerTagDTO[]
+  @Input() isProfile: boolean = false;
+
+
 }

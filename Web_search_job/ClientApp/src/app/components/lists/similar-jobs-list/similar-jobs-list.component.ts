@@ -1,4 +1,11 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component, Input} from '@angular/core';
+import {JobShortDTO} from "../../../models/backend/dtos/jobs/job-short.dto";
+import {JobDTO} from "../../../models/backend/dtos/jobs/job.dto";
+import {UserData} from "../../../services/backend/auth/dtos/user-data";
+import {catchError} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
+import {JobService} from "../../../services/backend/job.service";
+import {MainSearchService} from "../../../services/main-search.service";
 
 interface DataJob {
   id: number;
@@ -20,49 +27,80 @@ interface DataJob {
 })
 export class SimilarJobsListComponent {
 
-  dataJobs: DataJob[] = [];
-  constructor() {
+  @Input() job: JobDTO;
+  @Input() userData: UserData | null = null;
 
-    // Створення трьох екземплярів об'єктів DataJob
-    let dataJob1: DataJob = {
-      id: 1,
-      title: "Розробник програмного забезпечення",
-      salary: "90000 USD",
-      company: "ABC Inc.",
-      description: "Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення",
-      tags: ["IT", "Програмування", "Розробка"],
-      company_picture: "../../../../assets/img/icons/cards/check_mark.png",
-      banner_picture: "url/to/banner_picture_1.jpg",
-      hot_new_marks: [true, true, false] // Приклад оцінок "гарячої новини"
-    };
+  similarJobs: JobShortDTO[];
 
-    let dataJob2: DataJob = {
-      id: 2,
-      title: "Менеджер з продажів",
-      salary: "70000 USD",
-      company: "XYZ Corp.",
-      description: "Опис посади менеджера з продажів...",
-      tags: ["Продажі", "Маркетинг", "Бізнес"],
-      company_picture: "../../../../assets/img/loading-picture.png",
-      banner_picture: "",
-      hot_new_marks: [false, false, false] // Приклад оцінок "гарячої новини"
-    };
+  isLoaded: boolean = false;
+  hasError: boolean = false;
 
-    let dataJob3: DataJob = {
-      id: 3,
-      title: "Дизайнер UX/UI",
-      salary: "80000 USD",
-      company: "DEF Design Studio",
-      description: "Опис посади дизайнера UX/UI...",
-      tags: ["Дизайн", "UX", "UI"],
-      company_picture: "url/to/company_picture_3.jpg",
-      banner_picture: "",
-      hot_new_marks: [false, false, true] // Приклад оцінок "гарячої новини"
-    };
+  constructor(
+    private route: ActivatedRoute,
+    private jobService: JobService,
+    private cdr: ChangeDetectorRef,
+    private mainSearchService: MainSearchService,
+  ) {
+
+  }
+
+  ngOnInit(){
+    console.log(this.job)
+    if(this.job != null){
+      if (this.userData) {
+        this.getSimilarJob(this.userData.id);
+      }
+      else {
+        this.getSimilarJob(null);
+      }
+    }
+  }
+
+  showMore(){
+    let sortingParam: string[] = ['popular'];
+    let filtersParam = 'industry:' + this.job.industry.industry_name + ',' + 'location:' + this.job.location.location_region;
+    let filtersParamArray = filtersParam.split(',');
+    let searchBarParam = '';
+    this.mainSearchService.setParams(sortingParam, filtersParamArray, searchBarParam)
+  }
+
+  getSimilarJob(userId: string | null): void {
+    let sortingParam = 'popular';
+    let filtersParam = 'industry:' + this.job.industry.industry_name + ',' + 'location:' + this.job.location.location_region;
+    let searchBarParam = '';
+    let showLess: string[] = [];
+    let id = this.job.id;
+    this.jobService
+      .getSimilarJobList(
+        userId, showLess, searchBarParam, sortingParam, filtersParam, id
+      )
+      .pipe(
+        catchError(() => {
+          this.isLoaded = false;
+          this.hasError = true;
+          return []
+        })
+      )
+      .subscribe((result: JobShortDTO[]) => {
+        this.similarJobs = result;
+        this.isLoaded = true;
+        this.hasError = false
+
+        console.log(this.similarJobs);
+        console.log(result);
+
+        this.cdr.detectChanges();
+      });
 
 
-    this.dataJobs[0] = dataJob1;
-    this.dataJobs[1] = dataJob2;
-    this.dataJobs[2] = dataJob3;
+    /*  this.employerService.getEmployerById(id, userId).subscribe(
+        (employer) => this.employer = employer,
+        (error) => console.error(error)
+      );*/
+
   }
 }
+
+
+
+

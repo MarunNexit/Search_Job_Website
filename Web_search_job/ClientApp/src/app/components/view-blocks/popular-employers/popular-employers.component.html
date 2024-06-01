@@ -3,16 +3,29 @@
     Популярні роботодавці
   </div>
 
-  <div class="row">
-    <div class="col-4" *ngFor="let employer of (isPage ? employers : employers.slice(0, 6))">
-      <app-popular-employers-card></app-popular-employers-card>
+  <div class="row" *ngIf="isLoaded && employerData">
+    <div class="col-lg-4 " *ngFor="let employer of (isPage ? employerData.slice((currentPage*elementsPerPage) - elementsPerPage, (currentPage*elementsPerPage)) : employerData.slice(0, 6))" style="margin-bottom: 20px; ">
+      <app-popular-employers-card [dataEmployer]="employer"></app-popular-employers-card>
     </div>
 
     <div *ngIf="!isPage" style="width: 100%; text-align: end" class="get_more_popular_jobs">
       <li class="grid-item" [routerLinkActive]="['link-active']">
-        <a class="font-24-semibold" style="color: #1E1E1E" [routerLink]="['/popular-employers']">більше</a>
+        <a class="font-24-semibold" style="color: #1E1E1E; cursor: pointer" (click)="goToURL('/popular-employers', true)">більше</a>
       </li>
     </div>
-
   </div>
+
+  <div *ngIf="!isLoaded || !employerData">
+    <app-loading-progress></app-loading-progress>
+  </div>
+
+  <div *ngIf="isPage && isLoaded">
+    <app-pagination-list
+      [numberElement]="totalElements"
+      [maxElementOnPage]="elementsPerPage"
+      (currentPage)="handlePageChange($event)"
+    >
+    </app-pagination-list>
+  </div>
+
 </div>

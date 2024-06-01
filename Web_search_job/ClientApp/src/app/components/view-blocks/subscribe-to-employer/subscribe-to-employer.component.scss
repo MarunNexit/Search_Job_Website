@@ -17,11 +17,18 @@
   text-align: start;
 }
 
+.max-width{
+  max-width: 150px;
+}
+
+.full-width{
+  max-width: 100%;
+}
+
 .styled-select{
   border-radius: 20px;
   border: none;
   width: 100%;
-  max-width: 150px;
   height: 2.5rem;
   padding-left: 30px;
   background-size: 24px; /* Розмір вашої іконки */

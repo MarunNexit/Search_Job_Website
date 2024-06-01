@@ -1,0 +1,50 @@
+<ng-container>
+  <div style="color: #1E1E1E">
+    <div style="display: flex; justify-content: space-between; align-items: center">
+      <p *ngIf="Type === 'NeedAuth' || Type === 'ProblemSendRequest'" class="font-32-bold">Помилка</p>
+      <p *ngIf="Type === 'SuccessSendRequest'" class="font-32-bold">Ваша заявка успішно надіслана</p>
+    </div>
+
+    <div style="margin-top: 32px">
+      <div *ngIf="Type === 'NeedAuth'" >
+        <p class="font-18-bold">Для подачі заявки перейдіть будь ласка до реєстрації</p>
+        <div style="display: flex; justify-content: center; margin-top: 42px">
+          <button (click)="OnOK()" type="submit" class="view-button font-18-semibold" style="margin-right: 24px">
+            <span>Перейти до авторизації</span>
+          </button>
+
+          <button (click)="OnExit()" class="blank_button report font-18-bold "  style="margin-right: 24px; display: flex; align-items: center">
+            <span>Відмінити</span>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="Type === 'ProblemSendRequest'" >
+        <p class="font-18-bold">Ваша заявка не була надіслана</p>
+        <div style="display: flex; justify-content: center; margin-top: 42px">
+          <button (click)="OnTryAgain()" type="submit" class="view-button font-18-semibold" style="margin-right: 24px">
+            <span>Подати заявку</span>
+          </button>
+
+          <button (click)="OnExit()" class="blank_button report font-18-bold "  style="margin-right: 24px; display: flex; align-items: center">
+            <span>Відмінити</span>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="Type === 'SuccessSendRequest'" >
+        <p class="font-18-bold">Ви можете перейти до діалогу з роботодавцем або продовжити переглядати пропозиції</p>
+        <div style="display: flex; justify-content: center; margin-top: 42px">
+          <button (click)="OnSuccessSendRequest()" type="submit" class="view-button font-18-semibold" style="margin-right: 24px">
+            <span>Перейти до діалогу</span>
+          </button>
+
+          <button (click)="OnCancelRequest()" class="blank_button report font-18-bold "  style="margin-right: 24px; display: flex; align-items: center">
+            <span>Відмінити заявку</span>
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</ng-container>

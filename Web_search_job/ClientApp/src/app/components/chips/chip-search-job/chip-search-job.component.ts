@@ -6,8 +6,10 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatAutocompleteModule, MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {AsyncPipe} from "@angular/common";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
-import {map, Observable, startWith} from "rxjs";
+import {map, Observable, startWith, takeUntil} from "rxjs";
 import { CommonModule } from '@angular/common';
+import {FiltersCheckedService} from "../../../services/filters-checked.service";
+import {SearchParamService} from "../../../services/search-param.service";
 
 @Component({
   selector: 'app-chip-search-job',
@@ -34,55 +36,38 @@ export class ChipSearchJobComponent {
   fruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry', 'a111112', 'a111113', 'a111114', 'a111115', 'a111116', 'a111117', 'a111118', 'a111119', 'a111120', 'a111121'];
   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
-  isFiltersExists: boolean = true;
+  showInput: boolean = false;
 
-  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
+  filters_true = this.filtersCheckedService.getAllCheckboxValues();
+  isFiltersExists: boolean = false;
 
-/*
-  announcer = inject(LiveAnnouncer);
-*/
+  constructor(
+    private filtersCheckedService: FiltersCheckedService,
 
-  constructor() {
+  ) {
     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),
     );
   }
 
+  ngOnInit(){
+    this.filters_true = this.filtersCheckedService.getAllCheckboxValues();
 
+    this.filtersCheckedService.checkboxValuesChange.subscribe(values => {
+      this.filters_true = values;
+      this.checkIfAnyTrue();
+    });
 
-
-  /*OLD CODE*/
-
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    // Add our fruit
-    if (value) {
-      this.fruits.push(value);
-    }
-
-    // Clear the input value
-    event.chipInput!.clear();
-
-    this.fruitCtrl.setValue(null);
+    this.checkIfAnyTrue();
   }
 
-  remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
-
-/*
-      this.announcer.announce(`Removed ${fruit}`);
-*/
-    }
+  private checkIfAnyTrue(): void {
+    this.isFiltersExists = Object.values(this.filters_true).some(value => value === true);
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.fruits.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
     this.fruitCtrl.setValue(null);
   }
 
@@ -93,12 +78,8 @@ export class ChipSearchJobComponent {
   }
 
 
-
-  /*MY CODE*/
-
   add_chip(event: any): void {
     const value = (event.value || '').trim();
-
     // Add our fruit
     if (value) {
       this.fruits.push(value);
@@ -114,49 +95,15 @@ export class ChipSearchJobComponent {
     this.fruitCtrl.setValue(null);
   }
 
-  remove_chip(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-/*
-      this.fruits.splice(index, 1);
-*/
-      this.fruits = this.fruits.filter(item => item !== fruit);
-
-      if(this.fruits.length == 0){
-        this.isFiltersExists = false;
-      }
-
-      console.log(this.fruits)
-      console.log(this.filteredFruits)
-
-/*
-      this.announcer.announce(`Removed ${fruit}`);
-*/
-    }
+  remove_chip(fruit: any): void {
+    this.filtersCheckedService.setCheckboxValue(fruit.key, false, 'chip');
   }
 
 
   remove_all_chip(): void {
-    this.fruits = []; // Присвоєння порожнього масиву для видалення всіх елементів
+    this.filtersCheckedService.setCheckboxAllValuesToFalse('all')
 
     this.isFiltersExists = false; // Опціонально, якщо необхідно скинути прапор isFiltersExists
-
-      console.log(this.fruits)
-      console.log(this.filteredFruits)
-  }
-
-
-  selected_chip(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
-  }
-
-  private _filter_chip(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.allFruits.filter(fruit => fruit.toLowerCase().includes(filterValue));
   }
 
 }

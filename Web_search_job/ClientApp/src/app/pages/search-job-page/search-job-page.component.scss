@@ -2,7 +2,6 @@
 
 .filters-col{
   min-width: 250px;
-  max-width: 320px;
 }
 
 .remove-filters{
@@ -47,3 +46,72 @@
 .scroll-to-top.show {
   opacity: 1;
 }
+
+
+.messages_links{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background: $tertiary-color;
+  border-radius: 20px;
+  font-size: 18px;
+}
+
+.align-center{
+  text-align: center;
+}
+
+.align-left{
+  text-align: start;
+}
+
+.max-width{
+  max-width: 150px;
+}
+
+.full-width{
+  max-width: 100%;
+}
+
+
+/* Змінює колір фону */
+#selectSelector {
+  background-color: $tertiary-color;
+  min-width: 150px;
+}
+
+/* Додає округлення кутів */
+#selectSelector {
+  border-radius: 20px;
+  border: none;
+  height: 2.5rem;
+  padding-left: 20px;
+
+}
+
+#selectSelector::-webkit-inner-spin-button,
+#selectSelector::-webkit-outer-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+
+
+#selectSelector {
+  background-image: url('/../../../../../../../assets/img/icons/arrows/arrow-drop-down.png');
+  background-size: 24px; /* Розмір вашої іконки */
+  background-repeat: no-repeat;
+  background-position: right center; /* Позиція іконки відносно тексту */
+  padding-right: 20px; /* Розмір місця для іконки */
+}
+
+
+
+
+.styled-select select {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+}
+
+

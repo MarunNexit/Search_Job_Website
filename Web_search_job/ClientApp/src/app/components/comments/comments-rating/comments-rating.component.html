@@ -1,4 +1,4 @@
-<div class=" ">
+<div *ngIf="numberComments > 0" class=" ">
   <div>
     <div class="row">
       <div class="col">
@@ -13,7 +13,7 @@
       </div>
     </div>
     <div *ngFor="let num of numbersArray; let i = index" class="row font-14-semibold" style="margin-top: 4px">
-      <div class="col-md-9" style="display: flex; align-items: center; justify-content: right">
+      <div class="col" style="display: flex; align-items: center; justify-content: right">
         <p style="margin: 0">{{ num }} </p>
         <img class="img-icon" style="margin: 2px" ngSrc="assets/img/icons/stars/full_star_big.png" height="24" width="24" alt="">
         <div style="width: 100%" >

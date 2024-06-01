@@ -1,32 +1,45 @@
 import {NgModule} from "@angular/core";
-import {SearchJobPageComponent} from "../search-job-page/search-job-page.component";
-import {FilterSearchListComponent} from "../../components/lists/filter-search-list/filter-search-list.component";
-import {JobShortListComponent} from "../../components/lists/job-short-list/job-short-list.component";
-import {
-  BlankBlockNoResultComponent
-} from "../../components/view-blocks/blank-block-no-result/blank-block-no-result.component";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {MatCheckboxModule} from "@angular/material/checkbox";
-import {FilterSearchCardComponent} from "../../components/cards/filter-search-card/filter-search-card.component";
-import {HomeModule} from "../home/home.module";
-import {JobShortCardComponent} from "../../components/cards/job-short-card/job-short-card.component";
+import {ProfilePageComponent} from "./profile-page/profile-page.component";
+import {ProfileHeaderComponent} from "./profile-header/profile-header.component";
+import {MatIconModule} from "@angular/material/icon";
+import {ProfileResumeComponent} from "../../components/resume/profile-resume/profile-resume.component";
 import {ChipsModule} from "../../components/chips/chips.module";
-import {ViewBlocksModule} from "../../components/view-blocks/view-blocks.module";
+import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
+import {ResumeSectionComponent} from "../../components/resume/resume-section/resume-section.component";
+import {EmployerModule} from "../employers/employer.module";
+import {PipeModule} from "../../pipes/pipes.module";
+import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
   declarations: [
-
+    ProfilePageComponent,
+    ProfileHeaderComponent,
+    ProfileResumeComponent,
+    ResumeSectionComponent,
   ],
   imports: [
     CommonModule,
     RouterLink,
     RouterLinkActive,
     NgOptimizedImage,
-    
+    MatIconModule,
+    ChipsModule,
+    MatButtonModule,
+    MatMenuModule,
+    EmployerModule,
+    PipeModule,
+    BrowserAnimationsModule,
+    //NoopAnimationsModule,
+    BrowserModule,
   ],
   exports: [
-
+    ProfilePageComponent,
+    ProfileHeaderComponent,
+    ResumeSectionComponent,
   ]
 })
-export class ProfileMogule { }
+export class ProfileModule { }

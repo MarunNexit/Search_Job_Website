@@ -11,6 +11,9 @@ import {
   HighestPayingJobCardComponent
 } from "../../components/cards/highest-paying-job-card/highest-paying-job-card.component";
 import {ChipsModule} from "../../components/chips/chips.module";
+import {AuthModule} from "../../components/auth/auth.module";
+import {PaginationModule} from "../../components/pagination/pagination.module";
+import {ViewBlocksModule} from "../../components/view-blocks/view-blocks.module";
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import {ChipsModule} from "../../components/chips/chips.module";
     RouterLinkActive,
     NgOptimizedImage,
     ChipsModule,
+    AuthModule,
+    PaginationModule,
+    ViewBlocksModule,
 
   ],
   exports: [

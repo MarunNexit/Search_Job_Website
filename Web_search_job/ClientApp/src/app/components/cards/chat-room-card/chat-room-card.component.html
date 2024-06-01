@@ -1,0 +1,41 @@
+<ng-container>
+  <div class="row white-container" style="cursor: pointer" (click)="goToURL('/chat/' + '1', true)">
+    <div class="col">
+      <p class="font-18-bold underline" >Вакансія: Customer Support Representative (L1)</p>
+      <div class="row">
+        <div class="col row">
+          <div class="col-auto" style="display: flex; align-items: center">
+            <mat-icon class="blank_button button-icon " style="margin-left: 4px; margin-right: 4px; padding: 10px; border-radius: 90px; width: 48px; height: 48px"  matBadge="*" matBadgeSize="small"   >
+              <p class="font-16-regular" style="margin: 0;">{{ 'Aarian'.charAt(0) }}{{ 'Hatskevych'.charAt(0) }}</p>
+            </mat-icon>
+
+            <!-- user.image user.image user.image user.image -->
+<!--
+              <img *ngIf="isUserImage" src="{{user.image}}" alt="User Avatar">
+-->
+<!--
+              CHANGE
+-->
+
+              <!-- !user.image -->
+<!--              <div *ngIf="!isUserImage" class="initials">
+                {{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}
+              </div>-->
+
+          </div>
+          <div class="col">
+            <p class="font-18-bold" style="margin-bottom: 8px">{{'Анастасія Фоменко'}}</p>
+            <p class="font-12-regular">{{'Рекрутер'}} {{'Company'}}</p>
+          </div>
+        </div>
+        <div class="col">
+          <p class="font-18-bold"  style="margin-bottom: 8px">Статус: {{'Інтерв’ю'}}</p>
+          <p class="font-12-regular">Перше повідомлення {{'26 січня 2024 11:05'}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-auto " style="display: flex; align-items: center">
+      <mat-icon class="font-32-bold " style="padding: 0; height: 30%">arrow_forward_ios</mat-icon>
+    </div>
+  </div>
+</ng-container>

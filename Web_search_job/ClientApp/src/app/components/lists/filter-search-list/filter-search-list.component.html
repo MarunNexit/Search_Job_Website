@@ -1,10 +1,21 @@
 <div>
-  <div class="app-filter-search-card" *ngFor="let filterComponent of filters_data; let i = index">
-    <app-filter-search-card
-      [dataFilters]="filterComponent" [addingSearchField] = "addingSearchField[i]">
-    </app-filter-search-card>
+  <div class="app-filter-search-card" *ngIf="filtersData && filtersData.industry && isFiltersLoaded">
+    <app-filter-search-card [dataFilters]="filtersData.industry" [addingSearchField]="true" [nameTopic]="'Професійна сфера'"></app-filter-search-card>
   </div>
+
+  <div class="app-filter-search-card" *ngIf="filtersData && filtersData.locations && isFiltersLoaded">
+    <app-filter-search-card [dataFilters]="filtersData.locations" [addingSearchField]="true" [nameTopic]="'Розташування'"></app-filter-search-card>
+  </div>
+
+  <div *ngIf="filtersData && filtersData.filters && isFiltersLoaded">
+    <div class="app-filter-search-card" *ngFor="let filterType of Object.keys(filtersData.filters)">
+      <app-filter-search-card [dataFilters]="filtersData.filters[filterType]" [addingSearchField]="false" [nameTopic]="filterType"></app-filter-search-card>
+    </div>
+  </div>
+
+  <div *ngIf="!filtersData">
+    <div class="app-filter-search-card" >
+      <app-loading-progress></app-loading-progress>
+    </div>
+  </div >
 </div>
-
-
-

@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {JobEmployerShortDTO} from "../../../models/backend/dtos/jobs/job-employer-short.dto";
+import {EmployerDTO} from "../../../models/backend/dtos/employers/employer-full.dto";
+import {UserService} from "../../../services/backend/user.service";
+import {UserData} from "../../../services/backend/auth/dtos/user-data";
 
 
 interface DataJob {
@@ -20,52 +24,20 @@ interface DataJob {
   styleUrls: ['./employer-jobs-list.component.scss']
 })
 export class EmployerJobsListComponent {
-  numberEmployerJobs: number = 0;
 
-  dataEmployerJobs:any[] = [];
-  constructor() {
+  @Input() dataEmployerJobs: JobEmployerShortDTO[];
+  @Input() employer: EmployerDTO;
+  userData: UserData | null;
 
-    // Створення трьох екземплярів об'єктів DataJob
-    let dataJob1 = {
-      id: 1,
-      title: "Розробник програмного забезпечення",
-      salary: "90000 USD",
-      company: "ABC Inc.",
-      description: "Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення",
-      tags: ["IT", "Програмування", "Розробка"],
-      company_picture: "../../../../assets/img/icons/cards/check_mark.png",
-      banner_picture: "url/to/banner_picture_1.jpg",
-      hot_new_marks: [true, true, false] // Приклад оцінок "гарячої новини"
-    };
+  constructor(
+    private userService: UserService
+  ) {
+  }
 
-    let dataJob2 = {
-      id: 2,
-      title: "Менеджер з продажів",
-      salary: "70000 USD",
-      company: "XYZ Corp.",
-      description: "Опис посади менеджера з продажів...",
-      tags: ["Продажі", "Маркетинг", "Бізнес"],
-      company_picture: "../../../../assets/img/loading-picture.png",
-      banner_picture: "",
-      hot_new_marks: [false, false, false] // Приклад оцінок "гарячої новини"
-    };
-
-    let dataJob3 = {
-      id: 3,
-      title: "Дизайнер UX/UI",
-      salary: "80000 USD",
-      company: "DEF Design Studio",
-      description: "Опис посади дизайнера UX/UI...",
-      tags: ["Дизайн", "UX", "UI"],
-      company_picture: "url/to/company_picture_3.jpg",
-      banner_picture: "",
-      hot_new_marks: [false, false, true] // Приклад оцінок "гарячої новини"
-    };
-
-
-    this.dataEmployerJobs[0] = dataJob1;
-    this.dataEmployerJobs[1] = dataJob2;
-    this.dataEmployerJobs[2] = dataJob3;
+  ngOnInit(){
+    this.userService.getUserData().subscribe(userData => {
+      this.userData = userData;
+    });
   }
 
 }

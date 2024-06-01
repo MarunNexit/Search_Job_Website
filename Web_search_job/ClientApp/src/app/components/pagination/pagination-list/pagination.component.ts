@@ -29,6 +29,7 @@ export class PaginationComponent {
 
   ngOnInit(){
     this.numberPages = Math.ceil(this.numberElement / this.maxElementOnPage);
+    console.log(this.numberPages, this.numberElement, this.maxElementOnPage)
 
     this.route.queryParams.subscribe(params => {
       const page = params['page'] || 1;
@@ -45,8 +46,6 @@ export class PaginationComponent {
 
   generatePages(page: number) {
     this.pages = [];
-    console.log( this.numberPages)
-    console.log(page)
     page = +page;
 
     this.currentPageValue = page;
@@ -55,7 +54,7 @@ export class PaginationComponent {
       this.pages = [1];
       this.clearDots();
     }
-    if(this.numberPages < 3){
+    else if(this.numberPages < 3){
       this.pages = [1, 2];
       this.clearDots();
     }
@@ -85,11 +84,12 @@ export class PaginationComponent {
       this.spaceDots[0] = true;
       this.spaceDots[3] = true;
     }
-    console.log( this.pages)
   }
 
   goToPage(page: number): void {
-    this.router.navigate([], { queryParams: { page } });
+    this.router.navigate([], { queryParams: { page } }).then(() => {
+      window.scrollTo(0, 0); // Прокрутка до верху після навігації
+    });;
     this.generatePages(page);
   }
 

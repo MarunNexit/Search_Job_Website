@@ -36,10 +36,6 @@ h1.title {
 p {
   font-size: 14px;
   font-weight: 100;
-  line-height: 20px;
-  letter-spacing: 0.5px;
-  margin: 20px 0 30px;
-  text-shadow: 0 0 10px rgba(16, 64, 74, 0.5);
 }
 
 span {
@@ -53,6 +49,7 @@ a {
   text-decoration: none;
   margin: 15px 0;
   transition: 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 a:hover {
@@ -170,6 +167,7 @@ input {
   position: relative;
   overflow: hidden;
   width: 900px;
+  height: 700px;
   max-width: 100%;
   min-height: 600px;
 }
@@ -340,4 +338,61 @@ input {
   padding: 0;
   margin: 0;
 }
+
+
+.authentication-card {
+  width: 30%;
+  margin: 0 auto;
+}
+
+.authentication-card-container {
+  min-height: 100vh;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.login-button{
+  padding: 8px;
+  min-width: 100px;
+  width: 40%;
+  margin-left: 0;
+  margin-right: 0;
+  background: none;
+  border: $blue-color 2px solid;
+  color: $blue-color;
+  font-weight: bold;
+
+  overflow: hidden; /* Додаємо обрізання тексту, який не поміщається */
+  white-space: nowrap; /* Забезпечуємо, що текст не переноситься */
+  text-overflow: ellipsis; /* Додаємо маркери еліпсису для вказівки на обрізаний текст */
+}
+
+
+.select-role-button{
+  padding: 8px;
+  min-width: 100px;
+  width: 40%;
+  margin-left: 0;
+  margin-right: 0;
+  background: none;
+  border: $blue-color 2px solid;
+  color: $blue-color;
+  font-weight: bold;
+  border-radius: 0;
+
+  overflow: hidden; /* Додаємо обрізання тексту, який не поміщається */
+  white-space: nowrap; /* Забезпечуємо, що текст не переноситься */
+  text-overflow: ellipsis; /* Додаємо маркери еліпсису для вказівки на обрізаний текст */
+}
+
+.selected{
+  background: $blue-color;
+  color: white;
+}
+
+
 

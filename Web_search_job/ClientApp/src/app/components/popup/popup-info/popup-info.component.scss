@@ -1,0 +1,97 @@
+@import '../../../../colors';
+@import '../../../../icon';
+
+.hint{
+  border-radius: 20px;
+  border: none;
+  background: $tag-type-work;
+  color: $tag-type-work-text;
+  padding: 8px;
+}
+
+
+/* Змінює колір фону */
+#selectSelector {
+  background-color: $tertiary-color;
+}
+
+/* Додає округлення кутів */
+#selectSelector {
+  border-radius: 20px;
+  border: none;
+  width: 100%;
+  height: 2.5rem;
+  padding-left: 20px;
+}
+
+#selectSelector::-webkit-inner-spin-button,
+#selectSelector::-webkit-outer-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+
+
+#selectSelector {
+  background-image: url('../../../../assets/img/icons/arrows/arrow-drop-down.png');
+  background-size: 24px; /* Розмір вашої іконки */
+  background-repeat: no-repeat;
+  background-position: right center; /* Позиція іконки відносно тексту */
+  padding-right: 20px; /* Розмір місця для іконки */
+  min-width: 100px;
+}
+
+.styled-select{
+  padding-top: 8px;
+}
+
+
+.styled-select select {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+}
+
+.text-area{
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+
+.scroll-container {
+  max-height: 400px; /* Встановіть бажану висоту */
+  overflow-y: auto;
+  margin-top: 16px;
+}
+
+
+.view-button {
+  display: flex;
+  border: none;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $icons-buttons-color;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 100%;
+  min-width: 80px;
+  max-width: 200px;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.view-button span {
+  flex-grow: 1; /* Дозволяє тексту займати всю доступну ширину, залишаючи зображення в крайній правій частині */
+  white-space: nowrap; /* Запобігає переносу тексту на новий рядок */
+  overflow: hidden; /* Запобігає виходу тексту за межі кнопки */
+  text-overflow: ellipsis; /* Відображає трохи тексту з кінця та додає мінімальний маркер, щоб показати, що текст обрізаний */
+}
+
+
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

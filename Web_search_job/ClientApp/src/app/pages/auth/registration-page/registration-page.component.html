@@ -1,132 +1,251 @@
-
-<div>
+<div xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Double Slider Login / Registration Form</title>
+    <title>Double Slider Registration Form</title>
   </head>
   <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
   <body>
-  <div class="container_new " id="container_new" >
-    <div class="form-container register-container ">
 
-      <form [formGroup]="registerForm" class="form-container">
-        <mat-form-field>
-          <mat-label>Username</mat-label>
-          <input
-            matInput
-            [errorStateMatcher]="matcher"
-            formControlName="username" />
-          <mat-error
-            *ngIf="registerForm.controls['username'].hasError('required')">
-            Username is <strong>required</strong>
-          </mat-error>
-          <mat-error
-            *ngIf="registerForm.controls['username'].hasError('minlength')">
-            Username must have <strong>more than 5 characters</strong>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Email</mat-label>
-          <input
-            matInput
-            [errorStateMatcher]="matcher"
-            type="email"
-            formControlName="email" />
-          <mat-error
-            *ngIf="registerForm.controls['email'].hasError('required')">
-            Email is <strong>required</strong>
-          </mat-error>
-          <mat-error *ngIf="registerForm.controls['email'].hasError('email')">
-            Email must be <strong>valid</strong>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Password</mat-label>
-          <input
-            matInput
-            [errorStateMatcher]="matcher"
-            type="password"
-            formControlName="password" />
-          <mat-error
-            *ngIf="registerForm.controls['password'].hasError('password')">
-            Password must have
-            <strong
-            >more than 6 characters, min. 1 uppercase, min. 1 lowercase, min.
-              1 special characters</strong
-            >
-          </mat-error>
-        </mat-form-field>
-      </form>
 
-      <form action="#">
-        <h1>Реєстрація пошукача</h1>
-        <input type="text" placeholder="Name">
-        <input type="email" placeholder="Email">
-        <input type="password" (focus)="onFocusPassword()" (blur)="onBlurPassword()" placeholder="Password">
-        <button>Register</button>
-        <span>or use your account</span>
-        <div class="social-container">
-          <a href="#" class="social"><i class="lni lni-facebook-fill"></i></a>
+  <div class="container_new " id="container_new" [ngClass]="{'right-panel-active': !isSearcher}">
+
+    <div [ngStyle]="{'margin-left': isScreenSmall ? '-100%' : '0', 'width': isScreenSmall ? '100%' : '', 'z-index': isSearcher ? '-100' : '100'}" class="form-container login-container ">
+      <form [formGroup]="registerForm" class="border" >
+
+        <div *ngIf="isScreenSmall" style="width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 20px">
+          <button class="select-role-button" [ngClass]="!isSearcher ? 'selected' : ''"
+                  (click)="goToURLWithParam('auth-register', false, 'employer')"
+          >
+            Роботодавець
+          </button>
+          <button [ngClass]="isSearcher ? 'selected' : ''" class="select-role-button"
+                  (click)="goToURLWithParam('auth-register', false, 'searcher')"
+          >
+            Пошукач
+          </button>
+
         </div>
+
+
+        <h1 style="margin-bottom: 48px; margin-top: 48px" class="font-28-bold">Створіть акаунт роботодавця</h1>
+
+        <input type="email" placeholder="Email"
+               matInput
+               [errorStateMatcher]="matcher"
+               formControlName="email"
+               (click)="onInputSelected(2)"
+        >
+        <mat-error class="font-12-regular"
+                   *ngIf="registerForm.controls['email'].hasError('required') && isSelectedInput[2]">
+          Email є <strong>обов'язковим</strong>
+        </mat-error>
+        <mat-error class="font-12-regular" *ngIf="registerForm.controls['email'].hasError('email') && isSelectedInput[2]">
+          Email повинен бути <strong>коректним</strong>
+        </mat-error>
+
+        <input type="password" (focus)="onFocusPassword()" (blur)="onBlurPassword()" placeholder="Пароль"
+               matInput
+               [errorStateMatcher]="matcher"
+               formControlName="password"
+               (click)="onInputSelected(3)"
+        >
+        <mat-error class="font-12-regular"
+                   *ngIf="registerForm.controls['password'].hasError('password') && isSelectedInput[3]">
+          Пароль повинен містити
+          <strong
+          >
+            більше 6 символів, мінімум 1 прописний символ, мінімум 1 строчний символ, мінімум 1 спеціальний символ.</strong
+          >
+        </mat-error>
+
+        <div class="" style="width: 100%;">
+          <button (click)="onSubmit()" style="width: 100%; margin-left: 0; margin-right: 0" class="border">Зареєструватися</button>
+          <span style="margin-top: 8px">або увійти</span>
+          <div class="social-container" style="margin-top: 8px">
+            <a href="#" class="social"><i class="lni lni-facebook-fill"></i></a>
+            <a href="#" class="social"><i class="lni lni-google"></i></a>
+          </div>
+        </div>
+
+        <div *ngIf="isScreenSmall" style="width: 100%; justify-content: center; align-items: center; margin-top: 20px">
+          <ng-container *ngTemplateOutlet="loginButtons"></ng-container>
+        </div>
+
       </form>
     </div>
-    <div class="form-container login-container ">
-    <form action="#">
 
-      <canvas riv="my_mascot" width="200" height="200" >
-        <riv-state-machine name="State Machine 2" play (stateChange)=ShowEvent($event) >
-          <riv-input name="Boolean 1" [value]="IsPasswordFieldActive"></riv-input>
-        </riv-state-machine>
-      </canvas>
 
-      <h1>Увійти</h1>
-      <input type="email" placeholder="Email">
-      <input type="password" (focus)="onFocusPassword()" (blur)="onBlurPassword()" placeholder="Password">
-      <div class="content">
-        <div class="checkbox">
-          <input type="checkbox" name="checkbox" id="checkbox" >
-          <label>Remember me</label>
+
+    <div style="z-index: 1" [ngStyle]="isScreenSmall ? { 'width': '100%' } : {}"   class="form-container login-container ">
+
+      <form [formGroup]="registerForm" class="border" >
+
+        <div *ngIf="isScreenSmall" style="width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 20px">
+          <button class="select-role-button" [ngClass]="!isSearcher ? 'selected' : ''"
+                  (click)="goToURLWithParam('auth-register', false, 'employer')"
+          >
+            Роботодавець
+          </button>
+          <button [ngClass]="isSearcher ? 'selected' : ''" class="select-role-button"
+                  (click)="goToURLWithParam('auth-register', false, 'searcher')"
+          >
+            Пошукач
+          </button>
+
         </div>
-        <div class="pass-link">
-          <a href="#">Forgot password?</a>
+
+        <h1 style="margin-bottom: 48px; margin-top: 48px" class="font-28-bold">Створіть акаунт пошукача</h1>
+
+        <!--<div class="row" style="display: flex; width: 100%">
+          <div class="col" style="padding-left: 0">
+            <input type="username" placeholder="Прізвище"
+                   matInput
+                   [errorStateMatcher]="matcher"
+                   formControlName="lastname"
+                   (click)="onInputSelected(0)"
+            >
+            <mat-error class="font-12-regular"
+                       *ngIf="registerForm.controls['lastname'].hasError('required') && isSelectedInput[0]">
+              Прізвище є <strong>обов'язковим</strong>
+            </mat-error>
+          </div>
+
+          <div class="col" style="padding-right: 0">
+            <input type="username" placeholder="Ім'я"
+                   matInput
+                   [errorStateMatcher]="matcher"
+                   formControlName="username"
+                   (click)="onInputSelected(1)"
+            >
+            <mat-error class="font-12-regular"
+                       *ngIf="registerForm.controls['username'].hasError('required') && isSelectedInput[1]">
+              Ім'я є <strong>обов'язковим</strong>
+            </mat-error>
+          </div>
+        </div>-->
+
+        <input type="email" placeholder="Email"
+               matInput
+               [errorStateMatcher]="matcher"
+               formControlName="email"
+               (click)="onInputSelected(2)"
+        >
+        <mat-error class="font-12-regular"
+          *ngIf="registerForm.controls['email'].hasError('required') && isSelectedInput[2]">
+          Email є <strong>обов'язковим</strong>
+        </mat-error>
+        <mat-error class="font-12-regular" *ngIf="registerForm.controls['email'].hasError('email') && isSelectedInput[2]">
+          Email повинен бути <strong>коректним</strong>
+        </mat-error>
+
+        <input type="password" (focus)="onFocusPassword()" (blur)="onBlurPassword()" placeholder="Пароль"
+               matInput
+               [errorStateMatcher]="matcher"
+               formControlName="password"
+               (click)="onInputSelected(3)"
+        >
+        <mat-error class="font-12-regular"
+          *ngIf="registerForm.controls['password'].hasError('password') && isSelectedInput[3]">
+          Пароль повинен містити
+          <strong
+          >
+            більше 6 символів, мінімум 1 прописний символ, мінімум 1 строчний символ, мінімум 1 спеціальний символ.</strong
+          >
+        </mat-error>
+
+        <div class="" style="width: 100%;">
+          <button (click)="onSubmit()" style="width: 100%; margin-left: 0; margin-right: 0" class="border">Зареєструватися</button>
+          <span style="margin-top: 8px">або увійти</span>
+          <div class="social-container" style="margin-top: 8px">
+            <a href="#" class="social"><i class="lni lni-facebook-fill"></i></a>
+            <a href="#" class="social"><i class="lni lni-google"></i></a>
+          </div>
         </div>
-      </div>
-      <button class="border">Login</button>
-      <span>or-use your account</span>
-      <div class="social-container">
-        <a href="#" class="social"><i class="lni lni-facebook-fill"></i></a>
-        <a href="#" class="social"><i class="lni lni-google"></i></a>
-        <a href="#" class="social"><i class="lni lni-linkedin-original"></i></a>
-      </div>
+
+
+        <div *ngIf="isScreenSmall" style="width: 100%; justify-content: center; align-items: center; margin-top: 20px">
+          <ng-container *ngTemplateOutlet="loginButtons"></ng-container>
+        </div>
+
     </form>
-  </div>
-    <div class="overlay-container">
-      <div class="overlay">
-        <div class="overlay-panel overlay-left">
 
+
+
+  </div>
+
+
+
+
+    <div class="overlay-container" style="z-index: 0" [ngStyle]="isScreenSmall ? { 'opacity': '0' } : {}"  >
+      <div class="overlay" >
+        <div class="overlay-panel overlay-left" >
+          <div class="">
+            <h1 class=" font-28-bold">Опублікуйте власну вакансію</h1>
+          </div>
           <canvas riv="my_mascot" width="200" height="200" >
             <riv-state-machine name="State Machine 2" play (stateChange)=ShowEvent($event) >
               <riv-input name="Boolean 1" [value]="IsPasswordFieldActive"></riv-input>
             </riv-state-machine>
           </canvas>
-
-          <h1 class="title">Hello <br> friends</h1>
-          <p>if Yout have an account, login here and have fun</p>
-          <button class="ghost" id="login">Login
-            <i class="lni lni-arrow-left login"></i>
-          </button>
+          <div>
+            <p>Хочете знайти роботу? Реєструйтеся як <a (click)="goToURLWithParam('auth-register', true, 'searcher')">пошукач</a></p>
+            <button class="ghost" id="register-button"
+                    (click)="goToURLWithParam('auth-register', false, 'searcher')"
+            >Пошукач
+              <i class="lni-lni-arrow-left login"></i>
+            </button>
+          </div>
+          <ng-container *ngTemplateOutlet="loginButtons"></ng-container>
         </div>
-        <div class="overlay-panel overlay-right">
-          <h1 class="title">Start yout <br> journy now</h1>
-          <p>if you don't have an account yet, join us and start your journey.</p>
-          <button class="ghost" id="register">Register
-            <i class="lni-lni-arrow-left login"></i>
-          </button>
+
+        <div class="overlay-panel overlay-right border-white border-5">
+          <div class=" align-items-center">
+            <div class="">
+              <h1 class=" font-28-bold">Розпочніть пошук роботи</h1>
+            </div>
+            <div class="">
+              <canvas riv="my_mascot" width="200" height="200" style="margin-top: 0">
+                <riv-state-machine name="State Machine 2" play (stateChange)=ShowEvent($event) >
+                  <riv-input name="Boolean 1" [value]="IsPasswordFieldActive"></riv-input>
+                </riv-state-machine>
+              </canvas>
+            </div>
+          </div>
+          <div>
+            <p>Хочете стати роботодавцем? Реєструйтеся як <a>роботодавець</a></p>
+            <button style="min-width: 100px; width: 60%; padding: 12px 32px" class="ghost" id="register-button"
+                    (click)="goToURLWithParam('auth-register', false, 'employer')"
+            >Роботодавець
+              <i class="lni-lni-arrow-left login"></i>
+            </button>
+
+          </div>
+          <ng-container *ngTemplateOutlet="loginButtons"></ng-container>
         </div>
       </div>
     </div>
   </div>
   </body>
 </div>
+
+
+
+<ng-template #loginButtons>
+  <div *ngIf="isScreenSmall">
+    <span class="">Якщо вже зареєстровані</span>
+    <button style="width: 100%;" class="login-button"
+            (click)="goToURLWithParam('auth-register', false, 'employer')">
+      Увійти
+    </button>
+  </div>
+  <div *ngIf="!isScreenSmall" style="width: 100%; justify-content: center; align-items: center; margin-top: 20px">
+    <span class="">Якщо вже зареєстровані</span>
+    <button style="min-width: 100px; width: 60%; padding: 12px 32px" class="ghost" id="register-button"
+            (click)="goToURL('auth-login', true)"
+    >Увійти
+      <i class="lni-lni-arrow-left login"></i>
+    </button>
+  </div>
+</ng-template>

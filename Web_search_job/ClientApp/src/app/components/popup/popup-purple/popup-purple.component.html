@@ -1,0 +1,44 @@
+<ng-container >
+  <div style="padding: 30px 30px" class="purple">
+    <div style="display: flex; justify-content: flex-end">
+      <button (click)="onNoClick()" class="blank_button">
+        <mat-icon style="cursor: pointer">close</mat-icon>
+      </button>
+    </div>
+    <div style="padding: 0px 30px">
+      <div *ngIf="data.type === 'JobRequest'">
+        <app-popup-job-request [Data]="data" ></app-popup-job-request>
+      </div>
+      <div *ngIf="data.type === 'CreateResume'">
+        <app-popup-create-resume [Data]="data" ></app-popup-create-resume>
+      </div>
+      <div *ngIf="data.type === 'ProfileAnalytics'">
+        <app-popup-analytics [Data]="data" ></app-popup-analytics>
+      </div>
+      <div *ngIf="data.type === 'Privacy'">
+        <app-popup-privacy [Data]="data" ></app-popup-privacy>
+      </div>
+      <div *ngIf="data.type === 'Settings'">
+        <app-popup-profile-settings [Data]="data" ></app-popup-profile-settings>
+      </div>
+      <div *ngIf="data.type === 'Settings'">
+        <app-popup-info [Data]="data" ></app-popup-info>
+      </div>
+    </div>
+  </div>
+
+<!--
+  <h1 class="font-32-bold">{{data.title}}</h1>
+-->
+  <!--<div mat-dialog-content>
+    <p>What's your favorite animal?</p>
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.animal">
+    </mat-form-field>
+  </div>-->
+
+  <!--<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+  </div>-->
+</ng-container>

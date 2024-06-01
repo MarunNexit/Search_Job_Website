@@ -1,6 +1,6 @@
-<div class="block-with-filters">
+<div class="block-with-filters" *ngIf="dataFilters && dataFilters.length > 0">
   <div class="flex-justify-between font-18-bold" >
-    {{dataFilters.name}}
+    {{nameTopic}}
     <button (click)="expandFilterCard = !expandFilterCard" class="expand-button">
       <img [src]="expandFilterCard ? '../../../../assets/img/icons/arrows/arrow-up.png' : '../../../../assets/img/icons/arrows/arrow-down.png'" alt="" height="24" width="24">
     </button>
@@ -8,24 +8,42 @@
   <div [@expandCollapse]="expandFilterCard ? 'expanded' : 'collapsed'" >
     <hr style="border-width: 1px; border-radius: 100px; border-color: #1E1E1E; opacity: 100%">
 
-    <div *ngIf="addingSearchField" class="search-bar " >
-      <div class="search-bar-input font-14-regular">
-        <input type="text" placeholder="Пошук..." >
+    <div *ngIf="addingSearchField" class="search-bar row">
+      <div class="col search-bar-input  font-14-regular">
+        <input type="text" placeholder="Пошук..." (input)="onInput($any($event.target).value)">
       </div>
-      <div >
-        <button class="blue-button-header-small" >
-          <img src='../../../../assets/img/icons/search.png' height="24" width="24">
-        </button>
-      </div>
+      <button class="col-auto blue-button-header-small " style="margin-right: 30px" >
+        <img src='../../../../assets/img/icons/search.png' height="24" width="24">
+      </button>
     </div>
 
-    <section class="example-section" [formGroup]="filters_status">
+    <section *ngIf="addingSearchField" class="example-section" [formGroup]="filters_status">
       <div [ngClass]="{'example-list-container': addingSearchField}" >
-        <span class="example-list-section" *ngFor="let filter of dataFilters.filters">
+        <span class="example-list-section" *ngFor="let filter of filteredItems$ | async">
+          <ng-container *ngIf="CheckData(filter)">
           <mat-checkbox class="example-margin font-16-medium"
-                        [formControlName]="filter.name"
-                        [checked]="filter.checked">
-            {{filter.name}}
+                        [formControlName]="filter"
+                        [checked]="false"
+                        (change)="onChange($event, filter, true)"
+          >
+                  {{filter}}
+                </mat-checkbox>
+          </ng-container>
+        </span>
+      </div>
+    </section>
+
+
+    <section *ngIf="!addingSearchField" class="example-section" [formGroup]="filters_status">
+      <div [ngClass]="{'example-list-container': addingSearchField}" >
+        <span class="example-list-section" *ngFor="let filter of dataFilters">
+
+          <mat-checkbox class="example-margin font-16-medium"
+                        [formControlName]="getFilterFormControlName(filter)"
+                        [checked]="false"
+                        (change)="onChange($event, filter, false)"
+          >
+            {{getFilterFormControlName(filter)}}
           </mat-checkbox>
         </span>
       </div>

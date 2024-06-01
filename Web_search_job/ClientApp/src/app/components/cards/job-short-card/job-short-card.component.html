@@ -1,46 +1,62 @@
-<div class="block-with-job" (click)="goToURL('/job/' + dataJob.id, true)">
-  <div *ngIf="!shortVersionJob && dataJob.banner_picture != '' && dataJob.banner_picture != null" class="job-photo">
-    <!--        СЮДИ ФОТО-->
-    <img id="job-photo" src="assets/img/JobLogo1.png" (error)='handleImageError($event, "assets/img/alt-image.png")'>
+<div *ngIf="job" class="block-with-job " (click)="goToURL('/job/' + job.id, true)">
+  <div *ngIf="(isSearchPage || isRecommendation) && !shortVersionJob &&  job.JobBackgroundImg != '' && job.JobBackgroundImg != null" class="job-photo ">
+     <img id="job-photo" ngSrc="{{job.JobBackgroundImg}}}" (error)='handleImageError($event, "assets/img/alt-image.png")'>
   </div>
   <div *ngIf="!shortVersionJob">
-    <app-chips-job-priority [dataJob]="dataJob"> </app-chips-job-priority>
+    <app-chips-job-priority [dataJob]="job"> </app-chips-job-priority>
   </div>
 
   <div class="row "  style="margin-top: 16px">
     <div class="col " style="padding: 0; margin-left: 8px">
       <button class="blank_button " tabindex="0"  >
         <p class="job-text job-name font-18-bold">
-          {{dataJob.title}}
+          {{job.jobTitle}}
         </p>
       </button>
-      <p *ngIf="dataJob.salary != null" class="job-text small font-16-regular">
-        {{ dataJob.salary}}
-      </p>
-      <button class="blank_button " (click)="goToURL('/employer/' + dataJob.id, true)" style="max-width: max-content;">
-        <p class="job-text small font-16-regular">
-          {{dataJob.company}}
+      <div class="font-16-regular ">
+        <div style="display: flex; align-items: center;"  *ngIf="job.jobSalaryMin != null || job.jobSalaryMax != null">
+          <p *ngIf="job.jobSalaryMin != null" class="job-text small font-16-regular">
+            {{ job.jobSalaryMin | currencySymbol: job.jobSalaryCurrency }}
+          </p>
+          <p style="margin: 0; padding: 0" *ngIf="job.jobSalaryMin != null && job.jobSalaryMax != null">-</p>
+          <p *ngIf="job.jobSalaryMax != null" class="job-text small font-16-regular">
+            {{ job.jobSalaryMax | currencySymbol: job.jobSalaryCurrency}}
+          </p>
+        </div>
+      </div>
+      <button *ngIf="!isEmployerPage" class="blank_button " (click)="CompanyNameButton($event)" style="max-width: max-content;">
+        <p *ngIf="!isSearchPage && !isRecommendation" class="job-text small font-16-regular">
+          {{employer.companyName}}
+        </p>
+        <p *ngIf="isSearchPage || isRecommendation" class="job-text small font-16-regular">
+          {{job.employer.companyName}}
         </p>
       </button>
 
     </div>
-    <div  class=" company-icon-div"  >
-      <img (click)="goToURL('/employer/' + dataJob.id, true)"
-        class="company-icon" src="{{dataJob.company_picture}}" alt="0" (error)='handleImageError($event, "assets/img/loading-picture.png")'>
+    <div *ngIf="!isEmployerPage" class=" company-icon-div"  >
+      <img *ngIf="!isSearchPage && !isRecommendation" (click)="CompanyNameButton($event)"
+        class="company-icon" src="{{employer.companyImg}}" alt="0" (error)='handleImageError($event, "assets/img/loading-picture.png")'>
+      <img *ngIf="isSearchPage || isRecommendation"
+           (click)="CompanyNameButton($event)"
+           class="company-icon"
+           [src]="job.employer.companyImg"
+           alt="0"
+           (error)="handleImageError($event, 'assets/img/loading-picture.png')">
     </div>
   </div>
 
   <div *ngIf="!shortVersionJob" class="font-16-regular" style="margin-top: 8px; margin-bottom: 12px">
-    {{ dataJob.description | truncate:200 }}
+    {{ job.jobDescription | truncate:200 }}
   </div>
 
   <div *ngIf="!shortVersionJob">
-    <app-chip-job-list [IsBig]="true"></app-chip-job-list>
+    <app-chip-job-list [IsSearchPage]="true" [TagsPros]="job.jobTagsPros" [IsBig]="true"></app-chip-job-list>
   </div>
 
   <div class="row align-items-center " (click)="handleButtonClick($event)"  style="margin-top: 16px">
     <div class="col " >
-      <button class="view-button font-14-semibold" (click)="goToURL('/job/' + dataJob.id, true)">
+      <button class="view-button font-14-semibold" (click)="goToURL('/job/' + job.id, true)">
         <span>Подати заявку</span>
         <mat-icon style="height: 23px; width: 20px;">chevron_right</mat-icon>
       </button>
@@ -49,8 +65,10 @@
     <div class="col-auto " style="margin-top: 16px">
       <div style="display: flex; align-items: center; justify-content: center;" class="">
 
-        <button (click)="saveJob()"  class="blank_button" style="margin-right: 4px; ">
-          <img class="img-icon" [src]="IsSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="24" width="24">
+        <p style="margin: 0px 12px 0px 0px; padding: 0" class="font-14-regular text-grey">{{timeSince(job.dateApproving)}} тому</p>
+
+        <button *ngIf="userData" (click)="saveJob()"  class="blank_button" style="margin-right: 4px; ">
+          <img class="img-icon" [src]="!isSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="24" width="24">
         </button>
 
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="display: flex; align-items: center; justify-content: center;">

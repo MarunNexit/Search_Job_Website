@@ -1,27 +1,24 @@
-<div class="messages_links" [ngClass]="isShortView ? 'align-left': 'align-center'" style="padding: 16px">
+<div *ngIf="isLoadedIndustries && isLoadedLocations" class="messages_links" [ngClass]="isShortView ? 'align-left': 'align-center'" style="padding: 16px">
   <div class="font-18-bold" [ngStyle]="isShortView ? {} : { 'padding-bottom': '25px' }" >
     <p *ngIf="!isShortView">
-      Отримуйте повідомлення про нові вакансії "{{dataEmployer.company}}"
+      Отримуйте повідомлення про нові вакансії "{{dataEmployer.companyName}}"
     </p>
     <p *ngIf="isShortView">
-      Отримуйте нові вакансії "{{dataEmployer.company}}"
+      Отримуйте нові вакансії "{{dataEmployer.companyName}}"
     </p>
   </div>
   <div class="row " style=" margin: 0; " >
-    <div [ngClass]="isShortView ? '' : 'col'"  >
+    <div [ngClass]="isSmallScreen ? isRightPanel ? 'col-6 ': 'col' : isRightPanel ? 'full-width': 'col'"  >
       <select
         class="styled-select font-14-regular background-location" id="selectSelector1" (change)="onChange($event)">
-        <option value="option1" selected>Індустрія</option>
-        <option value="option2">Індустрія</option>
-        <option value="option3">Індустрія</option>
+        <option *ngFor="let location of locations" [value]="location.id">{{ location.location_country == 'Україна' ? '' : location.location_country + " - " }}{{ location.location_region === location.location_city ? '' : location.location_region + " - " }}{{ location.location_city }}</option>
       </select>
     </div>
-    <div [ngClass]="isShortView ? '' : 'col'" >
+
+    <div [ngClass]="isSmallScreen ? isRightPanel ? 'col-6 ': 'col' : isRightPanel ? 'full-width': 'col'"  >
       <select
         class="styled-select font-14-regular background-work" id="selectSelector2" (change)="onChange($event)">
-        <option value="option1" selected>Індустрія</option>
-        <option value="option2">Індустрія</option>
-        <option value="option3">Індустрія</option>
+        <option *ngFor="let industry of industries" [value]="industry.id">{{ industry.industry_name }}</option>
       </select>
     </div>
   </div>

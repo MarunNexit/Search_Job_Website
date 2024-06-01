@@ -1,4 +1,17 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
+import {AuthService} from "../../services/backend/auth/auth-service";
+import {UserService} from "../../services/backend/user.service";
+import {UserData} from "../../services/backend/auth/dtos/user-data";
+import {RouterHelperService} from "../../services/router-helper.service";
+import {Location} from "@angular/common";
+import {ScreenSizeService} from "../../services/screen-size.sevice";
+import {JobService} from "../../services/backend/job.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ActivatedRoute} from "@angular/router";
+import {catchError, Subscription} from "rxjs";
+import {JobDTO} from "../../models/backend/dtos/jobs/job.dto";
+import {JobShortDTO} from "../../models/backend/dtos/jobs/job-short.dto";
+import {EmployerShortDTO} from "../../models/backend/dtos/employers/employer-short.dto";
 
 
 interface DataJob {
@@ -22,57 +35,89 @@ interface DataJob {
 })
 export class RecommendationSearcherPageComponent {
 
-  //CHANGE DATA
-  totalElements: number = 1000;
-  elementsPerPage: number = 10;
+  isLoaded: boolean = false;
+  hasError: boolean = false;
+  dataJobs: JobShortDTO[] = [];
+  showLess: string[]
+  pageSize: number = 18;
+  isLogin: boolean = false;
+
+  userData: UserData | null;
+
+  totalElements: number = 0;
+  elementsPerPage: number = 9;
+  currentPage: number = 1;
+  countJobs: number = 0;
 
   handlePageChange(newPage: number) {
-    console.log('Нова сторінка:', newPage);
+    this.currentPage =  newPage;
+  }
+
+  constructor(
+    private jobService: JobService,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private userService: UserService,
+    private route: ActivatedRoute,
+
+  ) {
+
+  }
+
+  ngOnInit(){
+    this.IsAuthUser();
+    this.GetJobsData();
+  }
+
+  private GetJobsData(){
+    this.userService.getUserData().subscribe(userData => {
+      this.userData = userData;
+      const id = +this.route.snapshot.paramMap.get('id')!;
+      this.GetJobsDataBasedOnUser(this.userData, id);
+    });
+  }
+
+  private GetJobsDataBasedOnUser(userData: UserData | null, id: number) {
+    if (userData) {
+      this.GetRecJobsData(userData.id, id, this.pageSize, this.showLess);
+    } else {
+      this.GetRecJobsData("", id, this.pageSize, this.showLess);
+    }
+  }
+
+  async GetRecJobsData(userId: string, page: number = 1, pageSize: number = 18, showLess: string[] = []) {
+    this.isLoaded = false;
+    this.jobService
+      .getRecommendJobShortList(userId, page, pageSize, showLess)
+      .pipe(
+        catchError(() => {
+          this.isLoaded = true;
+          this.hasError = true;
+          return []
+        })
+      )
+      .subscribe((result: JobShortDTO[]) => {
+        this.dataJobs = result;
+        this.isLoaded = true;
+        this.hasError = false
+
+        this.totalElements = result.length;
+        if(result.length != 0){
+          this.countJobs = Math.ceil(result.length / this.elementsPerPage);
+        }
+        else{
+          this.countJobs = 0;
+        }
+
+        this.cdr.detectChanges();
+      });
+  }
+
+  IsAuthUser(): void {
+    this.authService.isLoggedIn().subscribe(isLoggedIn => {
+      this.isLogin = isLoggedIn;
+    });
   }
 
 
-  dataJobs: DataJob[] = [];
-  constructor() {
-
-    // Створення трьох екземплярів об'єктів DataJob
-    let dataJob1: DataJob = {
-      id: 1,
-      title: "Розробник програмного забезпечення",
-      salary: "90000 USD",
-      company: "ABC Inc.",
-      description: "Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення",
-      tags: ["IT", "Програмування", "Розробка"],
-      company_picture: "../../../../assets/img/icons/cards/check_mark.png",
-      banner_picture: "url/to/banner_picture_1.jpg",
-      hot_new_marks: [true, true, false] // Приклад оцінок "гарячої новини"
-    };
-
-    let dataJob2: DataJob = {
-      id: 2,
-      title: "Менеджер з продажів",
-      salary: "70000 USD",
-      company: "XYZ Corp.",
-      description: "Опис посади менеджера з продажів...",
-      tags: ["Продажі", "Маркетинг", "Бізнес"],
-      company_picture: "../../../../assets/img/JobLogo.png",
-      banner_picture: "",
-      hot_new_marks: [false, false, false] // Приклад оцінок "гарячої новини"
-    };
-
-    let dataJob3: DataJob = {
-      id: 3,
-      title: "Дизайнер UX/UI",
-      salary: "80000 USD",
-      company: "DEF Design Studio",
-      description: "Опис посади дизайнера UX/UI...",
-      tags: ["Дизайн", "UX", "UI"],
-      company_picture: "url/to/company_picture_3.jpg",
-      banner_picture: "",
-      hot_new_marks: [false, false, true] // Приклад оцінок "гарячої новини"
-    };
-
-    this.dataJobs[0] = dataJob1;
-    this.dataJobs[1] = dataJob2;
-    this.dataJobs[2] = dataJob3;
-  }
 }
