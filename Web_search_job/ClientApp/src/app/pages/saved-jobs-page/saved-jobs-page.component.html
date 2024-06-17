@@ -1,1 +1,55 @@
-<p>saved-jobs-page works!</p>
+<div>
+  <p *ngIf="dataJobsCurrent.length > 0" class="font-35-semibold">
+    Збережені вакансії
+  </p>
+  <div class="" *ngFor="let jobComponent of dataJobsCurrent; let i = index" style="margin-bottom: 16px">
+    <app-job-short-card
+      [job]="jobComponent"
+      [shortVersionJob]=true
+      [isSavedPage]=true
+      [userData]="userData"
+    >
+    </app-job-short-card>
+  </div>
+  <div>
+    <app-pagination-list
+      [numberElement]="totalElements"
+      [maxElementOnPage]="elementsPerPage"
+      (currentPage)="handlePageChange($event)"
+    >
+    </app-pagination-list>
+  </div>
+
+
+  <p  style="margin-top: 60px" *ngIf="dataJobsFinished.length > 0" class="font-35-semibold">
+    Завершені
+  </p>
+  <div class="" *ngFor="let jobComponent of dataJobsFinished; let i = index" style="margin-bottom: 16px">
+    <app-job-short-card
+      [job]="jobComponent"
+      [isSavedPage]=true
+      [shortVersionJob]=true
+      [userData]="userData"
+    >
+    </app-job-short-card>
+  </div>
+  <div>
+    <app-pagination-list
+      [numberElement]="totalElementsFinished"
+      [maxElementOnPage]="elementsPerPageFinished"
+      (currentPage)="handlePageChangeFinished($event)"
+    >
+    </app-pagination-list>
+  </div>
+
+  <p *ngIf="dataJobsCurrent.length <= 0 && dataJobsFinished.length <= 0 && isLoaded" class="font-35-semibold">
+    Поки немає збережних вакансій
+  </p>
+
+  <div *ngIf="!isLoaded">
+    <app-loading-progress></app-loading-progress>
+  </div>
+</div>
+
+
+

@@ -19,6 +19,9 @@ import {
 import {AboutEmployerComponent} from "../../components/lists/about-employer/about-employer.component";
 import {FilterSearchCardComponent} from "../../components/cards/filter-search-card/filter-search-card.component";
 import {ViewBlocksModule} from "../../components/view-blocks/view-blocks.module";
+import {JobCreatePageComponent} from "./jobs/job-create-page/job-create-page.component";
+import {FormsModule} from "@angular/forms";
+import {JobCreateComponent} from "./jobs/job-create/job-create.component";
 
 
 @NgModule({
@@ -30,6 +33,8 @@ import {ViewBlocksModule} from "../../components/view-blocks/view-blocks.module"
     CommentCardComponent,
     SubscribeToEmployerComponent,
     AboutEmployerComponent,
+    JobCreatePageComponent,
+    JobCreateComponent,
   ],
   imports: [
     CommonModule,
@@ -46,11 +51,14 @@ import {ViewBlocksModule} from "../../components/view-blocks/view-blocks.module"
     FilterSearchCardComponent,
     ViewBlocksModule,
     PipeModule,
+    FormsModule,
 
   ],
     exports: [
         EmployerPageComponent,
         AboutEmployerComponent,
+        JobCreatePageComponent,
+        JobCreateComponent,
     ]
 })
 export class EmployerModule { }

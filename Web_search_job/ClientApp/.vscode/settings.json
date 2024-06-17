@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/9a3e6baf-abb3-4824-8014-c0d31f4030b5/resourceGroups/MyGroup/providers/Microsoft.Web/sites/SearchJobClient",
+    "appService.deploySubpath": "dist\\out-tsc"
+}

@@ -5,10 +5,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import {HeaderSearcherComponent} from "./components/header-searcher/header-searcher.component";
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './pages/home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import {NgOptimizedImage} from "@angular/common";
 import {ChipJobListComponent} from "./components/lists/chip-job-list/chip-job-list.component";
 import {FooterSearcherComponent} from "./components/footer-searcher/footer-searcher.component";
@@ -28,10 +24,6 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {EmployerModule} from "./pages/employers/employer.module";
-import {EmployerPageComponent} from "./pages/employers/employer-page/employer-page.component";
-import {
-  RecommendationSearcherPageComponent
-} from "./pages/recommendation-searcher-page/recommendation-searcher-page.component";
 import {JobShortCardComponent} from "./components/cards/job-short-card/job-short-card.component";
 import {PaginationModule} from "./components/pagination/pagination.module";
 import {ChipsModule} from "./components/chips/chips.module";
@@ -53,20 +45,21 @@ import {PopupModule} from "./components/popup/popup.module";
 import {DirectivesModule} from "./directive/directives.module";
 import {ChatRoomsModule} from "./pages/chats/chat-rooms.module";
 import {SavedJobsPageComponent} from "./pages/saved-jobs-page/saved-jobs-page.component";
+import {RecommendationModule} from "./pages/recommendation-page/recommendation.module";
+import {RecommendationPageComponent} from "./pages/recommendation-page/recommendation-page.component";
+import {RequestHistoryModule} from "./pages/request-history-page/request-history.module";
+import {ViewBlocksModule} from "./components/view-blocks/view-blocks.module";
 
 let EffectsModule;
 
 @NgModule({
     declarations: [
         AppComponent,
-        NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
         HeaderSearcherComponent,
         FooterSearcherComponent,
         PopularEmployersPageComponent,
-        RecommendationSearcherPageComponent,
         SavedJobsPageComponent,
+        RecommendationPageComponent,
     ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -77,6 +70,9 @@ let EffectsModule;
     //NoopAnimationsModule,
 
     HomeModule,
+
+    RecommendationModule,
+
     SearchJobPageModule,
     RegistrationLoginModule,
     JobsModule,
@@ -103,6 +99,7 @@ let EffectsModule;
     ProfileModule,
     PopupModule,
     ChatRoomsModule,
+    ViewBlocksModule,
 
   ],
   providers: [
@@ -133,6 +130,7 @@ let EffectsModule;
     },
   ],
   exports: [
+
   ],
   bootstrap: [AppComponent]
 })

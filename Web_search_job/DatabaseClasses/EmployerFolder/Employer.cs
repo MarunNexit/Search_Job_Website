@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Web_search_job.DatabaseClasses.EmployerFolder;
+using Web_search_job.DatabaseClasses.FiltersFolder;
+using Web_search_job.DatabaseClasses.JobFolder;
 using Web_search_job.DatabaseClasses.ProfileFolder;
 
-namespace Web_search_job.DatabaseClasses
+namespace Web_search_job.DatabaseClasses.EmployerFolder
 {
     public class Employer
     {

@@ -300,10 +300,11 @@ namespace Web_search_job.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("id"), 1L, 1);
 
-                    b.Property<int?>("company_tags_list")
+                    b.Property<int>("employer_id")
                         .HasColumnType("int");
 
-                    b.Property<int>("employer_id")
+                    b.Property<int?>("tags_list_id")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("type_tag")
@@ -312,28 +313,11 @@ namespace Web_search_job.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("company_tags_list");
-
                     b.HasIndex("employer_id");
 
+                    b.HasIndex("tags_list_id");
+
                     b.ToTable("CompanyTags");
-                });
-
-            modelBuilder.Entity("Web_search_job.DatabaseClasses.CompanyTagsList", b =>
-                {
-                    b.Property<int?>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("id"), 1L, 1);
-
-                    b.Property<string>("company_tags_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("CompanyTagsList");
                 });
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.Employer", b =>
@@ -401,6 +385,57 @@ namespace Web_search_job.Migrations
                     b.HasIndex("location_company_id");
 
                     b.ToTable("Employers");
+                });
+
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.EmployerFolder.EmployerSettings", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+
+                    b.Property<int>("EmployerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployerId");
+
+                    b.ToTable("EmployerSettings");
+                });
+
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.EmployerFolder.SubscribeToEmployer", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+
+                    b.Property<int>("EmployerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IndustryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployerId");
+
+                    b.HasIndex("IndustryId");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SubscribeToEmployer");
                 });
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.EmployerFolder.UsersOfEmployer", b =>
@@ -567,6 +602,79 @@ namespace Web_search_job.Migrations
                     b.ToTable("Jobs");
                 });
 
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.JobFolder.JobRecommendationList", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+
+                    b.Property<int?>("JobId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("date_creating")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("JobRecommendationList");
+                });
+
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.JobFolder.JobRequest", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+
+                    b.Property<string>("CoverLetter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("JobId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Positives")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Projects")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ResumeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ResumeURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobId");
+
+                    b.HasIndex("ResumeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("JobRequests");
+                });
+
             modelBuilder.Entity("Web_search_job.DatabaseClasses.JobFolder.JobRequestFields", b =>
                 {
                     b.Property<int?>("Id")
@@ -643,9 +751,6 @@ namespace Web_search_job.Migrations
                     b.Property<bool>("tag_new")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("tag_recommend")
-                        .HasColumnType("bit");
-
                     b.HasKey("id");
 
                     b.HasIndex("job_id")
@@ -665,33 +770,17 @@ namespace Web_search_job.Migrations
                     b.Property<int>("job_id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("job_tags_pros_list")
+                    b.Property<int?>("tags_list_id")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
                     b.HasIndex("job_id");
 
-                    b.HasIndex("job_tags_pros_list");
+                    b.HasIndex("tags_list_id");
 
                     b.ToTable("JobTagsPros");
-                });
-
-            modelBuilder.Entity("Web_search_job.DatabaseClasses.JobTagsProsList", b =>
-                {
-                    b.Property<int?>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("id"), 1L, 1);
-
-                    b.Property<string>("job_tags_pros_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("JobTagsProsList");
                 });
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.Location", b =>
@@ -759,7 +848,7 @@ namespace Web_search_job.Migrations
                     b.ToTable("LanguageLevels");
                 });
 
-            modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.Resume", b =>
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.Notification", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
@@ -767,10 +856,7 @@ namespace Web_search_job.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
-                    b.Property<int?>("LocationResumeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ResumeName")
+                    b.Property<string>("NotificationType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -779,11 +865,69 @@ namespace Web_search_job.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LocationResumeId");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.Resume", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+
+                    b.Property<bool>("ResumeActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ResumeDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResumeEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResumeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResumePhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WantedSalary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Resume");
+                });
+
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.ResumeAboutMe", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+
+                    b.Property<string>("ResumeAboutMeText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ResumeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResumeId")
+                        .IsUnique();
+
+                    b.ToTable("ResumeAboutMe");
                 });
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.ResumeEducation", b =>
@@ -830,7 +974,6 @@ namespace Web_search_job.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
                     b.Property<string>("CompanyDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CompanyId")
@@ -840,17 +983,19 @@ namespace Web_search_job.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("EndWorkDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ResumeId")
+                    b.Property<int?>("ResumeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("StartWorkDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("WorkName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WorkText")
                         .HasColumnType("nvarchar(max)");
@@ -858,6 +1003,8 @@ namespace Web_search_job.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("ResumeId");
 
                     b.ToTable("ResumeHistoryWorks");
                 });
@@ -935,6 +1082,10 @@ namespace Web_search_job.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PortfolioName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ResumeId")
                         .HasColumnType("int");
 
@@ -982,6 +1133,30 @@ namespace Web_search_job.Migrations
                     b.HasIndex("ResumeId");
 
                     b.ToTable("ResumeSkills");
+                });
+
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.ResumeTags", b =>
+                {
+                    b.Property<int?>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("id"), 1L, 1);
+
+                    b.Property<int?>("resume_id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("tags_list_id")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("resume_id");
+
+                    b.HasIndex("tags_list_id");
+
+                    b.ToTable("ResumeTags");
                 });
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.Report", b =>
@@ -1045,6 +1220,41 @@ namespace Web_search_job.Migrations
                     b.ToTable("SavedJobs");
                 });
 
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.Searcher.SearcherSettings", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SearcherSettings");
+                });
+
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.TagsList", b =>
+                {
+                    b.Property<int?>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("id"), 1L, 1);
+
+                    b.Property<string>("tags_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("TagsList");
+                });
+
             modelBuilder.Entity("Web_search_job.DatabaseClasses.UserInfo", b =>
                 {
                     b.Property<int?>("Id")
@@ -1056,7 +1266,13 @@ namespace Web_search_job.Migrations
                     b.Property<DateTime>("ActionCreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
@@ -1067,9 +1283,6 @@ namespace Web_search_job.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserAge")
-                        .HasColumnType("int");
 
                     b.Property<string>("UserImg")
                         .HasColumnType("nvarchar(max)");
@@ -1169,19 +1382,21 @@ namespace Web_search_job.Migrations
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.CompanyTags", b =>
                 {
-                    b.HasOne("Web_search_job.DatabaseClasses.CompanyTagsList", "CompanyTagsList")
-                        .WithMany("CompanyTags")
-                        .HasForeignKey("company_tags_list");
-
                     b.HasOne("Web_search_job.DatabaseClasses.Employer", "Employer")
                         .WithMany("CompanyTags")
                         .HasForeignKey("employer_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CompanyTagsList");
+                    b.HasOne("Web_search_job.DatabaseClasses.TagsList", "TagsList")
+                        .WithMany("CompanyTags")
+                        .HasForeignKey("tags_list_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Employer");
+
+                    b.Navigation("TagsList");
                 });
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.Employer", b =>
@@ -1197,6 +1412,52 @@ namespace Web_search_job.Migrations
                     b.Navigation("Industry");
 
                     b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.EmployerFolder.EmployerSettings", b =>
+                {
+                    b.HasOne("Web_search_job.DatabaseClasses.Employer", "Employer")
+                        .WithMany()
+                        .HasForeignKey("EmployerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employer");
+                });
+
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.EmployerFolder.SubscribeToEmployer", b =>
+                {
+                    b.HasOne("Web_search_job.DatabaseClasses.Employer", "Employer")
+                        .WithMany()
+                        .HasForeignKey("EmployerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web_search_job.DatabaseClasses.Industry", "Industry")
+                        .WithMany()
+                        .HasForeignKey("IndustryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web_search_job.DatabaseClasses.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web_search_job.DatabaseClasses.UserInfo", "UserInfo")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employer");
+
+                    b.Navigation("Industry");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("UserInfo");
                 });
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.EmployerFolder.UsersOfEmployer", b =>
@@ -1256,6 +1517,46 @@ namespace Web_search_job.Migrations
                     b.Navigation("UserInfo");
                 });
 
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.JobFolder.JobRecommendationList", b =>
+                {
+                    b.HasOne("Web_search_job.DatabaseClasses.Job", "Job")
+                        .WithMany("JobRecommendationList")
+                        .HasForeignKey("JobId");
+
+                    b.HasOne("Web_search_job.DatabaseClasses.UserInfo", "UserInfo")
+                        .WithMany("JobRecommendationList")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Job");
+
+                    b.Navigation("UserInfo");
+                });
+
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.JobFolder.JobRequest", b =>
+                {
+                    b.HasOne("Web_search_job.DatabaseClasses.Job", "Job")
+                        .WithMany()
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web_search_job.DatabaseClasses.ProfileFolder.Resume", "Resume")
+                        .WithMany()
+                        .HasForeignKey("ResumeId");
+
+                    b.HasOne("Web_search_job.DatabaseClasses.UserInfo", "UserInfo")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Job");
+
+                    b.Navigation("Resume");
+
+                    b.Navigation("UserInfo");
+                });
+
             modelBuilder.Entity("Web_search_job.DatabaseClasses.JobFolder.JobRequestFields", b =>
                 {
                     b.HasOne("Web_search_job.DatabaseClasses.Job", "Job")
@@ -1297,13 +1598,15 @@ namespace Web_search_job.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Web_search_job.DatabaseClasses.JobTagsProsList", "JobTagsProsList")
+                    b.HasOne("Web_search_job.DatabaseClasses.TagsList", "TagsList")
                         .WithMany("JobTagsPros")
-                        .HasForeignKey("job_tags_pros_list");
+                        .HasForeignKey("tags_list_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Job");
 
-                    b.Navigation("JobTagsProsList");
+                    b.Navigation("TagsList");
                 });
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.ActiveResumeSection", b =>
@@ -1325,19 +1628,33 @@ namespace Web_search_job.Migrations
                     b.Navigation("ResumeSectionType");
                 });
 
-            modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.Resume", b =>
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.Notification", b =>
                 {
-                    b.HasOne("Web_search_job.DatabaseClasses.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationResumeId");
-
                     b.HasOne("Web_search_job.DatabaseClasses.UserInfo", "UserInfo")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("Location");
+                    b.Navigation("UserInfo");
+                });
+
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.Resume", b =>
+                {
+                    b.HasOne("Web_search_job.DatabaseClasses.UserInfo", "UserInfo")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("UserInfo");
+                });
+
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.ResumeAboutMe", b =>
+                {
+                    b.HasOne("Web_search_job.DatabaseClasses.ProfileFolder.Resume", "Resume")
+                        .WithOne("ResumeAboutMe")
+                        .HasForeignKey("Web_search_job.DatabaseClasses.ProfileFolder.ResumeAboutMe", "ResumeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Resume");
                 });
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.ResumeEducation", b =>
@@ -1369,7 +1686,13 @@ namespace Web_search_job.Migrations
                         .WithMany("ResumeHistoryWork")
                         .HasForeignKey("CompanyId");
 
+                    b.HasOne("Web_search_job.DatabaseClasses.ProfileFolder.Resume", "Resume")
+                        .WithMany("ResumeHistoryWork")
+                        .HasForeignKey("ResumeId");
+
                     b.Navigation("Employer");
+
+                    b.Navigation("Resume");
                 });
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.ResumeLanguage", b =>
@@ -1424,6 +1747,23 @@ namespace Web_search_job.Migrations
                     b.Navigation("Resume");
                 });
 
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.ResumeTags", b =>
+                {
+                    b.HasOne("Web_search_job.DatabaseClasses.ProfileFolder.Resume", "Resume")
+                        .WithMany("ResumeTags")
+                        .HasForeignKey("resume_id");
+
+                    b.HasOne("Web_search_job.DatabaseClasses.TagsList", "TagsList")
+                        .WithMany("ResumeTags")
+                        .HasForeignKey("tags_list_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Resume");
+
+                    b.Navigation("TagsList");
+                });
+
             modelBuilder.Entity("Web_search_job.DatabaseClasses.Report", b =>
                 {
                     b.HasOne("Web_search_job.DatabaseClasses.Employer", "Employer")
@@ -1464,6 +1804,17 @@ namespace Web_search_job.Migrations
                     b.Navigation("UserInfo");
                 });
 
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.Searcher.SearcherSettings", b =>
+                {
+                    b.HasOne("Web_search_job.DatabaseClasses.UserInfo", "UserInfo")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserInfo");
+                });
+
             modelBuilder.Entity("Web_search_job.DatabaseClasses.UserInfo", b =>
                 {
                     b.HasOne("Web_search_job.DatabaseClasses.Location", "Location")
@@ -1485,11 +1836,6 @@ namespace Web_search_job.Migrations
                 {
                     b.Navigation("UserInfo")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Web_search_job.DatabaseClasses.CompanyTagsList", b =>
-                {
-                    b.Navigation("CompanyTags");
                 });
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.Employer", b =>
@@ -1523,6 +1869,8 @@ namespace Web_search_job.Migrations
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.Job", b =>
                 {
+                    b.Navigation("JobRecommendationList");
+
                     b.Navigation("JobRequestFields");
 
                     b.Navigation("JobRequirements");
@@ -1534,11 +1882,6 @@ namespace Web_search_job.Migrations
                     b.Navigation("Reports");
 
                     b.Navigation("SavedJobs");
-                });
-
-            modelBuilder.Entity("Web_search_job.DatabaseClasses.JobTagsProsList", b =>
-                {
-                    b.Navigation("JobTagsPros");
                 });
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.Location", b =>
@@ -1557,7 +1900,12 @@ namespace Web_search_job.Migrations
                 {
                     b.Navigation("ActiveResumeSection");
 
+                    b.Navigation("ResumeAboutMe")
+                        .IsRequired();
+
                     b.Navigation("ResumeEducation");
+
+                    b.Navigation("ResumeHistoryWork");
 
                     b.Navigation("ResumeLanguage");
 
@@ -1566,6 +1914,8 @@ namespace Web_search_job.Migrations
                     b.Navigation("ResumePortfolio");
 
                     b.Navigation("ResumeSkills");
+
+                    b.Navigation("ResumeTags");
                 });
 
             modelBuilder.Entity("Web_search_job.DatabaseClasses.ProfileFolder.ResumeSectionType", b =>
@@ -1573,8 +1923,19 @@ namespace Web_search_job.Migrations
                     b.Navigation("ActiveResumeSection");
                 });
 
+            modelBuilder.Entity("Web_search_job.DatabaseClasses.TagsList", b =>
+                {
+                    b.Navigation("CompanyTags");
+
+                    b.Navigation("JobTagsPros");
+
+                    b.Navigation("ResumeTags");
+                });
+
             modelBuilder.Entity("Web_search_job.DatabaseClasses.UserInfo", b =>
                 {
+                    b.Navigation("JobRecommendationList");
+
                     b.Navigation("SavedJobs");
 
                     b.Navigation("UsersOfEmployer");

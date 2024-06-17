@@ -1,0 +1,8 @@
+<ng-container *ngIf="Data?.resume?.activeResumeSection && sections">
+  <p class="font-32-bold">{{Data.title}}</p>
+  <div class="row" style="margin-top: 40px">
+    <div class="col-4" *ngFor="let section of sections" style="margin-bottom: 20px">
+      <app-popup-add-section-card (clickActionCB)="clickActionCB($event)" [section]="section" [activeSections]="Data?.resume?.activeResumeSection"></app-popup-add-section-card>
+    </div>
+  </div>
+</ng-container>

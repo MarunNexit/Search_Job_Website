@@ -7,7 +7,6 @@ namespace Web_search_job.DTO.Job
     public class JobTagsProsDTO
     {
         public int? Id { get; set; }
-        public string JobTagsProsType { get; set; }
         public string JobTagsProsName { get; set; } = "";
     }
 }

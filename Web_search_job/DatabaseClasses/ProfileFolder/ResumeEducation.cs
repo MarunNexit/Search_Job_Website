@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Web_search_job.DatabaseClasses.FiltersFolder;
 
 namespace Web_search_job.DatabaseClasses.ProfileFolder
 {

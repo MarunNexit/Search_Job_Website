@@ -7,4 +7,8 @@ import {Component, Input} from '@angular/core';
 })
 export class ChipAboutEmployerComponent {
   @Input() dataChip: string;
+
+  ngOnInit(){
+    console.log(this.dataChip)
+  }
 }

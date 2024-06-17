@@ -4,6 +4,6 @@ export interface JobRequestFieldsDTO {
   id: number;
   needAdditionalResume: boolean;
   needResume: boolean;
-  PositiveField: boolean;
-  ProjectField: boolean;
+  positiveField: boolean;
+  projectField: boolean;
 }

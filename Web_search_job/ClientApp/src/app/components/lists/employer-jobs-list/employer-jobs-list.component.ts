@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {JobEmployerShortDTO} from "../../../models/backend/dtos/jobs/job-employer-short.dto";
 import {EmployerDTO} from "../../../models/backend/dtos/employers/employer-full.dto";
 import {UserService} from "../../../services/backend/user.service";
-import {UserData} from "../../../services/backend/auth/dtos/user-data";
+import {UserData} from "../../../models/backend/dtos/auth/dtos/user-data";
 
 
 interface DataJob {

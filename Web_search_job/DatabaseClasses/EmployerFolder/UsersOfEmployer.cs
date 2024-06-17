@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Web_search_job.DatabaseClasses.UserFolder;
 
 namespace Web_search_job.DatabaseClasses.EmployerFolder
 {

@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {RouterHelperService} from "../../../services/router-helper.service";
 import {Location} from "@angular/common";
 import {ScreenSizeService} from "../../../services/screen-size.sevice";
 import {JobService} from "../../../services/backend/job.service";
 import {MatDialog} from "@angular/material/dialog";
-import {AuthService} from "../../../services/backend/auth/auth-service";
+import {AuthService} from "../../../models/backend/dtos/auth/auth-service";
 import {PopupPurpleComponent} from "../../popup/popup-purple/popup-purple.component";
 import {PopupWhiteComponent} from "../../popup/popup-white/popup-white.component";
 import {handleImageError} from "../../../functions/handleImageError";
+import {JobShortDTO} from "../../../models/backend/dtos/jobs/job-short.dto";
+import {ResumeDTO} from "../../../models/backend/dtos/profiles/resume.dto";
+import {UserData} from "../../../models/backend/dtos/auth/dtos/user-data";
 
 class AvailableCard{
   type: string;
@@ -21,6 +24,10 @@ class AvailableCard{
   styleUrls: ['./profile-resume.component.scss']
 })
 export class ProfileResumeComponent {
+  @Input() resume: ResumeDTO;
+  @Input() userData: UserData | null;
+  @Input() isMyProfile: boolean;
+
   ListAvailableLeftCards:AvailableCard[] = [];
   ListAvailableRightCards:AvailableCard[] = [];
 
@@ -47,107 +54,22 @@ export class ProfileResumeComponent {
 
 
   ) {
-    this.dataJob = this.dataJob1;
-
     this.screenSizeService.setIsSmallScreen('(max-width: 1200px)');
 
     this.screenSizeService.isScreenSmall$.subscribe(isSmall => {
       this.isSmallScreen = isSmall;
       console.log(isSmall);
-    });
-
-      this.ListAvailableLeftCards.push(
-        {
-          type: "Особиста інформація",
-          active: true,
-          required: true,
-        },
-        {
-          type: "Контактна інформація",
-          active: true,
-          required: true,
-        },
-        {
-          type: "Навички",
-          active: true,
-          required: false,
-        },
-        {
-          type: "Мови",
-          active: true,
-          required: false,
-        },
-        {
-          type: "Поєднані акаунти",
-          active: true,
-          required: false,
-        },
-      )
-
-
-    this.ListAvailableRightCards.push(
-      {
-        type: "Бажана посада",
-        active: true,
-        required: true,
-      },
-      {
-        type: "Про себе",
-        active: true,
-        required: false,
-      },
-      {
-        type: "Історія роботи",
-        active: true,
-        required: false,
-      },
-      {
-        type: "Освіта",
-        active: true,
-        required: false,
-      },
-      {
-        type: "Портфоліо",
-        active: true,
-        required: true,
-      },
-    )
-
+    })
   }
 
 
   ngOnInit(){
-    //this.IsAuthUser();
-
-    /*    this.jobService
-          .getJobAllData()
-          .subscribe((result: Job[]) => (this.dataJob = result[0]));*/
   }
-
-  dataJob1 = {
-    id: 1,
-    title: "Розробник програмного забезпечення",
-    salary: "90000 USD",
-    company: "ABC Inc.",
-    description: "Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення",
-    tags: ["IT", "Програмування", "Розробка"],
-    company_picture: "../../../../assets/img/icons/cards/check_mark.png",
-    banner_picture: "url/to/banner_picture_1.jpg",
-    hot_new_marks: [true, true, false],
-
-  };
 
   goToURL(s: string, b: boolean) {
     this.routerHelper.goToUrl(s, b);
   }
 
-  saveJob() {
-    this.isSaved = !this.isSaved;
-  }
-
-  goBack(): void {
-    this.location.back();
-  }
 
   openDialog(): void {
     if(this.isLogin){
@@ -211,7 +133,7 @@ export class ProfileResumeComponent {
   }
 
 
-  IsAuthUser(): void {
+/*  IsAuthUser(): void {
     this.authService.isLoggedIn().subscribe(isLoggedIn => {
       this.isLogin = isLoggedIn;
       if (isLoggedIn) {
@@ -220,13 +142,14 @@ export class ProfileResumeComponent {
         // Користувач не увійшов у систему, виконуйте необхідні дії
       }
     });
+  }*/
+
+  hasSectionType(type: string): boolean {
+    return this.resume && this.resume.activeResumeSection &&
+      this.resume.activeResumeSection.some(section => section.resumeSectionType && section.resumeSectionType.sectionType === type);
   }
 
-
-
   protected readonly handleImageError = handleImageError;
-
-
 
 }
 

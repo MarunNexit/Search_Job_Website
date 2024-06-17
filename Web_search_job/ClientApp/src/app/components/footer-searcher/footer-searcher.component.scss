@@ -27,6 +27,12 @@ a {
 
 .logo {
   cursor: pointer;
+  height: 60px;
+  width: 200px;
+  max-width: 100%;
+  min-width: 200px;
+  max-height: 100%;
+  margin-bottom: 40px;
 }
 
 .gray-footer {

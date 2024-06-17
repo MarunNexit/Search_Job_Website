@@ -6,7 +6,7 @@ import {Location} from "../../../models/backend/dtos/other/location.dto";
 import {Industry} from "../../../models/backend/dtos/other/industry.dto";
 import {LocationDataDTO} from "../../../models/backend/dtos/other/location-data.dto";
 import {UserService} from "../../../services/backend/user.service";
-import {UserData} from "../../../services/backend/auth/dtos/user-data";
+import {UserData} from "../../../models/backend/dtos/auth/dtos/user-data";
 
 @Component({
   selector: 'app-subscribe-to-employer',
@@ -40,7 +40,7 @@ export class SubscribeToEmployerComponent {
       this.userData = userData;
       console.log(userData)
       if (this.userData && this.dataEmployer) {
-        this.getLocations(this.userData.id, '', this.dataEmployer.location);
+        this.getLocations(this.userData.userId, '', this.dataEmployer.location);
         this.getIndustries('ІТ', this.dataEmployer.industry.industry_name);
       }
       else {

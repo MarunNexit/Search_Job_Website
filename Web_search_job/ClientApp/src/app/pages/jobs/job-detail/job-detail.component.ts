@@ -8,12 +8,12 @@ import {Job} from "../../../models/backend/dtos/jobs/job";
 import {MatDialog} from "@angular/material/dialog";
 import {PopupPurpleComponent} from "../../../components/popup/popup-purple/popup-purple.component";
 import {PopupWhiteComponent} from "../../../components/popup/popup-white/popup-white.component";
-import {AuthService} from "../../../services/backend/auth/auth-service";
+import {AuthService} from "../../../models/backend/dtos/auth/auth-service";
 import {catchError} from "rxjs";
 import {EmployerDTO} from "../../../models/backend/dtos/employers/employer-full.dto";
 import {JobDTO} from "../../../models/backend/dtos/jobs/job.dto";
 import {UserService} from "../../../services/backend/user.service";
-import {UserData} from "../../../services/backend/auth/dtos/user-data";
+import {UserData} from "../../../models/backend/dtos/auth/dtos/user-data";
 import {ActivatedRoute} from "@angular/router";
 
 
@@ -30,10 +30,12 @@ export class JobDetailComponent {
   isProblemRequest: boolean = false;
   isLoaded: boolean = false;
   hasError: boolean = false;
-  result: any;
+  resultRequest: any;
+  onCreateResult: any;
   isLogin:boolean = false;
   isProblem:boolean = false;
   firstRequest:boolean = true;
+  isExistJobRequest: boolean = false;
 
   userData: UserData | null = null;
   numberWatch: number = 231;
@@ -63,20 +65,26 @@ export class JobDetailComponent {
 
   ngOnInit(){
     this.IsAuthUser();
-    this.userService.getUserData().subscribe(userData => {
-      this.userData = userData;
-      const id = +this.route.snapshot.paramMap.get('id')!;
-      if(this.firstRequest){
-        this.firstRequest = false;
-        if (this.userData) {
-          this.getJob(id, this.userData.id);
-        }
-        else {
-          this.getJob(id, null);
-        }
-      }
-    });
   }
+
+  getData(){
+    const id = +this.route.snapshot.paramMap.get('id')!;
+    if(this.isLogin){
+      this.userService.getUserData().subscribe(userData => {
+        this.userData = userData;
+        if(this.firstRequest){
+          if (this.userData) {
+            this.firstRequest = false;
+            this.getJob(id, this.userData.userId);
+          }
+        }
+      });
+    }
+    else{
+      this.getJob(id, null);
+    }
+  }
+
 
   getJob(id: number, userId: string | null): void {
     this.jobService
@@ -100,6 +108,8 @@ export class JobDetailComponent {
         console.log(this.job);
         console.log(result);
 
+        this.isExistJobRequest = result.isExistJobRequest;
+
         this.cdr.detectChanges();
       });
 
@@ -119,7 +129,7 @@ export class JobDetailComponent {
     if(this.userData){
       this.firstRequest = true;
       this.isSaved = !this.isSaved;
-      this.jobService.updateSavedJob(this.userData.id , this.job.id, this.isSaved).subscribe(
+      this.jobService.updateSavedJob(this.userData.userId , this.job.id, this.isSaved).subscribe(
         response => {
           console.log('Успішно збережено', response);
         },
@@ -139,15 +149,20 @@ export class JobDetailComponent {
     if(this.isLogin){
       const dialogRef = this.dialog.open(PopupPurpleComponent, {
         width: '1000px',
-        data: {type: "JobRequest", job: this.job, title: "Відгук на вакансію"}
+        data: {type: "JobRequest", job: this.job, title: "Відгук на вакансію", user: this.userData}
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        this.result = result;
-        //console.log(result);
-        if(result != null){
+        this.resultRequest = result;
+        console.log(result);
+
+        if (result == 'error') {
+          this.onCreateRequest('ProblemSendRequest');
+        }
+        else if(result != null){
           this.createJobRequest();
         }
+
       });
     }
     else{
@@ -157,16 +172,46 @@ export class JobDetailComponent {
   }
 
 
+  cancelJobRequest(): void {
+    if(this.userData?.id){
+      this.jobService.deleteJobRequest(this.job.id, this.userData?.id).subscribe(
+        response => {
+          this.isExistJobRequest = false;
+          console.log('Job request deleted successfully:', response);
+        },
+        error => {
+          this.isProblem = true;
+          console.error('Error deleting job request:', error);
+        }
+      );
+    }
+
+  }
+
+
   createJobRequest(): void {
     let reason:string = "";
     this.isProblemRequest = false;
+
+    console.log(this.resultRequest);
+
+    this.jobService.createJobRequest(this.resultRequest, this.job.id, this.userData?.id).subscribe(
+      response => {
+        this.isExistJobRequest = true;
+        console.log('Job request created successfully:', response);
+      },
+      error => {
+        this.isProblem = true;
+        console.error('Error creating job request:', error);
+      }
+    );
 
     /*if(!this.isLogin){
       this.isProblemRequest = true;
       reason = "NeedAuth";
     }*/
 
-    if(!this.isProblem){
+    if(this.isProblem){
       this.isProblemRequest = true;
       reason = "ProblemSendRequest";
     }
@@ -188,10 +233,17 @@ export class JobDetailComponent {
     });
 
     problemDialog.afterClosed().subscribe(result => {
-      this.result = result;
+      this.onCreateResult = result;
       console.log(result);
       if(result == "TryAgain"){
         this.createJobRequest();
+      }
+
+      if (result == 'CancelDialog') {
+        this.cancelJobRequest();
+      }
+      if (result == 'Cancel') {
+        this.cancelJobRequest();
       }
     });
   }
@@ -200,6 +252,7 @@ export class JobDetailComponent {
   IsAuthUser(): void {
     this.authService.isLoggedIn().subscribe(isLoggedIn => {
       this.isLogin = isLoggedIn;
+      this.getData();
     });
   }
 

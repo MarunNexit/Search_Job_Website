@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Web_search_job.DatabaseClasses.UserFolder;
 
-namespace Web_search_job.DatabaseClasses
+namespace Web_search_job.DatabaseClasses.JobFolder
 {
     public class SavedJob
     {

@@ -23,6 +23,7 @@ export interface JobDTO {
   dateApproving: Date;
   status: string;
   createdAt: Date;
+  isExistJobRequest: boolean;
   isSavedJob: boolean;
   location: LocationDataDTO;
   industry: Industry;

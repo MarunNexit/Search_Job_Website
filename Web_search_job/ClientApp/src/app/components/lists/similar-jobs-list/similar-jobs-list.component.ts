@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Input} from '@angular/core';
 import {JobShortDTO} from "../../../models/backend/dtos/jobs/job-short.dto";
 import {JobDTO} from "../../../models/backend/dtos/jobs/job.dto";
-import {UserData} from "../../../services/backend/auth/dtos/user-data";
+import {UserData} from "../../../models/backend/dtos/auth/dtos/user-data";
 import {catchError} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {JobService} from "../../../services/backend/job.service";
@@ -48,7 +48,7 @@ export class SimilarJobsListComponent {
     console.log(this.job)
     if(this.job != null){
       if (this.userData) {
-        this.getSimilarJob(this.userData.id);
+        this.getSimilarJob(this.userData.userId);
       }
       else {
         this.getSimilarJob(null);

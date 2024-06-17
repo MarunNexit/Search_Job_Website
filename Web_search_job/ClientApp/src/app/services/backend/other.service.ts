@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import {UserData} from "./auth/dtos/user-data";
+import {UserData} from "../../models/backend/dtos/auth/dtos/user-data";
 import {HttpClient} from "@angular/common/http";
 import {AllFilters} from "../../models/backend/dtos/filters/allFilters";
 import {environment} from "../../../environments/environment";
@@ -27,9 +27,9 @@ export class OtherService {
       params: {
         userId: userId ? userId : '',
         anonymLocation: anonymLocation == ""? "NULL" : anonymLocation,
-        employerLocationCountry: employerLocation.location_country,
-        employerLocationRegion: employerLocation.location_region,
-        employerLocationCity: employerLocation.location_city,
+        employerLocationCountry: employerLocation != null? employerLocation.location_country : "NULL",
+        employerLocationRegion: employerLocation != null? employerLocation.location_region : "NULL",
+        employerLocationCity: employerLocation != null? employerLocation.location_city : "NULL",
       }
     });
   }

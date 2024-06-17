@@ -16,7 +16,7 @@ import {
   throwError,
 } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from '../services/backend/auth/auth-service';
+import { AuthService } from '../models/backend/dtos/auth/auth-service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {

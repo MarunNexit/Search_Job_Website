@@ -6,7 +6,7 @@ import {handleImageError} from "../../../functions/handleImageError";
 import {EmployerDTO} from "../../../models/backend/dtos/employers/employer-full.dto";
 import {ActivatedRoute} from "@angular/router";
 import {EmployerService} from "../../../services/backend/employer.service";
-import {UserData} from "../../../services/backend/auth/dtos/user-data";
+import {UserData} from "../../../models/backend/dtos/auth/dtos/user-data";
 import {UserService} from "../../../services/backend/user.service";
 import {EmployerTagDTO} from "../../../models/backend/dtos/employers/employer-tag.dto";
 import {catchError} from "rxjs";
@@ -64,7 +64,7 @@ export class EmployerPageComponent {
       this.userData = userData;
       const id = +this.route.snapshot.paramMap.get('id')!;
       if (this.userData) {
-        this.getEmployer(id, this.userData.id);
+        this.getEmployer(id, this.userData.userId);
       }
       else {
         this.getEmployer(id, null);
@@ -138,6 +138,13 @@ export class EmployerPageComponent {
 
   public itemHasIntensities = (item: EmployerTagDTO): boolean => item.tagType === 'about';
 
+  hasProsTag(): boolean {
+    var temp = this.employer && this.employer.tags && this.employer.tags.some(tag => tag.tagType === 'pros');
+    if(temp){
+      return temp;
+    }
+    return false;
+  }
 
   protected readonly handleImageError = handleImageError;
 }

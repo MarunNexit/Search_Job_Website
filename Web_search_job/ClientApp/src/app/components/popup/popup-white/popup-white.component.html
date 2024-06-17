@@ -15,6 +15,12 @@
       <div *ngIf="data.type === 'SuccessSendRequest'">
         <app-popup-info [Data]="'Ви можете перейти до діалогу з роботодавцем або продовжити переглядати пропозиції'" [Type]="data.type"></app-popup-info>
       </div>
+      <div *ngIf="data.type === 'Cancel'">
+        <app-popup-info [Data]="'Ви дійсно хочете скасувати заявку?'" [Type]="data.type"></app-popup-info>
+      </div>
+      <div *ngIf="data.type === 'resumeListEmpty'">
+        <app-popup-info [Data]="'Виникла проблема з даними'" [Type]="data.type"></app-popup-info>
+      </div>
     </div>
   </div>
 

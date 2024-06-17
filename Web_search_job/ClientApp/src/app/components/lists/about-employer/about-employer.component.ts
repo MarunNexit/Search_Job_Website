@@ -1,5 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {EmployerTagDTO} from "../../../models/backend/dtos/employers/employer-tag.dto";
+import {ResumeTagsDTO} from "../../../models/backend/dtos/profiles/resume-tags.dto";
+import {ResumeSkillsDTO} from "../../../models/backend/dtos/profiles/resume-skills.dto";
 
 @Component({
   selector: 'app-about-employer',
@@ -8,7 +10,10 @@ import {EmployerTagDTO} from "../../../models/backend/dtos/employers/employer-ta
 })
 export class AboutEmployerComponent {
   @Input() aboutEmployerData: EmployerTagDTO[]
+  @Input() ProfileTagsData: ResumeSkillsDTO[]
   @Input() isProfile: boolean = false;
 
-
+  ngOnInit(){
+    console.log(this.ProfileTagsData)
+  }
 }

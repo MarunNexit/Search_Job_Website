@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Web_search_job.DatabaseClasses;
 using Web_search_job.DatabaseClasses.JobFolder;
 using Web_search_job.DTO.User;
+using Web_search_job.DatabaseClasses.FiltersFolder;
 
 namespace Web_search_job.DTO.Job
 {

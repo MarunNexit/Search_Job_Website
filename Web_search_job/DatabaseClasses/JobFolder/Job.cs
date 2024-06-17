@@ -3,8 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Web_search_job.DatabaseClasses.JobFolder;
+using Web_search_job.DatabaseClasses.FiltersFolder;
+using Web_search_job.DatabaseClasses.EmployerFolder;
+using Web_search_job.DatabaseClasses.UserFolder;
 
-namespace Web_search_job.DatabaseClasses
+namespace Web_search_job.DatabaseClasses.JobFolder
 {
     public class Job
     {
@@ -39,6 +42,8 @@ namespace Web_search_job.DatabaseClasses
         public virtual ICollection<Report>? Reports { get; set; }
         public virtual ICollection<JobTagsPros>? JobTagsPros { get; set; }
         public virtual ICollection<SavedJob>? SavedJobs { get; set; }
+
+        public virtual ICollection<JobRecommendationList>? JobRecommendationList { get; set; }
 
         public virtual JobRequirement? JobRequirements { get; set; }
         public virtual JobRequestFields? JobRequestFields { get; set; }

@@ -1,0 +1,31 @@
+<div>
+  <p *ngIf="dataJobs.length > 0" class="font-35-semibold">
+    Рекомендовані вакансії
+  </p>
+  <div class="" *ngFor="let jobComponent of dataJobs; let i = index" style="margin-bottom: 16px">
+    <app-job-short-card
+      [job]="jobComponent"
+      [isRecommendation]=true
+      [userData]="userData"
+    >
+    </app-job-short-card>
+  </div>
+  <div>
+    <app-pagination-list
+      [numberElement]="totalElements"
+      [maxElementOnPage]="elementsPerPage"
+      (currentPage)="handlePageChange($event)"
+    >
+    </app-pagination-list>
+  </div>
+  <p *ngIf="dataJobs.length <= 0 && isLoaded" class="font-35-semibold">
+    Рекомендовані вакансії
+  </p>
+
+  <div *ngIf="!isLoaded && userData">
+    <app-loading-progress></app-loading-progress>
+  </div>
+</div>
+
+
+

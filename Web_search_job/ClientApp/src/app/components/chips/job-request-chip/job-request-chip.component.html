@@ -1,0 +1,26 @@
+<div class="chips-job-priority font-14-black" >
+  <div>
+    <div style="display: flex; flex-wrap: nowrap; ">
+      <div style="flex-grow: 1; display: flex; align-items: center">
+        <div *ngIf="!finished && status == 'active'" class="bolt" style="display: inline-block; margin-top: 4px; margin-bottom: 8px; margin-right: 12px">
+          Переглядається
+        </div>
+        <div *ngIf="status == 'active-view' || status == 'active-view-accept'" class="recommendation" style="display: inline-block; margin-top: 4px; margin-bottom: 8px; margin-right: 12px">
+          Переглянутий
+        </div>
+        <div *ngIf="!finished && status == 'active-view'" class="bolt" style="display: inline-block; margin-top: 4px; margin-bottom: 8px; margin-right: 12px">
+          На розгляді
+        </div>
+        <div *ngIf="status == 'active-view-accept'" class="recommendation" style="display: inline-block; margin-top: 4px; margin-bottom: 8px; margin-right: 12px">
+          Прийнятий
+        </div>
+        <div *ngIf="status == 'refuse'" class="fire" style="display: inline-block; margin-top: 4px; margin-bottom: 8px; margin-right: 12px">
+          Відмовлено
+        </div>
+        <div *ngIf="finished || status == null" class="fire " style="display: inline-block; margin-top: 4px; margin-bottom: 8px; margin-right: 12px" >
+          Вакансія завершена
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

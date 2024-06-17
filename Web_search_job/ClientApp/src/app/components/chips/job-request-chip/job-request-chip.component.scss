@@ -1,0 +1,19 @@
+@import '../../../../../src/colors';
+@import '../../../../../src/icon';
+
+.chips-job-priority{
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+.chips-job-priority .fire{
+  color: $chip-fire;
+}
+
+.chips-job-priority .bolt{
+  color: $chip-bolt;
+}
+
+.chips-job-priority .recommendation{
+  color: $chip-recommendation;
+}

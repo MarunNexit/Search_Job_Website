@@ -8,6 +8,13 @@ using Web_search_job.Host.Middleware;
 using Web_search_job.Services.UserService;
 using Web_search_job.Controllers.DatabaseControllers;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using System;
+using System.IO;
+using Azure.Identity;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -16,7 +23,7 @@ var configuration = builder.Configuration;
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), options => options.CommandTimeout(60)).ConfigureWarnings(warnings =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection"), options => options.CommandTimeout(60)).ConfigureWarnings(warnings =>
             warnings.Ignore(RelationalEventId.MultipleCollectionIncludeWarning));
 });
 
@@ -87,7 +94,6 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");*/
 
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -95,7 +101,6 @@ if (!app.Environment.IsDevelopment())
 }
 
 
-//AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 
 using (var scope = app.Services.CreateScope())
@@ -109,7 +114,6 @@ using (var scope = app.Services.CreateScope())
 
 app.UseStaticFiles();
 
-//app.MapFallbackToFile("index.html"); 
 
 app.Run();
 

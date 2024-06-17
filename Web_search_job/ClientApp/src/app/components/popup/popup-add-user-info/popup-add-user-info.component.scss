@@ -1,0 +1,77 @@
+@import '../../../../colors';
+
+.hint{
+  border-radius: 20px;
+  border: none;
+  background: $tag-type-work;
+  color: $tag-type-work-text;
+  padding: 8px;
+}
+
+
+.input-field{
+  border-radius: 20px;
+  padding: 10px;
+  border: none;
+  margin-bottom: 8px;
+}
+
+.width100{
+  width: 100%;
+}
+
+
+.image-upload {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+input[type="file"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+
+
+.view-button {
+  display: flex;
+  border: none;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $icons-buttons-color;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 100%;
+  min-width: 80px;
+  max-width: 200px;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.view-button span {
+  flex-grow: 1; /* Дозволяє тексту займати всю доступну ширину, залишаючи зображення в крайній правій частині */
+  white-space: nowrap; /* Запобігає переносу тексту на новий рядок */
+  overflow: hidden; /* Запобігає виходу тексту за межі кнопки */
+  text-overflow: ellipsis; /* Відображає трохи тексту з кінця та додає мінімальний маркер, щоб показати, що текст обрізаний */
+}
+
+

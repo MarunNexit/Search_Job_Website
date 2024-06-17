@@ -25,17 +25,20 @@
   <div *ngIf="employer && isLoaded" class="row" style="padding-left: 8px" >
     <div [ngClass]="isSmallScreen ? 'col-auto' : 'col-md-9'">
       <div class="block-with-job ">
-        <div *ngIf="employer.companyBackgroundImg != '' && employer.companyBackgroundImg != null" class="job-photo ">
+        <div *ngIf="employer.companyBackgroundImg != '' && employer.companyBackgroundImg != null && employer.companyBackgroundImg != 'NOT'" class="job-photo ">
           <!--        СЮДИ ФОТО-->
           <img id="job-photo" src="{{employer.companyBackgroundImg}}" (error)='handleImageError($event, "assets/img/alt-image.png")' alt="">
         </div>
         <div class="block-with-job-with-padding">
           <div class="row "  style="margin-top: 16px">
             <div class="col " style="padding: 0; margin-left: 8px">
-              <div>
+              <div style="display: flex;">
                 <p class="job-text job-name font-32-bold">
                   {{employer.companyName}}
                 </p>
+                <div *ngIf="employer.companyChecked" class=" " style="margin-left: 20px" >
+                  <img style="width: 16px; height: 16px" src="../../../../assets/img/icons/cards/check_mark.png" alt="0">
+                </div>
               </div>
 
               <div class="row" style="margin-top: 10px">
@@ -59,18 +62,15 @@
                 </div>
               </div>
             </div>
-
-
-            <div *ngIf="employer.companyChecked" class=" company-icon-div"  >
-              <img  src="../../../../assets/img/icons/cards/check_mark.png" alt="0">
+            <div style="padding: 0px" *ngIf="employer.companyImg && employer.companyImg != 'NOT'&& employer.companyImg != 'img'" class=" company-icon-div "  >
+              <img class="" style="width: 100%; height: 100%" src="{{employer.companyImg}}" alt="0">
             </div>
           </div>
           <div style="margin-top: 8px">
-            <div class="font-18-bold" style="margin-bottom: 8px">
+            <div *ngIf="hasProsTag()" class="font-18-bold" style="margin-bottom: 8px">
               Переваги роботи в компанії
             </div>
             <app-chip-job-list [Tags]="employer.tags" [IsBig]="true" ></app-chip-job-list>
-
           </div>
 
           <div style="margin-top: 36px; margin-bottom: 36px" class="job-description font-14-regular" [innerHTML]="formatDescription(employer.companyDescription)">

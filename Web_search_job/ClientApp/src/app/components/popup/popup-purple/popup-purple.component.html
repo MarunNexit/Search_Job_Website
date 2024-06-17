@@ -10,10 +10,10 @@
         <app-popup-job-request [Data]="data" ></app-popup-job-request>
       </div>
       <div *ngIf="data.type === 'CreateResume'">
-        <app-popup-create-resume [Data]="data" ></app-popup-create-resume>
+        <app-popup-create-resume [Data]="data" [Type]="data.type"></app-popup-create-resume>
       </div>
-      <div *ngIf="data.type === 'ProfileAnalytics'">
-        <app-popup-analytics [Data]="data" ></app-popup-analytics>
+      <div *ngIf="data.type === 'searcherAnalytics'">
+        <app-popup-analytics [Data]="data" [Type]="data.type" ></app-popup-analytics>
       </div>
       <div *ngIf="data.type === 'Privacy'">
         <app-popup-privacy [Data]="data" ></app-popup-privacy>
@@ -21,8 +21,17 @@
       <div *ngIf="data.type === 'Settings'">
         <app-popup-profile-settings [Data]="data" ></app-popup-profile-settings>
       </div>
-      <div *ngIf="data.type === 'Settings'">
+<!--  <div *ngIf="data.type === 'Settings'">
         <app-popup-info [Data]="data" ></app-popup-info>
+      </div>-->
+      <div *ngIf="data.type === 'AddProfileSection'">
+        <app-popup-add-section (isDataChanged)="isDataChanged($event)" [Data]="data" ></app-popup-add-section>
+      </div>
+      <div *ngIf="data.type === 'NewResume'">
+        <app-popup-new-resume [Data]="data" ></app-popup-new-resume>
+      </div>
+      <div *ngIf="data.type === 'AddUserInfo'">
+        <app-popup-add-user-info [Data]="data" ></app-popup-add-user-info>
       </div>
     </div>
   </div>

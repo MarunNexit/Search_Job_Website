@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MyErrorStateMatcher} from "../../../auth/error-state-matcher";
-import {AuthService} from "../../../services/backend/auth/auth-service";
+import {AuthService} from "../../../models/backend/dtos/auth/auth-service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {passwordValidator} from "../../../auth/password.validator";

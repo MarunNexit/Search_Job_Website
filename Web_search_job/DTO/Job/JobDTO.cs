@@ -1,4 +1,5 @@
 ﻿using Web_search_job.DatabaseClasses;
+using Web_search_job.DatabaseClasses.FiltersFolder;
 using Web_search_job.DTO.Employer;
 using Web_search_job.DTO.User;
 
@@ -27,6 +28,7 @@ namespace Web_search_job.DTO.Job
         public DateTime CreatedAt { get; set; }
 
         //CUSTOM
+        public bool isExistJobRequest { get; set; }
         public bool isSavedJob { get; set; }
 
         //

@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, HostListener, Renderer2, ViewChild
 import {JobShortDTO} from "../../models/backend/dtos/jobs/job-short.dto";
 import {SearchParamService} from "../../services/search-param.service";
 import {MainSearchService} from "../../services/main-search.service";
+import {JobSearchResultDTO} from "../../models/backend/dtos/jobs/job-search-result.dto";
 
 
 
@@ -13,6 +14,7 @@ import {MainSearchService} from "../../services/main-search.service";
 export class SearchJobPageComponent implements AfterViewInit{
 
   jobs: JobShortDTO[] = [];
+  totalElements = 0;
   showScrollButton: boolean = false;
   @ViewChild('myButtonDiv') myButtonDiv: ElementRef;
   divHeight: number;
@@ -58,8 +60,9 @@ export class SearchJobPageComponent implements AfterViewInit{
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  onJobsOutput(data: JobShortDTO[]): void {
-    this.jobs = data;
+  onJobsOutput(data: JobSearchResultDTO): void {
+    this.jobs = data.jobs;
+    this.totalElements = data.totalElements;
   }
 
   onChange(event: Event) {

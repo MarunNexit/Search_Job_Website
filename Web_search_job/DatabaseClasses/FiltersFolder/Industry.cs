@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Web_search_job.DatabaseClasses.EmployerFolder;
+using Web_search_job.DatabaseClasses.JobFolder;
 using Web_search_job.DatabaseClasses.ProfileFolder;
 
-namespace Web_search_job.DatabaseClasses
+namespace Web_search_job.DatabaseClasses.FiltersFolder
 {
     public class Industry
     {

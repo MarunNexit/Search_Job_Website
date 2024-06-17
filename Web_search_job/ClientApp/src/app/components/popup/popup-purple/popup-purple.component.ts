@@ -7,15 +7,32 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./popup-purple.component.scss']
 })
 export class PopupPurpleComponent {
+
+  isChanged: boolean = false;
+
   constructor(
     public dialogRef: MatDialogRef<PopupPurpleComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
   }
 
+  ngOnInit() {
+    console.log(this.data)
+  }
+
   onNoClick(): void {
-    this.dialogRef.close(null);
+    if(this.isChanged){
+      this.dialogRef.close("changed");
+    }
+    else{
+      this.dialogRef.close(null);
+    }
   }
 
 
+  isDataChanged(event: any) {
+    this.isChanged = !!event.value;
+  }
+
+  protected readonly event = event;
 }

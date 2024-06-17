@@ -8,10 +8,17 @@
     <SpaProxyServerUrl>https://localhost:44434</SpaProxyServerUrl>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AK.System.Linq.Dynamic" Version="1.1.33" />
+    <PackageReference Include="Azure.Identity" Version="1.11.3" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.20.0" />
     <PackageReference Include="Google.Apis.Auth" Version="1.57.0" />
+    <PackageReference Include="itext7" Version="8.0.4" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.2" />
+    <PackageReference Include="LinqKit" Version="1.2.5" />
     <PackageReference Include="MediatR" Version="11.1.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6" />
@@ -23,7 +30,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
+    <PackageReference Include="OpenAI" Version="1.11.0" />
+    <PackageReference Include="RestSharp" Version="111.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.4.0" />
+    <PackageReference Include="Textkernel.Tx.SDK" Version="3.2.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +46,10 @@
 
   <ItemGroup>
     <Compile Remove="DatabaseClasses\Employers.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
   </ItemGroup>
 
   <ItemGroup>

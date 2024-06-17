@@ -2,7 +2,7 @@
 {
     public class IndustryDataDTO
     {
-        public int? Id { get; set; }
+        public int? id { get; set; }
 
         public string industry_name { get; set; } = "";
     }

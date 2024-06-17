@@ -14,8 +14,11 @@
           <span>Поскаржитись</span>
         </button>
         <button mat-menu-item>
+          <mat-icon>not_interested</mat-icon>
+<!--
           <img class="img-icon" style="margin-right: 16px" src="../../../../assets/img/icons/report/report-old.png" height="24" width="24">
-          <span>Приховати</span>
+-->
+          <span>Показувати менше таких</span>
         </button>
       </mat-menu>
     </div>
@@ -62,11 +65,11 @@
                   <div class="job-company font-20-regular" style="text-decoration: none;">
                     <div class=" ">
                       <div style="display: flex; align-items: center;"  *ngIf="job.jobSalaryMin != null || job.jobSalaryMax != null">
-                        <p *ngIf="job.jobSalaryMin != null" class="job-text small font-16-regular">
+                        <p style="margin: 0" *ngIf="job.jobSalaryMin != null" class="job-text small ">
                           {{ job.jobSalaryMin | currencySymbol: job.jobSalaryCurrency }}
                         </p>
-                        <p style="margin: 0; padding: 0" *ngIf="job.jobSalaryMin != null && job.jobSalaryMax != null">-</p>
-                        <p *ngIf="job.jobSalaryMax != null" class="job-text small font-16-regular">
+                        <p style="margin: 0; padding: 0" *ngIf="job.jobSalaryMin != null && job.jobSalaryMax != null"> - </p>
+                        <p style="margin: 0"  *ngIf="job.jobSalaryMax != null" class="job-text small ">
                           {{ job.jobSalaryMax | currencySymbol: job.jobSalaryCurrency}}
                         </p>
                       </div>
@@ -90,14 +93,18 @@
           <div class="row align-items-center " style="margin-top: 24px">
             <div class="col ">
               <div style="display: flex">
-                <button class="view-button font-18-semibold" (click)="openDialog()" style="margin-right: 24px">
+                <button *ngIf="!isExistJobRequest" class="view-button font-18-semibold" (click)="openDialog()" style="margin-right: 24px">
                   <span>Подати заявку</span>
                   <mat-icon style="height: 23px; width: 20px;">chevron_right</mat-icon>
+                </button>
+                <button *ngIf="isExistJobRequest" class="view-button font-18-semibold" (click)="onCreateRequest('Cancel')" style="margin-right: 24px">
+                  <span>Скасувати заявку</span>
+                  <mat-icon style="height: 23px; width: 20px;">close</mat-icon>
                 </button>
 
                 <button class="blank_button report font-18-bold "  style="margin-right: 24px; display: flex; align-items: center">
                   <mat-icon style="margin-right: 8px">report</mat-icon>
-                  <span>Поскаржитися</span>
+                  <span *ngIf="!isSmallScreen">Поскаржитися</span>
                 </button>
               </div>
             </div>
@@ -123,13 +130,18 @@
           <div class=" align-items-center " >
             <div class=" ">
               <div style="display: grid; justify-content: center; align-items: center" class="">
-                <button class="view-button font-18-semibold" (click)="openDialog()" style="margin-bottom: 8px">
-                  <span>Подати заявку</span>
+                <button *ngIf="!isExistJobRequest" class="view-button font-18-semibold" (click)="openDialog()" style="margin-bottom: 8px">
+                  <span class="font-16-bold">Подати заявку</span>
                   <mat-icon style="margin-top: 2px; height: 23px; width: 20px;">chevron_right</mat-icon>
                 </button>
 
-                <button *ngIf="userData" class="blank_button save font-18-bold" (click)="saveJob()" >
-                  <span>Зберегти вакансію</span>
+                <button *ngIf="isExistJobRequest" class="view-button font-18-semibold" (click)="onCreateRequest('Cancel')" style="margin-bottom: 8px">
+                  <span class="font-16-bold">Скасувати заявку</span>
+                  <mat-icon style="margin-top: 2px; height: 23px; width: 20px;">chevron_right</mat-icon>
+                </button>
+
+                <button *ngIf="userData" class="blank_button save font-18-medium" (click)="saveJob()" >
+                  <span class="font-16-bold">Зберегти вакансію</span>
                   <img class="img-icon" style="margin-left: 4px" [src]="!isSaved ? '../../../../assets/img/icons/cards/empty_star.png' : '../../../../assets/img/icons/cards/saved_star.png'" alt="Icon" height="26" width="26">
                 </button>
               </div>

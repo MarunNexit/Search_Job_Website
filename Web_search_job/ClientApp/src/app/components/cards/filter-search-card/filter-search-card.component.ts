@@ -30,6 +30,7 @@ export class FilterSearchCardComponent {
   @Input() nameTopic: string;
 
   type: string = '';
+  isFiltered: boolean = false;
 
   private subscription: Subscription;
   filteredItems$: Observable<string[]>;
@@ -74,14 +75,12 @@ export class FilterSearchCardComponent {
 
   ngOnInit(): void {
     this.GetType()
-
     if (this.dataFilters) {
       this.dataFilters.forEach((filter: { name: string, checked: boolean }) => {
         this.filters_status.addControl(this.getFilterFormControlName(filter), this._formBuilder.control(false));
 
-        const checked = this.filtersCheckedService.getCheckboxValue(this.getFilterFormControlName(filter));
+        let checked = this.filtersCheckedService.getCheckboxValue(this.getFilterFormControlName(filter));
         this.filtersCheckedService.setCheckboxValue(this.getFilterFormControlName(filter), checked, this.type);
-
       });
     }
 

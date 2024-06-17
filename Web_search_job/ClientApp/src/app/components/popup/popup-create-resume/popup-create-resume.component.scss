@@ -1,0 +1,92 @@
+@import '../../../../colors';
+@import '../../../../icon';
+
+.hint{
+  border-radius: 20px;
+  border: none;
+  background: $tag-type-work;
+  color: $tag-type-work-text;
+  padding: 8px;
+}
+
+
+.input-field{
+  border-radius: 20px;
+  padding: 10px;
+  border: none;
+  margin-bottom: 8px;
+}
+
+
+.view-button {
+  display: flex;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary-color;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 100%;
+  min-width: 80px;
+  max-width: 250px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.view-button-small {
+  display: flex;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary-color;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+  cursor: pointer;
+  max-width: 250px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+.upload-img-block {
+  display: flex;
+  align-items: center;
+  background: $tertiary-color;
+  justify-content: center;
+  border-radius: 20px;
+  border: 2px dashed #000;
+  width: 100%;
+  height: 300px; /* висота блоку, можна налаштувати за потреби */
+}
+
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.view-button span {
+  flex-grow: 1; /* Дозволяє тексту займати всю доступну ширину, залишаючи зображення в крайній правій частині */
+  white-space: nowrap; /* Запобігає переносу тексту на новий рядок */
+  overflow: hidden; /* Запобігає виходу тексту за межі кнопки */
+  text-overflow: ellipsis; /* Відображає трохи тексту з кінця та додає мінімальний маркер, щоб показати, що текст обрізаний */
+}
+
+
+.inner-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%; /* ширина контенту всередині блоку */
+}
+
+
+.file-input {
+  display: none;
+}

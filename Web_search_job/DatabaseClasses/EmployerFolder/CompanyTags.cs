@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Web_search_job.DatabaseClasses
+namespace Web_search_job.DatabaseClasses.EmployerFolder
 {
     public class CompanyTags
     {
@@ -15,9 +15,9 @@ namespace Web_search_job.DatabaseClasses
 
         public string type_tag { get; set; } = "";
 
-        public int? company_tags_list { get; set; }
+        [ForeignKey("TagsList")]
+        public int? tags_list_id { get; set; }
 
-        [ForeignKey("company_tags_list")]
-        public virtual CompanyTagsList CompanyTagsList { get; set; }
+        public virtual TagsList TagsList { get; set; }
     }
 }

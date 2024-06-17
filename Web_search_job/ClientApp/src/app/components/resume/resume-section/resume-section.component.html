@@ -1,4 +1,4 @@
-<div class="wrap-text" style="padding-top: 0px; padding-bottom: 0px; margin: 0px" >
+<div *ngIf="userData" class="wrap-text" style="padding-top: 0px; padding-bottom: 0px; margin: 0px" >
   <div >
     <div class="block-with-job ">
       <div class="block-with-job-with-padding">
@@ -10,7 +10,7 @@
               </p>
             </div>
           </div>
-          <button *ngIf="!isPublicView"  class="col-auto icon-div " style="padding: 0"  >
+          <button *ngIf="!isPublicView && isMyProfile"  class="col-auto icon-div " style="padding: 0"  >
             <mat-icon>edit</mat-icon>
           </button>
         </div>
@@ -22,7 +22,7 @@
             </div>
             <div class="col ">
               <p class=" " style="text-decoration: none;">
-                20 років
+                {{userData.userAge}} років
               </p>
             </div>
           </div>
@@ -33,7 +33,7 @@
             </div>
             <div class="col ">
               <p class=" " style="text-decoration: none; " >
-                Івано-Франківськ
+                {{userData.location.location_country}} - {{userData.location.location_city}}
               </p>
             </div>
           </div>
@@ -43,8 +43,11 @@
               <mat-icon  style="margin-bottom: 4px">phone</mat-icon>
             </div>
             <div class="col ">
-              <p class=" " style="text-decoration: none;">
-                38 (068) 234-09-82
+              <p *ngIf="resume.resumePhone" class=" " style="text-decoration: none;">
+                {{resume.resumePhone}}
+              </p>
+              <p *ngIf="!resume.resumePhone" class=" " style="text-decoration: none;">
+                {{userData.phoneNumber}}
               </p>
             </div>
           </div>
@@ -54,24 +57,27 @@
               <mat-icon style="margin-bottom: 4px">email</mat-icon>
             </div>
             <div class="col ">
-              <p class=" " style="text-decoration: none; " >
-                searcher_1@gmail.com
+              <p *ngIf="resume.resumeEmail" class=" " style="text-decoration: none; " >
+                {{resume.resumeEmail}}
+              </p>
+              <p *ngIf="!resume.resumeEmail" class=" " style="text-decoration: none; " >
+                {{userData.email}}
               </p>
             </div>
           </div>
 
           <div *ngIf="sections.includes('skills')">
-            <app-about-employer [isProfile]="true"></app-about-employer>
+            <app-about-employer [isProfile]="true" [ProfileTagsData]="resume.resumeSkills"></app-about-employer>
           </div>
 
-          <div *ngIf="sections.includes('languages')"  class="row font-14-regular" >
-            <div *ngFor="let language of languages">
-              <p>{{language.language}}:{{language.level}}</p>
+          <div *ngIf="sections.includes('languages') && resume"  class="row font-14-regular" >
+            <div *ngFor="let language of resume.resumeLanguage">
+              <p>{{language.languale}}: {{language.languageLevel?.level}}</p>
             </div>
           </div>
 
           <div *ngIf="sections.includes('links')"  class=" font-14-regular" >
-            <div class="row">
+            <div class="row" *ngIf="hasLinkType('dribble')">
               <div class="col-auto  img-icon" style="padding-right: 0px">
                 <img class="img-icon link" src="assets/img/icons/links/dribbble.png" width="20" height="20">
               </div>
@@ -79,27 +85,27 @@
                 <p class=" " style="text-decoration: none; margin-bottom: 8px" >
                   Dribble
                 </p>
-                <p class="font-12-regular" style="text-decoration: underline; " >
-                  link
+                <p class="font-12-regular" style="text-decoration: underline; cursor: pointer" (click)="navigateToExternalUrlLink('dribble')" >
+                  {{links[0] && links[0] != '' ? links[0] : 'link'}}
                 </p>
               </div>
             </div>
 
-            <div  class="row">
+            <div  class="row" *ngIf="hasLinkType('behance')">
               <div class="col-auto img-icon" style="padding-right: 0px">
                 <img class="img-icon link" src="assets/img/icons/links/behance.png" width="20" height="20">
               </div>
               <div class="col " >
-                <p class=" " style="text-decoration: none; margin-bottom: 8px" >
+                <p class=" " style="text-decoration: none; margin-bottom: 8px; cursor: pointer" (click)="navigateToExternalUrlLink('behance')" >
                   Behance
                 </p>
                 <p class="font-12-regular " style="text-decoration: underline; " >
-                  link
+                  {{links[1] && links[1] != '' ? links[1] : 'link'}}
                 </p>
               </div>
             </div>
 
-            <div  class="row">
+            <div  class="row" *ngIf="hasLinkType('facebook')">
               <div class="col-auto img-icon" style="padding-right: 0px">
                 <img class="img-icon link" src="assets/img/icons/links/facebook.png" width="20" height="20">
               </div>
@@ -107,22 +113,22 @@
                 <p class=" " style="text-decoration: none; margin-bottom: 8px" >
                   Facebook
                 </p>
-                <p class=" font-12-regular" style="text-decoration: underline; " >
-                  link
+                <p class=" font-12-regular" style="text-decoration: underline; cursor: pointer" (click)="navigateToExternalUrlLink('facebook')" >
+                  {{links[2] && links[2] != '' ? links[2] : 'link'}}
                 </p>
               </div>
             </div>
 
-            <div  class="row">
+            <div  class="row" *ngIf="hasLinkType('linkedin')">
               <div class="col-auto img-icon" style="padding-right: 0px">
                 <img class="img-icon link" src="assets/img/icons/links/linkedin.png" width="20" height="20">
               </div>
               <div class="col ">
-                <p class=" " style="text-decoration: none; margin-bottom: 8px" >
+                <p class=" " style="text-decoration: none; margin-bottom: 8px; cursor: pointer" (click)="navigateToExternalUrlLink('linkedin')" >
                   LinkedIn
                 </p>
                 <p class=" font-12-regular" style="text-decoration: underline; " >
-                  link
+                  {{links[3] && links[3] != '' ? links[3] : 'link'}}
                 </p>
               </div>
             </div>
@@ -130,25 +136,27 @@
 
 
           <div *ngIf="sections.includes('wanted_job')" class=" font-14-regular" >
-            <p class="font-18-bold">Graphic Design and Web Development | Print and Digital Media</p>
-            <div class="row">
+            <p class="font-18-bold">{{resume.resumeName}}</p>
+            <div *ngIf="wantedSalary && wantedSalary.length > 0" class="row">
               <div class="col-auto ">
                 <mat-icon style="margin-bottom: 4px">account_balance_wallet</mat-icon>
               </div>
               <div class="col ">
                 <p class=" " style="text-decoration: none; " >
-                  $32.00/год
+                  {{ Number(wantedSalary[0]) | currencySymbol: wantedSalary[1] }} / {{wantedSalary[2]}}
                 </p>
               </div>
             </div>
 
-            <div class="row">
+            <div *ngIf="resume.resumeTags.length > 0" class="row">
               <div class="col-auto ">
                 <img src="../../../../assets/img/icons/profile/activity.png" height="24" width="24"/>
               </div>
               <div class="col ">
-                <p class=" " style="text-decoration: none; " >
-                  проектна робота, неповна зайнятість, повна зайнятість, позмінна робота, віддалена робота, стажування / практика
+                <p class=" " style="text-decoration: none; ">
+                  <ng-container *ngFor="let dataComponent of resume.resumeTags; let i = index">
+                    {{dataComponent.resumeTagName}}{{i < resume.resumeTags.length - 1 ? ', ' : ''}}
+                  </ng-container>
                 </p>
               </div>
             </div>
@@ -159,8 +167,8 @@
           <div *ngIf="sections.includes('about_self')" class=" font-14-regular" >
             <div style="">
               <div [@openClose]="showLess ? 'collapsed' : 'expanded'" class="font-16-regular" style="margin-top: 8px; margin-bottom: 12px; word-wrap: break-word;">
-                {{ 'asdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasda sdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasda sdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasda sdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasda sdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasda sdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasdasdsadasdasdasdasdaasda sdsadasdasdasdasdaasdasdsadasdasdasdasda'
-                }}
+                <div [innerHTML]="formatDescription(resume.resumeAboutMe?.resumeAboutMeText)">
+                </div>
               </div>
               <p *ngIf="showLess">...</p>
             </div>
@@ -172,79 +180,89 @@
 
 
           <div *ngIf="sections.includes('history')" class=" font-14-regular" >
-            <p class="font-18-bold">Менеджер</p>
-            <div  class="row">
-              <div class="col-auto img-icon" style="padding-right: 0px">
-                <mat-icon>work</mat-icon>
-              </div>
-              <div class="col ">
-                <p class=" " style="text-decoration: none; margin-bottom: 8px" >
-                  SkyUp Airlines
-                </p>
-                <p class=" font-12-regular" style="text-decoration: underline; " >
-                  Компанія авіаліній
-                </p>
-              </div>
-            </div>
-
-            <div  class="row">
-              <div class="col-auto img-icon" style="padding-right: 0px">
-                <mat-icon>calendar_today</mat-icon>
-              </div>
-              <div class="col ">
-                <div style="display: flex; align-items: center">
-                  <p class=" " style="text-decoration: none; margin-bottom: 8px" >
-                    5 років 4 місяці
+            <div *ngFor="let history of resume.resumeHistoryWork; let i = index" style="margin-bottom: 30px">
+              <p class="font-18-bold">{{history.workName}}</p>
+              <div  class="row">
+                <div class="col-auto img-icon" style="padding-right: 0px">
+                  <mat-icon>work</mat-icon>
+                </div>
+                <div class="col ">
+                  <p class=" " style="text-decoration: none; margin-bottom: 2px" (click)="navigateToExternalUrl(history.employer?.companyURL)" >
+                    {{history.employer?.companyName}}
                   </p>
-                  <p class="font-12-regular text-grey" style="text-decoration: none; margin-bottom: 8px; margin-left: 8px; /*margin-top: 5px*/" >
-                    09.2015 — 01.2021
+                  <p class=" font-12-regular" style="text-decoration: underline; " >
+                    {{history.employer?.companyShortDescription}}
                   </p>
                 </div>
               </div>
-            </div>
 
-            <div>
-              <p style="margin-top: 24px">
-                TEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXTTEXT
-              </p>
+              <div  class="row">
+                <div class="col-auto img-icon" style="padding-right: 0px">
+                  <mat-icon>calendar_today</mat-icon>
+                </div>
+                <div class="col ">
+                  <div style="display: flex; align-items: center">
+                    <p class=" " style="text-decoration: none; margin-bottom: 8px" >
+                      {{getDifferenceInYearsAndMonths(history.startWorkDate, history.endWorkDate)}}
+                    </p>
+                    <p class="font-12-regular text-grey" style="text-decoration: none; margin-bottom: 8px; margin-left: 8px; margin-top: 3px" >
+                      {{formatDate(history.startWorkDate) }} - {{formatDate(history.endWorkDate)}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div style="margin-top: 24px" [innerHTML]="formatDescription(history.workText)">
+                </div>
+              </div>
+
+              <ng-container *ngIf="i < resume.resumeHistoryWork.length - 1">
+                <hr>
+              </ng-container>
+
             </div>
           </div>
 
 
+
+
           <div *ngIf="sections.includes('education')" class=" font-14-regular" >
-            <p class="font-18-bold">Черкаська медична академія</p>
-            <div  class="row">
-              <div class="col-auto img-icon" style="padding-right: 0px">
-                <mat-icon>work_outline</mat-icon>
+            <div *ngFor="let education of resume.resumeEducation; let i = index">
+              <p class="font-18-bold">{{getEducationData('proffesion', education.educationProffesion)}}</p>
+              <div  class="row">
+                <div class="col-auto img-icon" style="padding-right: 0px">
+                  <mat-icon>work_outline</mat-icon>
+                </div>
+                <div class="col ">
+                  <p class=" " style="text-decoration: none; margin-bottom: 8px" >
+                    {{getEducationData('place', education.educationProffesion)}}
+                  </p>
+                </div>
               </div>
-              <div class="col ">
-                <p class=" " style="text-decoration: none; margin-bottom: 8px" >
-                  Медицина, магістр
-                </p>
-              </div>
-            </div>
-            <div  class="row" style="margin-top: 8px">
-              <div class="col-auto img-icon" style="padding-right: 0px">
-                <mat-icon>location_on</mat-icon>
-              </div>
-              <div class="col ">
-                <p class=" " style="text-decoration: none; margin-bottom: 8px" >
-                  Черкаси, 2021
-                </p>
+              <div  class="row" style="margin-top: 8px">
+                <div class="col-auto img-icon" style="padding-right: 0px">
+                  <mat-icon>location_on</mat-icon>
+                </div>
+                <div class="col ">
+                  <p class=" " style="text-decoration: none; margin-bottom: 8px" >
+                    {{education.location?.location_region}}, {{education.educationYear}}
+                  </p>
+                </div>
               </div>
             </div>
         </div>
 
 
           <div *ngIf="sections.includes('portfolio')" class=" font-14-regular row" >
-            <div *ngFor="let language of languages" class="col-md-3 " style="padding: 12px; display: inline; justify-content: center; align-items: center" >
-              <div class="" style="border-radius: 20px; width: 100%; height: 100px; overflow: hidden;">
+            <div *ngFor="let portfolio of resume.resumePortfolio" (click)="navigateToExternalUrl(portfolio.portfolioLink)" class="col" style="padding: 12px; display: inline; justify-content: center; align-items: center; cursor: pointer" >
+              <div class=""  style="border-radius: 20px; width: 100%; height: 100px; overflow: hidden; ">
                 <img
-                  src=" "
+                  src="{{portfolio.portfolioImg}}"
                   (error)='handleImageError($event, "../../../../assets/img/loading-picture.png")'
                   style="width: 100%; height: 100%; object-fit: cover;">
               </div>
-              <p style="" class="font-12-bold">asdasdsad</p>
+              <p style="text-align: center" class="font-12-bold">Name</p>
             </div>
           </div>
       </div>

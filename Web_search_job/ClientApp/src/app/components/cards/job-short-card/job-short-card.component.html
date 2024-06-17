@@ -6,6 +6,10 @@
     <app-chips-job-priority [dataJob]="job"> </app-chips-job-priority>
   </div>
 
+  <div *ngIf="isHistoryPage">
+    <app-job-request-chip [status]="requestData?.status" [finished]="requestDataFinished"></app-job-request-chip>
+  </div>
+
   <div class="row "  style="margin-top: 16px">
     <div class="col " style="padding: 0; margin-left: 8px">
       <button class="blank_button " tabindex="0"  >
@@ -25,19 +29,19 @@
         </div>
       </div>
       <button *ngIf="!isEmployerPage" class="blank_button " (click)="CompanyNameButton($event)" style="max-width: max-content;">
-        <p *ngIf="!isSearchPage && !isRecommendation" class="job-text small font-16-regular">
+        <p *ngIf="!isSearchPage && !isRecommendation && !isSavedPage && !isHistoryPage && !isSimilarPage" class="job-text small font-16-regular">
           {{employer.companyName}}
         </p>
-        <p *ngIf="isSearchPage || isRecommendation" class="job-text small font-16-regular">
+        <p *ngIf="isSearchPage || isRecommendation || isSavedPage || isHistoryPage || isSimilarPage" class="job-text small font-16-regular">
           {{job.employer.companyName}}
         </p>
       </button>
 
     </div>
     <div *ngIf="!isEmployerPage" class=" company-icon-div"  >
-      <img *ngIf="!isSearchPage && !isRecommendation" (click)="CompanyNameButton($event)"
+      <img *ngIf="!isSearchPage && !isRecommendation && !isSavedPage && !isHistoryPage && !isSimilarPage && employer.companyImg && employer.companyImg != 'img' && employer.companyImg != 'NOT'" (click)="CompanyNameButton($event)"
         class="company-icon" src="{{employer.companyImg}}" alt="0" (error)='handleImageError($event, "assets/img/loading-picture.png")'>
-      <img *ngIf="isSearchPage || isRecommendation"
+      <img *ngIf="isSearchPage || isRecommendation || isHistoryPage || isSimilarPage"
            (click)="CompanyNameButton($event)"
            class="company-icon"
            [src]="job.employer.companyImg"
@@ -54,17 +58,20 @@
     <app-chip-job-list [IsSearchPage]="true" [TagsPros]="job.jobTagsPros" [IsBig]="true"></app-chip-job-list>
   </div>
 
-  <div class="row align-items-center " (click)="handleButtonClick($event)"  style="margin-top: 16px">
+  <div *ngIf="!isHistoryPage" class="row align-items-center " (click)="handleButtonClick($event)"  style="margin-top: 16px">
     <div class="col " >
-      <button class="view-button font-14-semibold" (click)="goToURL('/job/' + job.id, true)">
+      <button *ngIf="!job.isExistJobRequest" class="view-button font-14-semibold" (click)="goToURL('/job/' + job.id, true)">
         <span>Подати заявку</span>
         <mat-icon style="height: 23px; width: 20px;">chevron_right</mat-icon>
+      </button>
+      <button *ngIf="job.isExistJobRequest" class="view-button font-14-semibold" (click)="goToURL('/job/' + job.id, true)">
+        <span>Скасувати заявку</span>
+        <mat-icon style="height: 23px; width: 20px;">close</mat-icon>
       </button>
     </div>
 
     <div class="col-auto " style="margin-top: 16px">
       <div style="display: flex; align-items: center; justify-content: center;" class="">
-
         <p style="margin: 0px 12px 0px 0px; padding: 0" class="font-14-regular text-grey">{{timeSince(job.dateApproving)}} тому</p>
 
         <button *ngIf="userData" (click)="saveJob()"  class="blank_button" style="margin-right: 4px; ">
@@ -89,5 +96,30 @@
     </div>
   </div>
 
+  <div *ngIf="isHistoryPage" class="row align-items-center " (click)="handleButtonClick($event)" style="margin-top: 16px">
+    <div class="col " style="display: flex; align-items: center">
+      <button class="view-button font-14-semibold" (click)="goToURL('/job/' + job.id, true)">
+        <span>Перейти до діалогу</span>
+        <mat-icon style="height: 23px; width: 20px;">chevron_right</mat-icon>
+      </button>
+      <button style="display: flex; align-items: center; margin: 20px" class="blank_button font-14-semibold" (click)="goToURL('/job/' + job.id, true)">
+        <span>Скасувати заявку</span>
+        <mat-icon style="height: 23px; width: 20px;">close</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <div *ngIf="isHistoryPage" class="row align-items-center " (click)="handleButtonClick($event)" style="margin-top: 16px">
+    <div class="col " style="display: flex; align-items: center">
+      <p>Резюме "{{requestData?.resume?.resumeName}}"</p>
+    </div>
+
+    <div *ngIf="requestData?.createdAt" class="col-auto " style="margin-top: 16px">
+      <div style="display: flex; align-items: center; justify-content: center;" class="">
+        <p style="margin: 0px 12px 0px 0px; padding: 0" class="font-14-regular text-grey">{{timeSince(requestData?.createdAt)}} тому</p>
+      </div>
+    </div>
+  </div>
 
 </div>

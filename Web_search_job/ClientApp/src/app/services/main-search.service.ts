@@ -72,16 +72,30 @@ export class MainSearchService {
     let filters = currentParams['filter'] ? currentParams['filter'].split(',') : [];
 
     // Remove the filter if it exists
-    const filterToRemove = `${type}:${filter}`;
-    filters = filters.filter((f: string) => f !== filterToRemove);
+    if(type != 'chip'){
+      const filterToRemove = `${type}:${filter}`;
+      filters = filters.filter((f: string) => f !== filterToRemove);
 
-    const searchParam = {
-      sort: currentParams['sort'] || '',
-      filter: filters.join(','),
-      request: currentParams['request'] || ''
-    };
+      const searchParam = {
+        sort: currentParams['sort'] || '',
+        filter: filters.join(','),
+        request: currentParams['request'] || ''
+      };
 
-    this.updateUrl(searchParam);
+      this.updateUrl(searchParam);
+    }
+    else {
+      const filterToRemove = `${filter}`;
+      filters = filters.filter((f: string) => !f.endsWith(":" + filterToRemove));
+
+      const searchParam = {
+        sort: currentParams['sort'] || '',
+        filter: filters.join(','),
+        request: currentParams['request'] || ''
+      };
+
+      this.updateUrl(searchParam);
+    }
   }
 
 

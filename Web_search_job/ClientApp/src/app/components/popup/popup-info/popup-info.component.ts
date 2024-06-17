@@ -40,6 +40,10 @@ export class PopupInfoComponent {
     this.routerHelperService.goToUrl('/auth-login', true);
   }
 
+  OnCancel(){
+    this.dialogRef.close('Cancel');
+  }
+
   OnTryAgain(){
     this.dialogRef.close('TryAgain');
   }
@@ -49,7 +53,10 @@ export class PopupInfoComponent {
   }
 
   OnCancelRequest(){
-    this.dialogRef.close(null);
+    this.dialogRef.close('CancelDialog');
+  }
 
+  OnExitProblem(){
+    this.dialogRef.close('problemResumeList');
   }
 }

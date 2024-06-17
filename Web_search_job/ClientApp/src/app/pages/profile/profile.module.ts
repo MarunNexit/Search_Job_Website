@@ -13,6 +13,8 @@ import {EmployerModule} from "../employers/employer.module";
 import {PipeModule} from "../../pipes/pipes.module";
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
 import {BrowserModule} from "@angular/platform-browser";
+import {ViewBlocksModule} from "../../components/view-blocks/view-blocks.module";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import {BrowserModule} from "@angular/platform-browser";
     BrowserAnimationsModule,
     //NoopAnimationsModule,
     BrowserModule,
+    ViewBlocksModule,
+    FormsModule,
   ],
   exports: [
     ProfilePageComponent,

@@ -3,7 +3,7 @@ import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {RiveModule} from "ng-rive";
 import {MatInputModule} from "@angular/material/input";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PopupPurpleComponent} from "./popup-purple/popup-purple.component";
 import {PopupJobRequestComponent} from "./popup-job-request/popup-job-request.component";
 import {PopupCreateResumeComponent} from "./popup-create-resume/popup-create-resume.component";
@@ -18,6 +18,11 @@ import {MatMenuModule} from "@angular/material/menu";
 import {PopupWorkExperienceComponent} from "./popup-work-experience/popup-work-experience.component";
 import {PopupUserInfoComponent} from "./popup-user-info/popup-user-info.component";
 import {PopupHintComponent} from "./popup-hint/popup-hint.component";
+import {PopupAddSectionComponent} from "./popup-add-section/popup-add-section.component";
+import {PopupNewResumeComponent} from "./popup-new-resume/popup-new-resume.component";
+import {PopupAddSectionCardComponent} from "../cards/popup-add-section-card/popup-add-section-card.component";
+import {PopupAddUserInfoComponent} from "./popup-add-user-info/popup-add-user-info.component";
+import {ViewBlocksModule} from "../view-blocks/view-blocks.module";
 
 @NgModule({
   declarations: [
@@ -32,6 +37,10 @@ import {PopupHintComponent} from "./popup-hint/popup-hint.component";
     PopupWorkExperienceComponent,
     PopupUserInfoComponent,
     PopupHintComponent,
+    PopupAddSectionComponent,
+    PopupNewResumeComponent,
+    PopupAddSectionCardComponent,
+    PopupAddUserInfoComponent,
 
   ],
   imports: [
@@ -45,6 +54,8 @@ import {PopupHintComponent} from "./popup-hint/popup-hint.component";
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
+    FormsModule,
+    ViewBlocksModule,
 
   ],
   exports: [

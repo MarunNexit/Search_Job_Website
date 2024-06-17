@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Web_search_job.DatabaseClasses
+namespace Web_search_job.DatabaseClasses.JobFolder
 {
     public class JobRequirement
     {

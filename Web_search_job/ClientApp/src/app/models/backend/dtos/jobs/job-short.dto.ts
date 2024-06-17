@@ -20,10 +20,12 @@ export interface JobShortDTO {
   dateApproving: Date;
   status: string;
   createdAt: Date;
+  isExistJobRequest: boolean;
   isSavedJob: boolean;
   location: Location;
   industry: Industry;
   jobTagsMarks: JobTagsMarksDTO;
   jobTagsPros: JobTagsProsDTO[];
   employer: EmployerShortDTO;
+  totalElemets: number;
 }

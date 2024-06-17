@@ -1,12 +1,21 @@
-<div *ngIf="aboutEmployerData">
-  <p *ngIf="!isProfile" class="font-18-bold">Про нас кажуть</p>
-  <div class="" style="display: flex; flex-wrap: wrap;" >
-    <div class=""  *ngFor="let dataComponent of aboutEmployerData; let i = index">
-      <div style="margin-top: 6px; margin-right: 6px;" class="" *ngIf="dataComponent.tagType === 'about'">
-        <app-chip-about-employer
-          [dataChip]="dataComponent.tagName">
-        </app-chip-about-employer>
+<div >
+  <div *ngIf="aboutEmployerData">
+    <p *ngIf="!isProfile" class="font-18-bold">Про нас кажуть</p>
+    <div *ngIf="!isProfile" class="" style="display: flex; flex-wrap: wrap;" >
+      <div class=""  *ngFor="let dataComponent of aboutEmployerData; let i = index">
+        <div style="margin-top: 6px; margin-right: 6px;" class="" *ngIf="dataComponent.tagType === 'about'">
+          <app-chip-about-employer
+            [dataChip]="dataComponent.tagName">
+          </app-chip-about-employer>
+        </div>
       </div>
+    </div>
+  </div>
+  <div *ngIf="isProfile && ProfileTagsData" class="" style="display: flex; flex-wrap: wrap;" >
+    <div style="margin-bottom: 8px; margin-right: 6px;"  class=""  *ngFor="let dataComponent of ProfileTagsData; let i = index">
+      <app-chip-about-employer
+        [dataChip]="dataComponent.skillName">
+      </app-chip-about-employer>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace Web_search_job.DatabaseClasses
+namespace Web_search_job.DatabaseClasses.FiltersFolder
 {
     public class Filters
     {

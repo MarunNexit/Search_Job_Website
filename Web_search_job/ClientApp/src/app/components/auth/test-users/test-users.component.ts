@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthTestingClient } from '../../../services/backend/auth/auth-testing-client';
+import { AuthTestingClient } from '../../../models/backend/dtos/auth/auth-testing-client';
 
 @Component({
   selector: 'app-test-users',

@@ -2,18 +2,24 @@ import {Component, Input} from '@angular/core';
 import {PopupPurpleComponent} from "../../popup/popup-purple/popup-purple.component";
 import {PopupWhiteComponent} from "../../popup/popup-white/popup-white.component";
 import {RouterHelperService} from "../../../services/router-helper.service";
-import {Location} from "@angular/common";
+import {DatePipe, Location} from "@angular/common";
 import {ScreenSizeService} from "../../../services/screen-size.sevice";
 import {JobService} from "../../../services/backend/job.service";
 import {MatDialog} from "@angular/material/dialog";
-import {AuthService} from "../../../services/backend/auth/auth-service";
+import {AuthService} from "../../../models/backend/dtos/auth/auth-service";
 import {handleImageError} from "../../../functions/handleImageError";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {ResumeDTO} from "../../../models/backend/dtos/profiles/resume.dto";
+import {UserService} from "../../../services/backend/user.service";
+import {UserData} from "../../../models/backend/dtos/auth/dtos/user-data";
+import { differenceInYears, differenceInMonths, addYears } from 'date-fns';
+import {ResumeEducationDTO} from "../../../models/backend/dtos/profiles/resume-education.dto";
 
 @Component({
   selector: 'app-resume-section',
   templateUrl: './resume-section.component.html',
   styleUrls: ['./resume-section.component.scss'],
+  providers: [DatePipe],
   animations: [
     trigger('openClose', [
       state('collapsed', style({ height: '100px', overflow: 'hidden' })),
@@ -27,6 +33,10 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 export class ResumeSectionComponent {
   @Input() sections: string[] = [];
   @Input() title: string = '';
+
+  @Input() resume: ResumeDTO;
+  @Input() userData: UserData | null;
+  @Input() isMyProfile: boolean = false;
 
   dataJob: any;
 
@@ -42,6 +52,10 @@ export class ResumeSectionComponent {
 
   numberWatch: number = 231;
   numberCandidates: number = 15;
+
+  wantedSalary: string[] | undefined;
+
+  links: string[] = ['','','',''];
 
 
   languages = [{
@@ -77,53 +91,31 @@ export class ResumeSectionComponent {
     private jobService: JobService,
     public dialog: MatDialog,
     private authService: AuthService,
-
-
+    private datePipe: DatePipe,
   ) {
-    this.dataJob = this.dataJob1;
-
     this.screenSizeService.setIsSmallScreen('(max-width: 1200px)');
 
     this.screenSizeService.isScreenSmall$.subscribe(isSmall => {
       this.isSmallScreen = isSmall;
       console.log(isSmall);
     });
-
-
   }
 
 
   ngOnInit(){
-    //this.IsAuthUser();
+    console.log('this.userData', this.userData)
 
-    /*    this.jobService
-          .getJobAllData()
-          .subscribe((result: Job[]) => (this.dataJob = result[0]));*/
+    this.resume.resumeLinks
+      .forEach(link =>
+        this.setDataResume(link.link, link.accountName, link.type)
+    );
+
+    this.wantedSalary = this.resume.wantedSalary?.split(':')
   }
 
-  dataJob1 = {
-    id: 1,
-    title: "Розробник програмного забезпечення",
-    salary: "90000 USD",
-    company: "ABC Inc.",
-    description: "Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробникаОпис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення Опис посади розробника програмного забезпечення",
-    tags: ["IT", "Програмування", "Розробка"],
-    company_picture: "../../../../assets/img/icons/cards/check_mark.png",
-    banner_picture: "url/to/banner_picture_1.jpg",
-    hot_new_marks: [true, true, false],
-
-  };
 
   goToURL(s: string, b: boolean) {
     this.routerHelper.goToUrl(s, b);
-  }
-
-  saveJob() {
-    this.isSaved = !this.isSaved;
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 
   openDialog(): void {
@@ -188,7 +180,6 @@ export class ResumeSectionComponent {
     });
   }
 
-
   IsAuthUser(): void {
     this.authService.isLoggedIn().subscribe(isLoggedIn => {
       this.isLogin = isLoggedIn;
@@ -204,6 +195,130 @@ export class ResumeSectionComponent {
     this.showLess = !this.showLess;
   }
 
+
+  hasLinkType(type: string): boolean {
+    return this.resume && this.resume.activeResumeSection &&
+      this.resume.resumeLinks.some(link => link.type && link.type === type);
+  }
+
+  hasLinkName(type: string): boolean {
+    return this.resume && this.resume.activeResumeSection &&
+      this.resume.resumeLinks.some(link => link.type && link.type === type && link.accountName != null && link.accountName != '');
+  }
+
+  setDataResume(url: string, name: string, type: string): boolean {
+    if(name){
+      if(type == 'dribble'){
+        this.links[0] = name;
+      }
+      else if(type == 'behance'){
+        this.links[1] = name;
+      }
+      else if(type == 'facebook'){
+        this.links[2] = name;
+      }
+      else if(type == 'linkedin'){
+        this.links[3] = name;
+      }
+      return true;
+    }
+    else{
+      if(type == 'dribble'){
+        this.links[0] = '';
+      }
+      else if(type == 'behance'){
+        this.links[1] = '';
+      }
+      else if(type == 'facebook'){
+        this.links[2] = '';
+      }
+      else if(type == 'linkedin'){
+        this.links[3] = '';
+      }
+      return false;
+    }
+  }
+
+  navigateToExternalUrlLink(type: string): void {
+    this.resume.resumeLinks
+      .filter(link => link.type === type)  // Фільтруємо лінки за типом
+      .forEach(link => window.open(link.link, '_blank'));  // Відкриваємо кожне посилання в новій вкладці
+  }
+
+
+  formatDescription(text: string | undefined): string {
+    if(text != undefined){
+      text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Заміна жирного тексту
+      text = text.replace(/\*(.*?)\*/g, '<em>$1</em>'); // Заміна курсивного тексту
+      // Додаткові правила для інших форматувань можуть бути додані, якщо потрібно
+
+      text = text.replace(/\\n/g, '<br>');
+      return text;
+    }
+    else{
+      return ''
+    }
+  }
+  navigateToExternalUrl(url: string | undefined) {
+    if(url != undefined){
+      window.open(url, '_blank');
+    }
+  }
+
+
+  getDifferenceInYearsAndMonths(startDate: Date, endDate: Date): string {
+    // Різниця в роках
+    const years = differenceInYears(endDate, startDate);
+
+    // Дата через кількість років від початкової дати
+    const dateAfterYears = addYears(startDate, years);
+
+    // Різниця в місяцях
+    const months = differenceInMonths(endDate, dateAfterYears);
+
+    let year_str = '';
+    let month_str = '';
+
+    if(years > 0){
+      if(years == 1){
+        year_str = `${years} рік`;
+      }
+      else if(years < 5){
+        year_str = `${years} роки`;
+      }
+      else {
+        year_str = `${years} років`;
+      }
+    }
+
+    if(months > 0){
+      if(months == 1){
+        month_str = `${months} місяць`;
+      }
+      else if(months < 5){
+        month_str = `${months} місяці`;
+      }
+      else {
+        month_str = `${months} місяців`;
+      }
+    }
+    return `${year_str} ${month_str}`;
+  }
+
+  formatDate(date: Date): string {
+    return this.datePipe.transform(date, 'yyyy.MM.dd') || '';
+  }
+
+  getEducationData(type: string, education: string){
+    const splitEducation = education.split(':')
+    if(type === 'place'){
+      return splitEducation[0]
+    }
+    else {
+      return splitEducation[1]
+    }
+  }
   protected readonly handleImageError = handleImageError;
 
+  protected readonly Number = Number;
 }

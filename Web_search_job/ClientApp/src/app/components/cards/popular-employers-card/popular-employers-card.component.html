@@ -12,12 +12,9 @@
 
   <div class="employer-card "  (click)="goToURL('/employer/' + dataEmployer.id, true)" style="height: 100%; display: flex; flex-direction: column;">
     <div class="row " style="margin-bottom: 4px">
-      <div class="col-auto">
+      <div *ngIf="dataEmployer.companyImg != null && dataEmployer.companyImg != 'img' && dataEmployer.companyImg != 'NOT'" class="col-auto">
         <div class="employer-photo ">
-
-          <!--        СЮДИ ФОТО-->
-          <img id="employer-photo" src="assets/img/Photo.png" (error)='handleImageError($event, "assets/img/loading-picture.png")' />
-
+          <img id="employer-photo" src="{{dataEmployer.companyImg}}" (error)='handleImageError($event, "assets/img/loading-picture.png")' />
         </div>
       </div>
       <div class="col ">
@@ -28,7 +25,7 @@
           {{dataEmployer.companyIndustryDescription}}
         </p>
       </div>
-      <div *ngIf="employer_checked" class="col-auto" >
+      <div *ngIf="dataEmployer.companyChecked" class="col-auto" >
         <img class="check-icon " src="../../../../assets/img/icons/cards/check_mark.png" alt="0" height="30" width="30">
       </div>
     </div>
@@ -43,7 +40,7 @@
         </button>
       </div>
     </div>
-    <div class="row" style="margin-top: 10px">
+    <div *ngIf="dataEmployer.companyYear" class="row" style="margin-top: 10px">
       <div class="col font-14-regular">
         <img src="../../../../assets/img/icons/cards/calendar.png" alt="Established Since" class="established-icon">
         З {{dataEmployer.companyYear}} року на ринку

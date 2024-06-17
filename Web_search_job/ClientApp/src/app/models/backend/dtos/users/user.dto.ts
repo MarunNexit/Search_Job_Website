@@ -7,7 +7,9 @@ export interface UserDTO {
   userName: string;
   firstName: string;
   lastName: string;
+  userAge: number;
   phoneNumber: string;
+  dateOfBirth: Date;
   userCreatedAt: Date;
   userImg: string;
   location: Location | null;

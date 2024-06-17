@@ -1,1 +1,42 @@
-<p>popup-create-resume works!</p>
+<div>
+  <div style="display: flex; justify-content: space-between; align-items: center">
+    <p class="font-32-bold">{{Data.title}}</p>
+    <div>
+      <button class="hint" [matMenuTriggerFor]="menu">
+        <img class="img-icon" src="assets/img/icons/profile/lightbulb.png" height="24" width="24" tyle="display: flex; align-items: center; justify-content: center;">
+        Підказка
+      </button>
+      <mat-menu #menu="matMenu">
+        <app-popup-hint [Data]="Data" [Type]="Type"></app-popup-hint>
+      </mat-menu>
+    </div>
+  </div>
+  <label>Назва резюме *</label>
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center">
+    <input type="text" class="input-field" placeholder="Введіть назву резюме" [(ngModel)]="resumeName" style="margin-top: 10px; width: 100%">
+  </div>
+  <div class="" style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 5px">
+    <button class="view-button" style="margin-bottom: 5px" (click)="onUploadFileButton()" [disabled]="!resumeName">Завантажити резюме</button>
+    <div *ngIf="uploadJob" style="margin-top: 10px; width: 70%">
+      <div class="upload-img-block">
+        <div class="inner-content" >
+          <input accept=".pdf,.jpg,.jpeg,.png" type="file" class="file-input"
+                 (change)="onFileSelected($event)" #fileUpload>
+
+          <div class="file-upload" style="margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center" >
+            <button type="button" class="view-button-small"
+                    (click)="fileUpload.click()">Обрати файл
+            </button>
+            {{fileName || "Файл ще не завантажено."}}
+            <button *ngIf="fileName" class="view-button" (click)="onUpload()" style="margin-top: 20px;" [disabled]="!resumeName">Завантажити</button>
+          </div>
+        </div>
+      </div>
+<!--
+      <input type="file" (change)="onFileSelected($event)" />
+-->
+    </div>
+    <button (click)="onCreateOnMyOwn()" class="view-button" style="margin-top: 20px;" [disabled]="!resumeName">Створити на сайті</button>
+
+  </div>
+</div>

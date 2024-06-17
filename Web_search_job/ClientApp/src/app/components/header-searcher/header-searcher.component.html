@@ -14,7 +14,7 @@
           <nav >
             <ul class="menu " >
               <div class="row row-menu ">
-                <div class="col-auto " >
+                <div *ngIf="userRole == 'Searcher' || userRole == 'ANONYM'" class="col-auto " >
                   <div *ngIf="activeMenuItem && activeMenuItem.startsWith('/search-job') else blank_margin_for_line" class="line"></div>
                   <div style="height: 100%"></div>
                   <li class="menu-item " [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('/search-job')">
@@ -23,12 +23,30 @@
                     </a>
                   </li>
                 </div>
-                <div class="col-auto ">
+                <div *ngIf="userRole == 'Searcher' || userRole == 'ANONYM'" class="col-auto ">
                   <div *ngIf="activeMenuItem === '/popular-employers'; else blank_margin_for_line" class="line"></div>
                   <div style="height: 100%"></div>
                   <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('/popular-employers')">
                     <a class="font-16-bold" [ngClass]="{'active_menu': activeMenuItem === '/popular-employers'}" [routerLink]="['/popular-employers']">
                       Популярні роботодавці
+                    </a>
+                  </li>
+                </div>
+                <div *ngIf="isLogin && userRole == 'Employer'" class="col-auto ">
+                  <div *ngIf="activeMenuItem === '/create-job'; else blank_margin_for_line" class="line"></div>
+                  <div style="height: 100%"></div>
+                  <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('/create-job')">
+                    <a class="font-16-bold" [ngClass]="{'active_menu': activeMenuItem === '/create-job'}" [routerLink]="['/create-job']">
+                      Створити вакансію
+                    </a>
+                  </li>
+                </div>
+                <div *ngIf="isLogin && userRole == 'Employer'" class="col-auto ">
+                  <div *ngIf="activeMenuItem === '/my-jobs'; else blank_margin_for_line" class="line"></div>
+                  <div style="height: 100%"></div>
+                  <li class="menu-item" [routerLinkActive]="['link-active']" (click)="setActiveMenuItem('/my-jobs')">
+                    <a class="font-16-bold" [ngClass]="{'active_menu': activeMenuItem === '/my-jobs'}" [routerLink]="['/my-jobs']">
+                      Мої вакансії
                     </a>
                   </li>
                 </div>
@@ -79,10 +97,10 @@
           </div>
         </div>
       </div>
-      <div *ngIf="isHeaderSectionVisible()">
-        <div class="block-how-work-need-work container font-42-medium img-icon" style="margin-bottom: 20px">
-          Як робота повинна <strong>працювати</strong>
-          <img style="margin-left: 20px" src="assets/img/icons/sparkle.png" height="55" width="55">
+      <div *ngIf=" (userRole == 'ANONYM' || userRole == 'Searcher') && isHeaderSectionVisible()">
+        <div class="block-how-work-need-work container font-42-medium img-icon" style="margin-bottom: 20px; display: flex; align-items: center">
+           <p class="font-42-medium" style="margin: 0">Як робота повинна <strong>працювати</strong></p>
+          <img class="img-work" style="margin-left: 20px; height: 7%; width: 7%; max-height: 55px; max-width: 55px;" src="assets/img/icons/sparkle.png" >
         </div>
         <div *ngIf="!isAboutPage" class="container " style="width: 100%">
           <form (ngSubmit)="onSearchBarSubmit()">
@@ -105,9 +123,22 @@
         </div>
       </div>
 
-      <div *ngIf="isProfileUser">
-        <app-profile-header></app-profile-header>
+      <div *ngIf="isCreateJobPage && this.userRole == 'Employer'">
+        <div class="block-how-work-need-work container font-42-medium img-icon" style="margin-bottom: 20px; display: flex; align-items: center">
+          <p class="font-42-medium" style="margin: 0">Створення вакансії</p>
+        </div>
       </div>
+
+      <div *ngIf="isEditJobPage && this.userRole == 'Employer'">
+        <div class="block-how-work-need-work container font-42-medium img-icon" style="margin-bottom: 20px; display: flex; align-items: center">
+          <p class="font-42-medium" style="margin: 0">Створення вакансії</p>
+        </div>
+      </div>
+
+      <div *ngIf="isProfileUser && this.userRole != 'Employer'">
+        <app-profile-header [Role]="userRole" [userData]="userHeaderPanel" [isMyProfile] = "isMyProfile"></app-profile-header>
+      </div>
+
 
       <div class="gray-footer-top black-footer-top" style="padding-top: 40px">
       </div>
@@ -145,21 +176,21 @@
 
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" [ngClass]="'user-picture'" style="margin-left: 16px; margin-right: 4px">
       <!-- user.image user.image user.image user.image -->
-      <img *ngIf="isUserImage" src="{{user.image}}" alt="User Avatar">
+      <img *ngIf="isUserImage" src="{{this.userHeadData.userImg}}" alt="User Avatar">
 
       <!-- !user.image -->
       <div *ngIf="!isUserImage" class="initials">
-        {{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}
+        {{ FirstName && FirstName.charAt(0) != null ?FirstName.charAt(0) : 'Я' }}{{ LastName && LastName.charAt(0) != null ? LastName.charAt(0) : '' }}
       </div>
     </button>
 
     <mat-menu #menu="matMenu">
-      <div class="font-14-regular">
-        <button mat-menu-item (click)="goToURL('/profile/' + userHeadData.id, true)">
+      <div *ngIf="userRole == 'Searcher'" class="font-14-regular">
+        <button mat-menu-item (click)="goToURL('/profile', true)">
           <mat-icon height="24" width="24">person</mat-icon>
           <span>Мій профіль</span>
         </button>
-        <button mat-menu-item (click)="goToURL('/history', true)">
+        <button mat-menu-item (click)="goToURL('/request-history', true)">
           <mat-icon height="24" width="24">history</mat-icon>
           <span>Мої заявки</span>
         </button>
@@ -171,13 +202,47 @@
           <mat-icon height="24" width="24">thumb_up</mat-icon>
           <span>Рекомендовані вакансії</span>
         </button>
-        <button mat-menu-item (click)="goToURL('/statistics', true)">
+        <button mat-menu-item (click)="openDialogAnalytics()">
           <mat-icon height="24" width="24">trending_up</mat-icon>
           <span>Аналітика діяльності</span>
         </button>
-        <button mat-menu-item (click)="goToURL('/saved_jobs', true)">
+        <button mat-menu-item (click)="goToURL('/saved-jobs', true)">
           <mat-icon height="24" width="24">star_border</mat-icon>
           <span>Збережені вакансії</span>
+        </button>
+        <button mat-menu-item >
+          <mat-icon height="24" width="24">announcement</mat-icon>
+          <span>Налаштування приватності</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon height="24" width="24">settings</mat-icon>
+          <span>Налаштування акаунта</span>
+        </button>
+        <button mat-menu-item (click)="goToURL('/logout', true)">
+          <mat-icon height="24" width="24">power_settings_new</mat-icon>
+          <span>Вийти</span>
+        </button>
+      </div>
+      <div *ngIf="userRole == 'Employer'" class="font-14-regular">
+        <button mat-menu-item (click)="goToURL('/profile', true)">
+          <mat-icon height="24" width="24">person</mat-icon>
+          <span>Мій профіль</span>
+        </button>
+        <button mat-menu-item (click)="goToURL('/recommendations', true)">
+          <mat-icon height="24" width="24">add</mat-icon>
+          <span>Створити вакансію</span>
+        </button>
+        <button mat-menu-item (click)="goToURL('/request-history', true)">
+          <mat-icon height="24" width="24">history</mat-icon>
+          <span>Мої вакансії</span>
+        </button>
+        <button mat-menu-item (click)="goToURL('/chat-rooms', true)">
+          <mat-icon height="24" width="24">chat</mat-icon>
+          <span>Мої чати</span>
+        </button>
+        <button mat-menu-item (click)="goToURL('/statistics', true)">
+          <mat-icon height="24" width="24">trending_up</mat-icon>
+          <span>Аналітика діяльності</span>
         </button>
         <button mat-menu-item >
           <mat-icon height="24" width="24">announcement</mat-icon>

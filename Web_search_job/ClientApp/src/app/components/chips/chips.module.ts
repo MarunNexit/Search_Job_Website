@@ -5,13 +5,15 @@ import {ChipsJobPriorityComponent} from "./chips-job-priority/chips-job-priority
 import {ChipSearchJobComponent} from "./chip-search-job/chip-search-job.component";
 import {ChipJobListComponent} from "../lists/chip-job-list/chip-job-list.component";
 import {ChipAboutEmployerComponent} from "./chip-about-employer/chip-about-employer.component";
+import {JobRequestChipComponent} from "./job-request-chip/job-request-chip.component";
 
 
 @NgModule({
   declarations: [
     ChipsJobPriorityComponent,
     ChipJobListComponent,
-    ChipAboutEmployerComponent
+    ChipAboutEmployerComponent,
+    JobRequestChipComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import {ChipAboutEmployerComponent} from "./chip-about-employer/chip-about-emplo
     ChipsJobPriorityComponent,
     ChipSearchJobComponent,
     ChipJobListComponent,
-    ChipAboutEmployerComponent
+    ChipAboutEmployerComponent,
+    JobRequestChipComponent
   ]
 })
 export class ChipsModule { }

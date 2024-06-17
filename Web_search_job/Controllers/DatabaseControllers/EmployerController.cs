@@ -7,6 +7,8 @@ using System.Xml.Linq;
 using Web_search_job.Data;
 using Web_search_job.DatabaseClasses;
 using Web_search_job.DatabaseClasses.EmployerFolder;
+using Web_search_job.DatabaseClasses.FiltersFolder;
+using Web_search_job.DatabaseClasses.JobFolder;
 using Web_search_job.DatabaseClasses.ProfileFolder;
 using Web_search_job.DTO;
 using Web_search_job.DTO.Employer;
@@ -37,7 +39,7 @@ namespace Web_search_job.Controllers.DatabaseControllers
             var employersWithTopRatingTag = await _context.Employers
                 .Include(e => e.CommentToEmployer)
                 .Include(e => e.CompanyTags)
-                    .ThenInclude(ct => ct.CompanyTagsList)
+                    .ThenInclude(ct => ct.TagsList)
                 .Where(e => e.CompanyTags.Any(t => t.type_tag == "rating"))
                 .Select(e => new EmployerShortDTO
                 {
@@ -61,7 +63,7 @@ namespace Web_search_job.Controllers.DatabaseControllers
                     {
                         Id = t.id,
                         TagType = t.type_tag,
-                        TagName = t.CompanyTagsList.company_tags_name,
+                        TagName = t.TagsList.tags_name,
                     }).ToList()
                 })
                 .OrderByDescending(e => e.CommentCount)
@@ -71,7 +73,7 @@ namespace Web_search_job.Controllers.DatabaseControllers
             var otherEmployers = await _context.Employers
                 .Include(c => c.CommentToEmployer)
                 .Include(c => c.CompanyTags)
-                        .ThenInclude(ct => ct.CompanyTagsList) // Завантажити пов'язані CompanyTagsList
+                        .ThenInclude(ct => ct.TagsList) // Завантажити пов'язані CompanyTagsList
                 .Where(e => !e.CompanyTags.Any(t => t.type_tag == "rating"))
                 .Where(e => e.company_status == "OK")
                 .Select(e => new EmployerShortDTO
@@ -97,7 +99,7 @@ namespace Web_search_job.Controllers.DatabaseControllers
                     {
                         Id = t.id,
                         TagType = t.type_tag,
-                        TagName = t.CompanyTagsList.company_tags_name,
+                        TagName = t.TagsList.tags_name,
                     }).ToList()
                 })
                 .OrderByDescending(e => e.CommentCount)
@@ -157,12 +159,14 @@ namespace Web_search_job.Controllers.DatabaseControllers
              {
                  Id = ui.Id,
                  UserId = ui.user_Id,
-                 UserName = ui.ApplicationUser != null ? ui.ApplicationUser.UserName : null,
+                 Email = ui.ApplicationUser != null ? ui.ApplicationUser.UserName : null,
                  FirstName = ui.FirstName,
                  LastName = ui.LastName,
+                 UserAge = CalculateAge(ui.DateOfBirth),
                  PhoneNumber = ui.PhoneNumber,
                  UserCreatedAt = ui.ActionCreatedAt,
                  UserImg = ui.UserImg,
+                 Gender = ui.Gender,
                  Location = ui.Location != null ? new Location
                  {
                      id = ui.Location.id,
@@ -228,7 +232,7 @@ namespace Web_search_job.Controllers.DatabaseControllers
                     {
                         Id = t.id,
                         TagType = t.type_tag,
-                        TagName = t.CompanyTagsList.company_tags_name,
+                        TagName = t.TagsList.tags_name,
                     }).ToList() : null,
                     Location = e.Location != null ? new Location
                     {
@@ -277,7 +281,7 @@ namespace Web_search_job.Controllers.DatabaseControllers
                             Id = j.JobTagsMarks.id,
                             TagHot = j.JobTagsMarks.tag_hot,
                             TagNew = j.JobTagsMarks.tag_new,
-                            TagRecommend = j.JobTagsMarks.tag_recommend,
+                            TagRecommend = _context.JobRecommendationList.Any(r => r.JobId == j.id && r.UserId == userIntId),
                         } : null,
                         Industry = j.Industry != null ? new Industry
                         {
@@ -341,7 +345,7 @@ namespace Web_search_job.Controllers.DatabaseControllers
             var employersWithTopRatingTag = await _context.Employers
                 .Include(e => e.CommentToEmployer)
                 .Include(e => e.CompanyTags)
-                    .ThenInclude(ct => ct.CompanyTagsList)
+                    .ThenInclude(ct => ct.TagsList)
                 .Where(e => e.CompanyTags.Any(t => t.type_tag == "rating"))
                 .Where(e => e.company_status == "OK")
                 .Select(e => new EmployerShortDTO
@@ -366,7 +370,7 @@ namespace Web_search_job.Controllers.DatabaseControllers
                     {
                         Id = t.id,
                         TagType = t.type_tag,
-                        TagName = t.CompanyTagsList.company_tags_name,
+                        TagName = t.TagsList.tags_name,
                     }).ToList()
                 })
                 .OrderByDescending(e => e.CommentCount)
@@ -376,7 +380,7 @@ namespace Web_search_job.Controllers.DatabaseControllers
             var otherEmployers = await _context.Employers
                 .Include(c => c.CommentToEmployer)
                 .Include(c => c.CompanyTags)
-                        .ThenInclude(ct => ct.CompanyTagsList) // Завантажити пов'язані CompanyTagsList
+                        .ThenInclude(ct => ct.TagsList) // Завантажити пов'язані CompanyTagsList
                 .Where(e => !e.CompanyTags.Any(t => t.type_tag == "rating"))
                 .Where(e => e.company_status == "OK")
                 .Select(e => new EmployerShortDTO
@@ -402,7 +406,7 @@ namespace Web_search_job.Controllers.DatabaseControllers
                     {
                         Id = t.id,
                         TagType = t.type_tag,
-                        TagName = t.CompanyTagsList.company_tags_name,
+                        TagName = t.TagsList.tags_name,
                     }).ToList()
                 })
                 .OrderByDescending(e => e.CommentCount)
@@ -415,6 +419,23 @@ namespace Web_search_job.Controllers.DatabaseControllers
             .ToList();
 
             return Ok(sortedEmployers);
+        }
+
+
+        private static int? CalculateAge(DateTime? dateOfBirth)
+        {
+            if (dateOfBirth.HasValue)
+            {
+                var today = DateTime.Today;
+                var birthDate = dateOfBirth.Value;
+                var age = today.Year - birthDate.Year;
+                if (birthDate > today.AddYears(-age)) age--;
+                return age;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

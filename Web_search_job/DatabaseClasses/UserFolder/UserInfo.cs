@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Web_search_job.DatabaseClasses.EmployerFolder;
+using Web_search_job.DatabaseClasses.FiltersFolder;
+using Web_search_job.DatabaseClasses.JobFolder;
 using Web_search_job.DatabaseClasses.ProfileFolder;
 
-namespace Web_search_job.DatabaseClasses
+namespace Web_search_job.DatabaseClasses.UserFolder
 {
     public class UserInfo
     {
@@ -12,8 +14,6 @@ namespace Web_search_job.DatabaseClasses
 
         [ForeignKey("ApplicationUser")]
         public string user_Id { get; set; } = "";
-
-        public int UserAge { get; set; }
 
         [ForeignKey("Location")]
         public int? LocationId { get; set; }
@@ -24,7 +24,9 @@ namespace Web_search_job.DatabaseClasses
         public string? PhoneNumber { get; set; } = "";
 
         public string? UserImg { get; set; } = "";
+        public string? Gender { get; set; } = "";
 
+        public DateTime? DateOfBirth { get; set; }
         public DateTime ActionCreatedAt { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
@@ -32,6 +34,8 @@ namespace Web_search_job.DatabaseClasses
 
         public virtual ICollection<SavedJob>? SavedJobs { get; set; }
         public virtual UsersOfEmployer? UsersOfEmployer { get; set; }
+
+        public virtual ICollection<JobRecommendationList>? JobRecommendationList { get; set; }
 
         //public virtual Employer? Employer { get; set; }
     }

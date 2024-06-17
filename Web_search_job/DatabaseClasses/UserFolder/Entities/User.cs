@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Web_search_job.DatabaseClasses.UserFolder;
 
 namespace Web_search_job.DatabaseClasses
 {

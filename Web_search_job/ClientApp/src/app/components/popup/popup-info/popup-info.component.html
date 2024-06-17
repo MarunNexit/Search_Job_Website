@@ -3,11 +3,12 @@
     <div style="display: flex; justify-content: space-between; align-items: center">
       <p *ngIf="Type === 'NeedAuth' || Type === 'ProblemSendRequest'" class="font-32-bold">Помилка</p>
       <p *ngIf="Type === 'SuccessSendRequest'" class="font-32-bold">Ваша заявка успішно надіслана</p>
+      <p *ngIf="Type === 'Cancel' || Type === 'resumeListEmpty'" class="font-32-bold">{{Data}}</p>
     </div>
 
     <div style="margin-top: 32px">
       <div *ngIf="Type === 'NeedAuth'" >
-        <p class="font-18-bold">Для подачі заявки перейдіть будь ласка до реєстрації</p>
+        <p class="font-18-bold">Для подачі заявки потрібно бути авторизованим</p>
         <div style="display: flex; justify-content: center; margin-top: 42px">
           <button (click)="OnOK()" type="submit" class="view-button font-18-semibold" style="margin-right: 24px">
             <span>Перейти до авторизації</span>
@@ -18,15 +19,35 @@
           </button>
         </div>
       </div>
+      <div *ngIf="Type === 'Cancel'" >
+        <div style="display: flex; justify-content: center; margin-top: 42px">
+          <button (click)="OnCancel()" type="submit" class="view-button font-18-semibold" style="margin-right: 24px">
+            <span>Скасувати заявку</span>
+          </button>
+          <button (click)="OnExit()" class="blank_button report font-18-bold "  style="margin-right: 24px; display: flex; align-items: center">
+            <span>Залишити заявку</span>
+          </button>
+        </div>
+      </div>
       <div *ngIf="Type === 'ProblemSendRequest'" >
         <p class="font-18-bold">Ваша заявка не була надіслана</p>
         <div style="display: flex; justify-content: center; margin-top: 42px">
+          <button (click)="OnCancel()" type="submit" class="view-button font-18-semibold" style="margin-right: 24px">
+            <span>Скасувати заявку</span>
+          </button>
+          <button (click)="OnExit()" class="blank_button report font-18-bold "  style="margin-right: 24px; display: flex; align-items: center">
+            <span>Залишити заявку</span>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="Type === 'resumeListEmpty'" >
+        <div style="display: flex; justify-content: center; margin-top: 42px">
           <button (click)="OnTryAgain()" type="submit" class="view-button font-18-semibold" style="margin-right: 24px">
-            <span>Подати заявку</span>
+            <span>Спробувати знову</span>
           </button>
 
-          <button (click)="OnExit()" class="blank_button report font-18-bold "  style="margin-right: 24px; display: flex; align-items: center">
-            <span>Відмінити</span>
+          <button (click)="OnExitProblem()" class="blank_button report font-18-bold "  style="margin-right: 24px; display: flex; align-items: center">
+            <span>Повернуватися на головну сторінку</span>
           </button>
         </div>
       </div>

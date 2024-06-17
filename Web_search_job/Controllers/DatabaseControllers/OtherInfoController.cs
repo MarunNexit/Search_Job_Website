@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_search_job.Data;
 using Web_search_job.DatabaseClasses;
+using Web_search_job.DatabaseClasses.FiltersFolder;
 using Web_search_job.DTO.Employer;
 using Web_search_job.DTO.Job;
 using Web_search_job.DTO.Other;
@@ -26,7 +27,7 @@ namespace Web_search_job.Controllers.DatabaseControllers
         [HttpGet("locations")]
         public async Task<ActionResult<LocationDataDTO>> GetLocation(string? userId, string anonymLocation = "", string employerLocationCountry = "", string employerLocationRegion = "", string employerLocationCity = "")
         {
-            Location userLocation = new Location();
+            Location? userLocation = new Location();
 
             if (userId != null && userId != "" && userId != "null")
             {
@@ -37,7 +38,15 @@ namespace Web_search_job.Controllers.DatabaseControllers
                     return NotFound($"Помилка користувача {userId}");
                 }
 
-                userLocation = user.UserInfo.Location;
+                if (user.UserInfo == null)
+                {
+                    userLocation = null;
+                }
+                else 
+                {
+                    userLocation = user.UserInfo.Location;
+                }
+
             }
 
             var location = await _context.Locations
@@ -98,7 +107,7 @@ namespace Web_search_job.Controllers.DatabaseControllers
             var industry = await _context.Industry
                 .Select(e => new IndustryDataDTO
                 {
-                    Id = e.id,
+                    id = e.id,
                     industry_name = e.industry_name,
                 })
                 .ToListAsync();

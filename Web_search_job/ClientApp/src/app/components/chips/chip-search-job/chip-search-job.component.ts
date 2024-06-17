@@ -56,6 +56,7 @@ export class ChipSearchJobComponent {
 
     this.filtersCheckedService.checkboxValuesChange.subscribe(values => {
       this.filters_true = values;
+      console.log(values)
       this.checkIfAnyTrue();
     });
 
@@ -96,12 +97,13 @@ export class ChipSearchJobComponent {
   }
 
   remove_chip(fruit: any): void {
+    console.log(fruit.key)
     this.filtersCheckedService.setCheckboxValue(fruit.key, false, 'chip');
   }
 
 
   remove_all_chip(): void {
-    this.filtersCheckedService.setCheckboxAllValuesToFalse('all')
+    this.filtersCheckedService.setCheckboxAllValuesToFalse('chip')
 
     this.isFiltersExists = false; // Опціонально, якщо необхідно скинути прапор isFiltersExists
   }

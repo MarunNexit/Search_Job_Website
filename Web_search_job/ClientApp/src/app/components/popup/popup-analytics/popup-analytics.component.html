@@ -1,1 +1,40 @@
-<p>popup-analytics works!</p>
+<div>
+  <div style="display: flex; justify-content: space-between; align-items: center">
+    <p class="font-32-bold">{{Data.title}}</p>
+  </div>
+  <div *ngIf="isloading">
+    <app-loading-progress></app-loading-progress>
+  </div>
+  <div *ngIf="!isloading && resultData">
+    <div >
+      <div class="font-18-bold" style="display: flex; margin-bottom: 0px">
+        <p style="margin-bottom: 0px">Кількість відправлених заявок на вакансію за тиждень: {{ resultData.countLastWeek ?  resultData.countLastWeek : "0"}}</p>
+      </div>
+      <p class="font-14-regular text-grey" style="margin-top: 0px">Загалом відправлено {{resultData.countTotal ? resultData.countTotal : "0"}}. Найбільше відправлено заявок на позиції у сфері {{resultData.topIndustry ? resultData.topIndustry : "Недостатньо даних"}}</p>
+    </div>
+    <div>
+      <div class="font-18-bold" style="display: flex; margin-bottom: 0px">
+        <p style="margin-bottom: 0px">Відсоток позитивних відгуків від роботодавців: {{"50%"}}</p>
+      </div>
+      <p class="font-14-regular text-grey" style="margin-top: 0px">За {{resultData.countTotal ? resultData.countTotal : "0"}} відправлених резюме, {{"1"}} роботодавців висловили зацікавленість та позитивний відгук стосовно досвіду та навичок користувача</p>
+    </div>
+    <div>
+      <div class="font-18-bold" style="display: flex; margin-bottom: 0px">
+        <p style="margin-bottom: 0px">Найбільш активний час пошуку: {{hourPeriod ? hourPeriod : 'Недостатньо даних'}}</p>
+      </div>
+      <p class="font-14-regular text-grey" style="margin-top: 0px">Виявлено найбільшу активність пошуку роботи в {{dayOfWeek ? dayOfWeek : 'Недостатньо даних'}}</p>
+    </div>
+    <div>
+      <div class="font-18-bold" style="display: flex; margin-bottom: 0px">
+        <p style="margin-bottom: 0px">Найбільш популярні регіони: {{resultData.topRegions ? resultData.topRegions : 'Недостатньо даних'}}</p>
+      </div>
+      <p class="font-14-regular text-grey" style="margin-top: 0px">Користувач виявляє інтерес до вакансій у містах {{resultData.topCountry ? resultData.topCountry : 'Недостатньо даних'}}</p>
+    </div>
+    <div>
+      <div class="font-18-bold" style="display: flex; margin-bottom: 0px">
+        <p style="margin-bottom: 0px">Зміна активності: {{"Зростання"}} на {{resultData.changePercentage ? resultData.changePercentage : 'Недостатньо даних'}}</p>
+      </div>
+      <p class="font-14-regular text-grey" style="margin-top: 0px">Прослідковується {{"збільшення"}} кількості відправлених резюме та запрошень на співбесіди протягом останніх {{"4"}} тижнів</p>
+    </div>
+  </div>
+</div>

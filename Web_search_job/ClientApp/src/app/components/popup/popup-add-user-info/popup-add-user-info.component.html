@@ -1,0 +1,92 @@
+<ng-container>
+  <div>
+    <div style="display: flex; justify-content: space-between; align-items: center">
+      <p class="font-32-bold">{{Data.title}}</p>
+
+      <div>
+        <button class="hint" [matMenuTriggerFor]="menu">
+          <img class="img-icon" src="assets/img/icons/profile/lightbulb.png" height="24" width="24" tyle="display: flex; align-items: center; justify-content: center;">
+          Підказка
+        </button>
+
+        <mat-menu #menu="matMenu">
+          <app-popup-hint [Data]="Data" [Type]="Data.type"></app-popup-hint>
+        </mat-menu>
+      </div>
+    </div>
+
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col">
+          <label for="lastName">Прізвище *</label>
+          <input class="input-field width100" id="lastName" formControlName="lastName" type="text" />
+
+          <label for="firstName">Ім'я *</label>
+          <input class="input-field width100" id="firstName" formControlName="firstName" type="text" />
+
+          <div>
+            <label style="margin: 8px">
+              <input type="radio" formControlName="gender" value="Male" /> Чоловік
+            </label>
+            <label style="margin: 8px">
+              <input type="radio" formControlName="gender" value="Female" /> Жінка
+            </label>
+            <label style="margin: 8px">
+              <input type="radio" formControlName="gender" value="Other" /> Інший
+            </label>
+            <input *ngIf="userForm.get('gender')?.value === 'Other'" class="input-field" formControlName="otherGender" type="text" placeholder="Введіть інший гендер" />
+          </div>
+
+          <label style="margin-top: 8px">Дата народження</label>
+          <div style="width: 100%">
+            <input class="input-field" formControlName="day" type="number" placeholder="День" />
+            <select class="input-field" formControlName="month" style="margin-left: 8px; margin-right: 8px;">
+              <option  value="" disabled selected hidden><p style="color: grey;">Місяць</p></option>
+              <option *ngFor="let month of months" [value]="month.id">{{ month.name }}</option>
+            </select>
+            <input class="input-field" formControlName="year" type="number" placeholder="Рік" />
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <label for="city">Місто</label>
+              <select class="input-field width100" id="city" formControlName="city">
+                <option *ngFor="let city of Data.locations" [value]="city.id">{{ city.location_region }} - {{ city.location_city }}</option>
+              </select>
+
+            </div>
+            <div class="col">
+              <label for="phoneNumber">Номер телефону</label>
+              <input class="input-field width100" id="phoneNumber" formControlName="phoneNumber" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+<!--
+          <label for="userImg">Зображення</label>
+-->
+          <div class="image-upload">
+            <input id="userImg" type="file" (change)="onFileChange($event)" />
+            <img [src]="imageUrl  || 'assets/img/profile-JobLogo.png'" alt="user image" class="image-preview" (error)="handleImageError($event, 'assets/img/loading-picture.png')" />
+          </div>
+        </div>
+      </div>
+
+
+      <div style="display: flex; justify-content: center; margin-top: 16px">
+        <!--(click)="OnOK()"-->
+        <button type="submit" [disabled]="!userForm.valid" class="view-button font-18-semibold" style="margin-right: 24px">
+          <span>Зберегти</span>
+        </button>
+
+        <!--(click)="OnExit()"-->
+        <button (click)="OnExit()" class="blank_button report font-18-bold "  style="margin-right: 24px; display: flex; align-items: center">
+          <span>Відмінити</span>
+        </button>
+      </div>
+    </form>
+
+  </div>
+</ng-container>
+

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../../services/backend/auth/auth-service";
+import {AuthService} from "../../../models/backend/dtos/auth/auth-service";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ScreenSizeService} from "../../../services/screen-size.sevice";

@@ -1,0 +1,10 @@
+<div class="section-block" [ngClass]="isSectionAdded ? 'added' : 'deleted'" (click)="clickAction(section.id)" >
+  <div style="width: 100%; display: flex; justify-content: flex-end">
+    <mat-icon style="margin: 8px" *ngIf="isSectionAdded">check_circle_outline</mat-icon>
+  </div>
+
+  <div [ngStyle]="!isSectionAdded ? {'padding-top':'40px'} : {}" style="display: flex; align-items: center; justify-content: center; padding-right: 20px">
+    <p class="font-18-bold">{{section.sectionType}}</p>
+  </div>
+
+</div>

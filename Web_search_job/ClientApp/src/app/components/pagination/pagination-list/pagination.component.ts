@@ -4,7 +4,7 @@ import {IdFromUrlService} from "../../../services/id-from-url.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-pagination-list',
+  selector: ' app-pagination-list',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })
@@ -50,12 +50,18 @@ export class PaginationComponent {
 
     this.currentPageValue = page;
 
+    console.log(this.currentPageValue, this.numberPages, page)
+
     if(this.numberPages < 2){
       this.pages = [1];
       this.clearDots();
     }
     else if(this.numberPages < 3){
       this.pages = [1, 2];
+      this.clearDots();
+    }
+    else if(this.numberPages == 3){
+      this.pages = [1, 2, this.numberPages];
       this.clearDots();
     }
     else if(page < 2){
@@ -87,7 +93,7 @@ export class PaginationComponent {
   }
 
   goToPage(page: number): void {
-    this.router.navigate([], { queryParams: { page } }).then(() => {
+    this.router.navigate([], { queryParams: { page }, queryParamsHandling: 'merge' }).then(() => {
       window.scrollTo(0, 0); // Прокрутка до верху після навігації
     });;
     this.generatePages(page);

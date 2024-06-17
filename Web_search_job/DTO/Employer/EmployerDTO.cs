@@ -1,4 +1,5 @@
 ﻿using Web_search_job.DatabaseClasses;
+using Web_search_job.DatabaseClasses.FiltersFolder;
 using Web_search_job.DTO.Job;
 using Web_search_job.DTO.User;
 

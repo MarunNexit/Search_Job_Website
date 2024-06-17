@@ -33,33 +33,6 @@ export class FiltersCheckedService {
       this.updateCheckboxValues(this.searchParam);
     });
 
-
-/*    let temporarySearchParam = this.mainSearchService.getParamObservable().subscribe((searchParam: string) => {
-      console.log("Received search parameters:", searchParam);
-      this.searchParam = searchParam.filter || '';
-    });*/
-
-/*
-    let tempSearchParam = temporarySearchParam.split(',');
-    let splitSearchParam = tempSearchParam.map(item => item.split(':').pop() ?? '');
-
-    if (splitSearchParam.length > 0 && splitSearchParam[0].trim() !== '') {
-      splitSearchParam.forEach(param => {
-        const trimmedParam = param.trim();
-        // Якщо checkboxValues вже містить параметр, встановлюємо значення true
-        if (this.checkboxValues.hasOwnProperty(trimmedParam)) {
-          this.checkboxValues[trimmedParam] = true;
-        } else {
-          // Якщо параметр відсутній, додаємо його і встановлюємо значення true
-          this.checkboxValues[trimmedParam] = true;
-        }
-      });
-      // Оновлюємо Subject з новими значеннями checkboxValues
-      this.checkboxValuesChange.next(this.checkboxValues);
-    } else {
-      // Якщо параметри відсутні або порожні, можна зробити додаткові дії за потреби
-      console.log('No search parameters found.');
-    }*/
   }
 
   private updateCheckboxValues(filterParam: string): void {
@@ -69,37 +42,12 @@ export class FiltersCheckedService {
     tempSearchParam.forEach(item => {
       const [type, value] = item.split(':');
       if (value) {
-        checkboxValues[value] = true;
+        this.checkboxValues[value] = true;
       }
     });
-
-    this.checkboxValuesChange.next(checkboxValues);
+    this.checkboxValuesChange.next(this.checkboxValues);
   }
 
-
-  /*GetSearchParam(){
-    let temporarySearchParam = this.searchParamService.getParamFilters();
-    let tempSearchParam = temporarySearchParam.split(',');
-    let splitSearchParam = tempSearchParam.map(item => item.split(':').pop() ?? '');
-
-    if (splitSearchParam.length > 0 && splitSearchParam[0].trim() !== '') {
-      splitSearchParam.forEach(param => {
-        const trimmedParam = param.trim();
-        // Якщо checkboxValues вже містить параметр, встановлюємо значення true
-        if (this.checkboxValues.hasOwnProperty(trimmedParam)) {
-          this.checkboxValues[trimmedParam] = true;
-        } else {
-          // Якщо параметр відсутній, додаємо його і встановлюємо значення true
-          this.checkboxValues[trimmedParam] = true;
-        }
-      });
-      // Оновлюємо Subject з новими значеннями checkboxValues
-      this.checkboxValuesChange.next(this.checkboxValues);
-    } else {
-      // Якщо параметри відсутні або порожні, можна зробити додаткові дії за потреби
-      console.log('No search parameters found.');
-    }
-  }*/
 
   setCheckboxValue(name: string, value: boolean, type: string): void {
     if(value){
@@ -110,14 +58,18 @@ export class FiltersCheckedService {
       this.mainSearchService.deleteParamsFilterOne(name, type);
       //this.searchParamService.deleteParamFiltersOne(name, type);
     }
+
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", name, value, type)
     this.checkboxValues[name] = value;
+    console.log(this.checkboxValues)
     this.checkboxValuesChange.next(this.checkboxValues);
   }
 
   setCheckboxAllValuesToFalse(type: string): void {
     Object.keys(this.checkboxValues).forEach(key => {
-      this.setCheckboxValue(key, false, type);
+      this.checkboxValues[key] = false;
     });
+    this.checkboxValuesChange.next(this.checkboxValues);
 
     this.mainSearchService.deleteAllParamsFilterOne();
   }

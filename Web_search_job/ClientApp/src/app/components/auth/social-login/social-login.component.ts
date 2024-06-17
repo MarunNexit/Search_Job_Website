@@ -3,7 +3,7 @@ import {
   FacebookLoginProvider,
   SocialAuthService,
 } from '@abacritt/angularx-social-login';
-import { AuthService } from '../../../services/backend/auth/auth-service';
+import { AuthService } from '../../../models/backend/dtos/auth/auth-service';
 
 @Component({
   selector: 'app-social-login-page',

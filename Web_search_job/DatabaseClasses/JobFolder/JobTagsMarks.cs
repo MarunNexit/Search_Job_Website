@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Web_search_job.DatabaseClasses
+namespace Web_search_job.DatabaseClasses.JobFolder
 {
     public class JobTagsMarks
     {
@@ -14,8 +14,9 @@ namespace Web_search_job.DatabaseClasses
 
         public bool tag_hot { get; set; } = false;
         public bool tag_new { get; set; } = false;
-        public bool tag_recommend { get; set; } = false;
 
+/*        public bool tag_recommend { get; set; } = false;
+*/
         public virtual Job Job { get; set; }
     }
 }

@@ -1,0 +1,44 @@
+<ng-container>
+  <!--*ngIf="myProfile && dataLoaded && resumeList && selectedOption != null"-->
+  <div  class="row " style="display: flex; justify-content: center">
+    <div class="col-auto" >
+      <p class="font-16-bold" style="margin: 16px 0px">Обрати шаблон</p>
+    </div>
+    <div class="col" style="  margin-bottom: 8px; margin-right: 8px" >
+      <div style="width: 100%">
+        <div class="styled-select" style="min-width: 200px; max-width: 300px; width: 100%">
+          <select class="font-14-regular" id="selectSelector" [(ngModel)]="selectedOption" (change)="onChange($event)">
+            <!--*ngFor="let option of resumeList"-->
+            <!--<option  [value]="option.id" [selected]="option.id == selectedOption">
+              {{ option.resumeName }}
+            </option>-->
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-auto " style="margin: 0; padding: 0px 4px">
+      <button (click)="openDialogAddSection()" class="button-black font-14-bold " style="margin: 8px 0px; display: flex; justify-content: center; align-items: center">
+        <img src="assets/img/icons/profile/add_circle.png" width="21" height="21" style="margin: 2px">
+        <p style="margin: 0 0 0 4px;">Додати секцію</p>
+      </button>
+    </div>
+    <div class="col-auto " style="margin: 0; padding: 0px 4px">
+      <button class="button-black font-14-bold " style="margin: 8px 0px; display: flex; justify-content: center; align-items: center">
+        <mat-icon>visibility</mat-icon>
+        <p style="margin: 0 0 0 4px;">Подивитися</p>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="dataLoaded && resumeList  && userProfileData && resume">
+<!--
+    <app-profile-resume [resume]="resume" [userData]="userProfileData" [isMyProfile]="myProfile"></app-profile-resume>
+-->
+
+  </div>
+
+  <app-job-create></app-job-create>
+
+<!--  <div *ngIf="!dataLoaded">
+    <app-loading-progress></app-loading-progress>
+  </div>-->
+</ng-container>

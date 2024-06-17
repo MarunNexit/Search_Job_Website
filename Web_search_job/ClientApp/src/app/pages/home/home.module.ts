@@ -14,6 +14,7 @@ import {ChipsModule} from "../../components/chips/chips.module";
 import {AuthModule} from "../../components/auth/auth.module";
 import {PaginationModule} from "../../components/pagination/pagination.module";
 import {ViewBlocksModule} from "../../components/view-blocks/view-blocks.module";
+import {RecommendationModule} from "../recommendation-page/recommendation.module";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,6 @@ import {ViewBlocksModule} from "../../components/view-blocks/view-blocks.module"
     PopularEmployersCardComponent,
     HighestPayingJobsComponent,
     HighestPayingJobCardComponent,
-
   ],
   imports: [
     CommonModule,
@@ -33,10 +33,10 @@ import {ViewBlocksModule} from "../../components/view-blocks/view-blocks.module"
     AuthModule,
     PaginationModule,
     ViewBlocksModule,
+    RecommendationModule,
 
   ],
   exports: [
-    HomeComponent,
     PopularEmployersComponent,
     PopularEmployersCardComponent,
     HighestPayingJobsComponent,

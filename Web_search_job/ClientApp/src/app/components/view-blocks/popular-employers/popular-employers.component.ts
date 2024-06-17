@@ -100,4 +100,6 @@ export class PopularEmployersComponent {
   goToURL(s: string, b: boolean) {
     this.routerHelper.goToUrl(s, b);
   }
+
+
 }

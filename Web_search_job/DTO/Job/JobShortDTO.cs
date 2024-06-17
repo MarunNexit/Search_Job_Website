@@ -1,4 +1,5 @@
 ﻿using Web_search_job.DatabaseClasses;
+using Web_search_job.DatabaseClasses.FiltersFolder;
 using Web_search_job.DTO.Employer;
 using Web_search_job.DTO.User;
 
@@ -19,6 +20,7 @@ namespace Web_search_job.DTO.Job
         public int NumberCandidates { get; set; } = 0;
         public int NumberView { get; set; } = 0;
 
+        public bool isExistJobRequest { get; set; }
         public bool isSavedJob { get; set; }
         public DateTime DateEnding { get; set; }
         public DateTime? DateLastEditing { get; set; }

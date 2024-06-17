@@ -1,6 +1,6 @@
 <div>
   <div *ngIf="dataJobs && dataJobs.length != 0">
-    <div class="app-job-search-card" *ngFor="let jobComponent of dataJobs; let i = index">
+    <div class="app-job-search-card" *ngFor="let jobComponent of currentPage % 2 !== 0 ? dataJobs.slice(0, elementsPerPage) : dataJobs.slice(elementsPerPage, elementsPerPage * 2); let i = index">
       <app-job-short-card
         [isSearchPage]="true"
         [job]="jobComponent"

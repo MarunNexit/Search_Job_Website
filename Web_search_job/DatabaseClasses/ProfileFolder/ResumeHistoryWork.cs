@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Web_search_job.DatabaseClasses.EmployerFolder;
 
 namespace Web_search_job.DatabaseClasses.ProfileFolder
 {
@@ -7,11 +8,12 @@ namespace Web_search_job.DatabaseClasses.ProfileFolder
     {
         [Key]
         public int? Id { get; set; }
-        public int ResumeId { get; set; }
+        public int? ResumeId { get; set; }
 
         public int? CompanyId { get; set; }
-        public string CompanyName { get; set; } = "";
-        public string CompanyDescription { get; set; } = "";
+        public string? WorkName { get; set; } = "";
+        public string? CompanyName { get; set; } = "";
+        public string? CompanyDescription { get; set; } = "";
         public string? CompanyLink { get; set; } = "";
 
         public DateTime? StartWorkDate { get; set; }
@@ -21,6 +23,9 @@ namespace Web_search_job.DatabaseClasses.ProfileFolder
 
         [ForeignKey("CompanyId")]
         public virtual Employer? Employer { get; set; }
+
+        [ForeignKey("ResumeId")]
+        public virtual Resume? Resume { get; set; }
 
         //public virtual Employer Employer { get; set; } Якщо потірбно видаляти елемент історії якщо компанія видаляється
 

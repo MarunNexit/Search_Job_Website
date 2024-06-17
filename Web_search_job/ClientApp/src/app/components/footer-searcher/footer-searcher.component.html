@@ -5,49 +5,71 @@
     <div class="container" style="padding-top: 40px;">
       <div class="row">
         <div class="col">
-          <img class="logo" ngSrc="../../../assets/img/icons/header/JobLogo.png" alt="Logo" [routerLink]="['/']" width="80" height="80">
+          <img class="logo" src="../../../assets/img/icons/header/JobLogo.png" alt="Logo" [routerLink]="['/']" >
         </div>
         <div class="col-auto" >
           <p class="font-18-bold">
             Мапа переходів
           </p>
           <div class="font-16-regular col grid-container" style="padding-top: 24px; list-style-type: none;">
-            <li class="grid-item" [routerLinkActive]="['link-active']">
-              <a [routerLink]="['/search-job']">
+            <li *ngIf="Role == 'ANONYM' || Role == 'Searcher'" class="grid-item" [routerLinkActive]="['link-active']">
+              <a style="cursor: pointer" (click)="goToURL('/search-job')">
                 Знайти роботу
               </a>
             </li>
+            <li *ngIf="isLogin && Role == 'Employer'" class="grid-item" [routerLinkActive]="['link-active']">
+              <a style="cursor: pointer" (click)="goToURL('/search-job')">
+                Створити вакансію
+              </a>
+            </li>
             <li class="grid-item" [routerLinkActive]="['link-active']">
-              <a [routerLink]="['/counter']">
+              <a style="cursor: pointer" (click)="goToURL('/about-us')">
                 Більше про нас
               </a>
             </li>
-            <li class="grid-item" [routerLinkActive]="['link-active']">
-              <a [routerLink]="['/counter']">
+            <li *ngIf="isLogin && (Role == 'User' || Role == 'Searcher')" class="grid-item" [routerLinkActive]="['link-active']">
+              <a style="cursor: pointer" [routerLink]="['/profile']">
                 Моє резюме
               </a>
             </li>
-            <li class="grid-item" [routerLinkActive]="['link-active']">
-              <a [routerLink]="['/counter']">
+            <li *ngIf="Role == 'ANONYM' || Role == 'Searcher'" class="grid-item" [routerLinkActive]="['link-active']">
+              <a style="cursor: pointer" [routerLink]="['/popular-employers']">
                 Популярні роботодавці
               </a>
             </li>
-            <li class="grid-item" [routerLinkActive]="['link-active']">
-              <a [routerLink]="['/counter']">
+            <li *ngIf="isLogin && Role != 'ANONYM'" class="grid-item" [routerLinkActive]="['link-active']">
+              <a style="cursor: pointer" [routerLink]="['/']">
                 Аналітика діяльності
               </a>
             </li>
-            <li class="grid-item" [routerLinkActive]="['link-active']">
-              <a [routerLink]="['/counter']">
+            <li *ngIf="isLogin && Role == 'Employer'" class="grid-item" [routerLinkActive]="['link-active']">
+              <a style="cursor: pointer" (click)="goToURL('/search-job')">
+                Мої вакансію
+              </a>
+            </li>
+            <li *ngIf="isLogin && (Role == 'User' || Role == 'Searcher')" class="grid-item" [routerLinkActive]="['link-active']">
+              <a style="cursor: pointer" [routerLink]="['/recommendations']">
                 Мої рекомендації
               </a>
             </li>
-
+            <li *ngIf="isLogin && Role == 'Employer'" class="grid-item" [routerLinkActive]="['link-active']">
+              <a style="cursor: pointer" [routerLink]="['/']">
+                Мої чати
+              </a>
+            </li>
+            <li *ngIf="isLogin && Role == 'Employer'" class="grid-item" [routerLinkActive]="['link-active']">
+              <a style="cursor: pointer" [routerLink]="['/']">
+                Запитання
+              </a>
+            </li>
           </div>
         </div>
         <div class="col " style="display: flex; align-items: center;">
-          <p class="font-18-bold" style="margin-right: 10px;"><a routerLink="/contact">
+          <p *ngIf="Role == 'ANONYM' || Role == 'Searcher'"  class="font-18-bold" style="margin-right: 10px;"><a routerLink="/auth-login">
             Роботодавцю
+            <img src="assets/img/icons/arrows/arrow-right-thin.png" height="24" width="24"></a></p>
+          <p *ngIf="isLogin && Role == 'Employer'"  class="font-18-bold" style="margin-right: 10px;"><a routerLink="/auth-login">
+            Пошукачу
             <img src="assets/img/icons/arrows/arrow-right-thin.png" height="24" width="24"></a></p>
         </div>
       </div>
