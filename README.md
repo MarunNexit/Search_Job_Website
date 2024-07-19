@@ -3,4 +3,4 @@ Website for job search implementation. It utilizes Angular for the frontend and 
 
 Developed an advanced job search website using Angular for the frontend and .NET Core for the backend. Utilized Jira for project management, Git and GitHub for version control, Notion for documentation, Figma for design, WebStorm for development, Rive for animations, SQL Server for data storage, and Visual Studio with various extensions for robust functionality and security.
 # Hosting
-Hosting: [https://kurisutattoo-salon.web.app/](https://searchjobclient.azurewebsites.net)
+Hosting: https://searchjobclient.azurewebsites.net
