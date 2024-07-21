@@ -6,5 +6,5 @@ Developed an advanced job search website using Angular for the frontend and .NET
 Hosting: https://searchjobclient.azurewebsites.net
 
 # Results
-![SearchPage](https://github.com/user-attachments/assets/67b46dd9-20df-43d4-9873-ee760dbe39f1)
 ![ProfilePage](https://github.com/user-attachments/assets/7d6db6fe-e909-4ff5-8270-970da8b84df7)
+![SearchPage](https://github.com/user-attachments/assets/67b46dd9-20df-43d4-9873-ee760dbe39f1)
