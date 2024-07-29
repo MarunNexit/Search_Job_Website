@@ -13,13 +13,14 @@ Profile Page
 ![ProfilePage](https://github.com/user-attachments/assets/67b46dd9-20df-43d4-9873-ee760dbe39f1)
 
 Home Page
-![ProfilePage](https://github.com/user-attachments/assets/67b46dd9-20df-43d4-9873-ee760dbe39f1)
+![SearchHomePage](https://github.com/user-attachments/assets/da333ab8-b273-49a2-bc8f-27f456f21e69)
 
 Job Page
-![ProfilePage](https://github.com/user-attachments/assets/67b46dd9-20df-43d4-9873-ee760dbe39f1)
+![SearchJobPage1](https://github.com/user-attachments/assets/ec20b9ca-822f-4177-b545-6f54fcc5ab81)
+![SearchJobPage2](https://github.com/user-attachments/assets/95188f5e-b2db-4e3a-ad62-741289895521)
 
 Popular Companies Page
-![ProfilePage](https://github.com/user-attachments/assets/67b46dd9-20df-43d4-9873-ee760dbe39f1)
+![SearchPopularCompanyPage](https://github.com/user-attachments/assets/6716af83-a0b2-47f4-9bde-3f535f101903)
 
 Company Page
-![ProfilePage](https://github.com/user-attachments/assets/67b46dd9-20df-43d4-9873-ee760dbe39f1)
+![SearchCompanyPage](https://github.com/user-attachments/assets/6f4a8ec0-aa65-4572-8d2f-f8d862823c79)
