@@ -11,3 +11,15 @@ Search Page
 
 Profile Page
 ![ProfilePage](https://github.com/user-attachments/assets/67b46dd9-20df-43d4-9873-ee760dbe39f1)
+
+Home Page
+![ProfilePage](https://github.com/user-attachments/assets/67b46dd9-20df-43d4-9873-ee760dbe39f1)
+
+Job Page
+![ProfilePage](https://github.com/user-attachments/assets/67b46dd9-20df-43d4-9873-ee760dbe39f1)
+
+Popular Companies Page
+![ProfilePage](https://github.com/user-attachments/assets/67b46dd9-20df-43d4-9873-ee760dbe39f1)
+
+Company Page
+![ProfilePage](https://github.com/user-attachments/assets/67b46dd9-20df-43d4-9873-ee760dbe39f1)
